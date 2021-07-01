@@ -23,7 +23,12 @@
     
                 <form action="auth" method="POST" class="login-email">
                     <p class="login-text" style="font-size: 2rem; font-weight: 800;">Iniciar sesión</p>
-                    <p class ="paciente">---------PACIENTE---------</p>
+                    <div class="switch-field">
+                        <input type="radio" id="paciene" name="usertype" value="paciente" checked>
+                        <label class="btn__izq" for="paciene">Paciente</label>
+                        <input type="radio" id="doctor" name="usertype" value="doctor">
+                        <label class="btn__der" for="doctor">Doctor</label>
+                    </div>
                     <div class="input-group"> 
                         <input id="user"  type="email" placeholder="Correo" name="user" value="" autocomplete="email" required>
                     </div>
@@ -34,26 +39,8 @@
                     <div class="input-group">
                         <button id="submit" name="submit" class="btn">Iniciar Sesion</button>
                     </div>
+                    
                     <p class="login-register-text">¿No tiene una cuenta? <a href="register"><i>Registrece aquí</i></a>.</p>
-                </form>
-            </div>
-             <div class="logdoc">
-                
-                <img class ="logitopc" src ="https://static.wixstatic.com/media/a6ed58_5534a43660c74d59aca8d10d0beebaac~mv2.png " title = "CovidTrack" alt= "Logo de la empresa" >
-    
-                <form action="auth" method="POST" class="login-email">
-                    <p class="login-text" style="font-size: 2rem; font-weight: 800;">Iniciar sesión</p>
-                    <p class ="paciente">---------DOCTOR---------</p>
-                    <div class="input-group"> 
-                        <input id="user"  type="email" placeholder="Correo" name="user" value="" autocomplete="email" required>
-                    </div>
-                    <div class="input-group">
-                        <input id="pass" type="password" placeholder="Contraseña" name="pass" value="" autocomplete="current-password" required>
-                    </div>
-                    <p class="passwor-redictioned"><a href="forget" class="linkolvidado">¿Te olvidaste tu contraseña?</a></p>
-                    <div class="input-group">
-                        <button id="submit" name="submit" class="btn">Iniciar Sesion</button>
-                    </div>
                     
                 </form>
             </div>
