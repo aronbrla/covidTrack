@@ -1,0 +1,10 @@
+.register {
+    width: 65%;
+    max-width: 800px;
+}
+
+.register .reg_inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px
+}

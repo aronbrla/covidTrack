@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/register.css" media="(min-width: 768px)">
+    <title>Registro</title>
+</head>
+<body>
+    <div class="register container">
+        <form action="register" method="POST" class="login-email">
+            <p class="login-text " style="font-size: 2rem; font-weight: 800; ">Regristro</p>
+            <div class="reg_inputs">
+                <div class="col1">
+                    <div class="input-group">
+                        <input id="dni" type="text" placeholder="DNI" name="dni" value="" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="email" type="email" placeholder="Correo electronico" name="mail" value="" autocomplete="email" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="password" type="password" placeholder="Contraseña" name="pass" value="" autocomplete="new-password" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="phone" type="text" placeholder="Celular" name="phone" value="" required>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="input-group">
+                        <input id="username" type="text" placeholder="Nombre" name="name" value="" autocomplete="given-name" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="lastnames" type="text" placeholder="Apellidos" name="lastname" value="" autocomplete="family-name" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="age" type="date" placeholder="Fecha Nacimiento" name="date" value="" required>
+                    </div>
+                    <div class="input-group">
+                        <input id="address" type="text" placeholder="Dirección" name="address" value="" autocomplete="address-line1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <button id="submit" name="submit" class="btn">Registrarse</button>
+            </div>
+            <p class="login-register-text ">¿Tiene una cuenta? <a href="login">Inicie Sesión aquí</a>.</p>
+        </form>
+    </div>
+    
+</body>
+</html>
