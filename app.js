@@ -26,6 +26,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 //8. Invocamos al modulo de la conexion de la BD
 const connection =require('./database/db');
 
@@ -49,15 +50,6 @@ app.post('/register', async (req,res)=>{
         if(error){
             console.log(error);
         }else{
-           /* res.render('register',{
-                alert:true,
-                alertTitle: "Registration",
-                alertMessage: "¡Successful Registration!",
-                alertIcon:'succes',
-                showConfirmButton:false,
-                timer:1500,
-                ruta:''
-            })*/
             res.send('REGISTRO EXITOSO');
         }
     })
