@@ -15,8 +15,10 @@ console.log(__dirname);// te imprime donde la ubicacion de la app js
 
 //5. estableciendo el motor de plantillas
 app.set('view engine', 'ejs');
+
 //6. invocamos a bcryptjs
 const bcryptjs=require('bcryptjs');
+
 //7 var de session
 const session =require('express-session');
 app.use(session({
@@ -28,18 +30,7 @@ app.use(session({
 const connection =require('./database/db');
 
 //9. estableciendo las rutas
-    app.get('/',(peticion,respuesta)=>{
-        respuesta.render('index',{msg:'ESTE ES UN MENSAJE DESDE NODE'});
-    });
-    app.get('/login',(peticion,respuesta)=>{
-        respuesta.render('login');
-    });
-    app.get('/register',(peticion,respuesta)=>{
-        respuesta.render('register');
-    });
-    app.get('/forget',(peticion,respuesta)=>{
-        respuesta.render('forget');
-    });
+app.use('/',require('./routes/routes'));
 
 //10. Registracion
 app.post('/register', async (req,res)=>{
