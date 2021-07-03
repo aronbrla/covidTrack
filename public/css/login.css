@@ -89,11 +89,12 @@ a {
 	cursor: pointer;
 }
     /*Cambiar color al hacer clic*/
+    /*Color del btn Paciente*/
 .switch-field input:checked + label:first-of-type {
 	background-color: #a5dc86;
 	box-shadow: none;
 }
-
+    /*Color del btn Doctor*/
 .switch-field input:checked + label:last-of-type {
 	background-color: #497474;
 	box-shadow: none;

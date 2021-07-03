@@ -24,10 +24,10 @@
                 <form action="auth" method="POST" class="login-email">
                     <p class="login-text" style="font-size: 2rem; font-weight: 800;">Iniciar sesión</p>
                     <div class="switch-field">
-                        <input type="radio" id="paciene" name="usertype" value="paciente" checked>
-                        <label class="btn__izq" for="paciene">Paciente</label>
-                        <input type="radio" id="doctor" name="usertype" value="doctor">
-                        <label class="btn__der" for="doctor">Doctor</label>
+                        <input type="radio" id="paciene" name="usertype" value="paciente" checked="checked" onclick="btnSwitch ()">
+                        <label for="paciene">Paciente</label>
+                        <input type="radio" id="doctor" name="usertype" value="doctor" onclick="btnSwitch ()">
+                        <label for="doctor">Doctor</label>
                     </div>
                     <div class="input-group"> 
                         <input id="user"  type="email" placeholder="Correo" name="user" value="" autocomplete="email" required>
@@ -39,10 +39,28 @@
                     <div class="input-group">
                         <button id="submit" name="submit" class="btn">Iniciar Sesion</button>
                     </div>
-                    
-                    <p class="login-register-text">¿No tiene una cuenta? <a href="register"><i>Registrece aquí</i></a>.</p>
-                    
+                    <span id="span">
+                        <p class="login-register-text">¿No tiene una cuenta? <a href="register"><i>Registrece aquí</i></a>.</p>
+                    </span>
                 </form>
             </div>
+            <script>
+                const btnDoctor = document.querySelector('#doctor');
+                const btnPaciente = document.querySelector('#paciene');
+                const container = document.querySelector('.container')
+                const span = document.getElementById('span');
+                function btnSwitch () {
+                    if(btnPaciente.checked == true){
+                        console.log('Usuario Paciente')
+                        btnPaciente.lastChild
+                        span.style.display = "block";
+                        container.style.background = "rgba(73,116,116,80%)";
+                    } else {
+                        console.log('Usuario Doctor')
+                        span.style.display = "none";
+                        container.style.background = "rgba(255,64,64,80%)";
+                    }
+                }
+            </script>
 </body>
 </html>
