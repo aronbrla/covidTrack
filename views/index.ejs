@@ -7,17 +7,18 @@
         <meta name="author" content="" />
         <title>COVID TRACK</title>
         <%- include('partials/head')%>
+        <link rel="stylesheet" href="../resources/css/index.css">
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img class ="img-fluid w-10 h-10" 
+                    <img class ="img-fluid w-5 h-5" 
                     src ="https://static.wixstatic.com/media/a6ed58_5534a43660c74d59aca8d10d0beebaac~mv2.png " 
                     title = "CovidTrack" 
                     alt= "Logo de la empresa">
-                    COVID TRACK
+                    COVIDTRACK
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i>
                 </button>
@@ -32,14 +33,28 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead">
+        <section class="home-main bg-dark text-light pb-0 text-center text-sm-start" style="padding-top: 90px;">
             <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
-                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                <a class="btn btn-warning btn-xl text-uppercase me-5" href="register">Registrarse</a>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Saber Más</a>
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <div>
+                        <h1>Ten cuidado del<span class="text-warning"> Covid-19 </span></h1>
+                        <p class="lead my-4">
+                        We focus on teaching our students the fundamentals of the latest
+                        and greatest technologies to prepare them for their first dev role
+                        </p>
+                        <div class="container">
+                            <a class="btn btn-success btn-lg mx-3" href="register">Registrarse</a>
+                            <a class="btn btn-primary btn-lg my-4" href="#services">Saber Más</a>
+                        </div>
+                    </div>
+                    <img
+                        class="img-fluid w-50 d-none d-sm-block"
+                        src="../resources/assets/img/undraw_doctors_hwty.svg"
+                        alt=""
+                    />
+                </div>
             </div>
-        </header>
+        </section>
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container">
