@@ -45,7 +45,6 @@ a {
 /*Elegir Usuario*/
 .switch-field {
     margin: 20px auto;
-    min-width: 270px;
     border-radius: 25px;
     background-color: azure;
     display: flex;
