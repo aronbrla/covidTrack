@@ -45,7 +45,6 @@ a {
 /*Elegir Usuario*/
 .switch-field {
     margin: 20px auto;
-    min-width: 270px;
     border-radius: 25px;
     background-color: azure;
     display: flex;
@@ -169,7 +168,7 @@ a {
 }
 .container .login-email .passwor-redictioned{
     position: relative;
-    left:68px;
+    text-align: end;
     top:15px;
     color: white;
 }
