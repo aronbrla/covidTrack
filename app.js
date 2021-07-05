@@ -59,14 +59,26 @@ app.post('/register', async (req,res)=>{
 app.post('/auth', async(req,res)=>{
     const user= req.body.user;
     const pass= req.body.pass;
+    const tipouser=req.body.usertype;
     let passwordHaash=await bcryptjs.hash(pass,8);
     if(user && pass){
-        connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
-            if(results.length==0 || !(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
-                res.send("Email o contraseña incorrecta");
-            }else{
-                res.send('Login Correcto');
-            }
-        })
+        if(tipouser=="paciente"){
+            connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
+                if(results.length==0 || !(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
+                    res.send("Email o contraseña incorrecta");
+                }else{
+                    res.send('Login Correcto');
+                }
+            })
+        }else{
+            connection.query('SELECT * FROM doctores WHERE doc_email = ?', [user], async(error,results)=>{
+                if(results.length==0 || !(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
+                    res.send("Email o contraseña incorrecta");
+                }else{
+                    res.send('Login Correcto');
+                }
+            }) 
+        }
+     
     }
 })
