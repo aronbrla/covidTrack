@@ -53,6 +53,14 @@ app.post('/register', async (req,res)=>{
             res.send('REGISTRO EXITOSO');
         }
     })
+    /*connection.query('INSERT INTO doctores SET ?',{doc_apellidos:lastname,doc_nombres:name,doc_email:mail,doc_contrasenia:passwordHaas,doc_celular:phone},async(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            res.send('REGISTRO EXITOSO');
+        }
+    })*/
+
 })
 //11. autenticacion
 
