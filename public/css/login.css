@@ -27,7 +27,6 @@ body {
 
 a {
     text-decoration: none;
-    text-emphasis: none;
     color: unset;
 }
 
@@ -116,8 +115,8 @@ a {
 }
 .container .login-text {
     color: #1E2036;
-    font-weight: 500;
-    font-size: 1.1rem;
+    font-weight: 800;
+    font-size: 2rem;
     text-align: center;
     margin-bottom: 20px;
     display: block;
