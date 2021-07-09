@@ -44,15 +44,39 @@ app.post('/register', async (req,res)=>{
     const address=req.body.address;
     const phone=req.body.phone;
     const date=req.body.date;
+    var comprobarmail="";
+    var comprobardni="";
+    undefined="vacio";
     //encriptando la contraseña
     let passwordHaas=await bcryptjs.hash(pass,8);
-    connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error,results)=>{
+    //buscamos correo y dni, si ya están en la base de datos no podrá registrarse:
+    connection.query('SELECT * FROM paciente WHERE ? ',{pac_email:mail},async(error,results)=>{
         if(error){
             console.log(error);
         }else{
-            res.send('REGISTRO EXITOSO');
+            comprobarmail=results.pac_email;
         }
     })
+    connection.query('SELECT * FROM paciente WHERE ? ',{pac_dni:dni},async(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            comprobardni=results.pac_dni;
+        }
+    })
+
+    if(comprobardni!="vacio" || comprobarmail!="vacio"){
+        res.send("USUARIO YA REGISTRADO");
+    }else{
+        connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error,results)=>{
+            if(error){
+                console.log(error);
+            }else{
+                res.send('REGISTRO EXITOSO');
+            }
+        })
+    }
+    
     /*connection.query('INSERT INTO doctores SET ?',{doc_apellidos:lastname,doc_nombres:name,doc_email:mail,doc_contrasenia:passwordHaas,doc_celular:phone},async(error,results)=>{
         if(error){
             console.log(error);
