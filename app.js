@@ -1,7 +1,7 @@
 const express =require('express');//1.importando libreria
 const app =express(); 
 //montando el servidor en la ruta 3000
-app.listen(3000,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3000');
+app.listen(3005,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3005');
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
