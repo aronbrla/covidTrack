@@ -14,4 +14,9 @@ router.get('/forget',(peticion,respuesta)=>{
     respuesta.render('forget');
 });
 
+router.get('/dash',(peticion,respuesta)=>{
+    respuesta.render('dash');
+});
+
+
 module.exports = router;

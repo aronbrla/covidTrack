@@ -1,0 +1,191 @@
+body{
+    background: #E6E6FA ;
+    background-size: cover;
+    background-repeat: no-repeat;   
+    margin: 0;
+    padding-left: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.ajustes .datos{
+    text-align: justify;
+}
+
+
+
+.barra{
+    background: #CB460A;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: cornsilk;
+    font-size: 35px;
+    margin: 5;
+}
+
+.barra-lateral{
+    background-color:#04041E ;
+    
+    min-width: 250px;
+    min-height: 100vh;
+}
+
+.barra-lateral a{
+    color:rgb(250, 250, 250);
+
+}
+
+.barra-lateral .menu a{
+    display: block;
+    padding: 20px;
+    text-decoration:none;
+    font-weight: 500;
+    text-align: center;
+}
+
+
+
+/*MAIN*/
+
+.main {
+    padding-top: 20px;
+}
+
+.main .columna{
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 100%;
+}
+.main .contenedor{
+    text-align: center;
+    height: 100%;
+}
+
+
+.main .titulo{
+    padding-top: 20px;
+    text-align: center;
+    height: 13%;
+    background: rgba(255, 255, 255, 0);
+}
+
+.main .titulo span {
+    font-size:40px;
+    color:rgb(199, 65, 42);
+    font-weight: 500;
+}
+.main .contenido{
+    background: rgba(47, 40, 63, 0);
+    height: 80%;
+    padding: 10px;
+
+
+}
+
+
+/**/
+.user{
+    padding-top: 20px;
+    text-align: center;
+    height: 300px;
+}
+
+.user .foto img{
+    height: 150px;
+    border-radius:100px ;
+}
+
+.user .foto {
+    margin-right:auto;
+    height: 160px;
+}
+
+.user span {
+    color: rgb(250, 250, 250);
+}
+
+.user h2 {
+    color: rgb(250, 250, 250);
+}
+
+
+.caja {
+    background: rgba(6, 18, 83, 0);
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.caja span {
+    background: rgba(6, 18, 83, 0);
+    margin-bottom: 5px;
+    margin-left: 10px;
+    text-align: left;
+    color:white;
+    
+}
+
+
+
+.mostrable{
+    background: #96eaff;
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid #4dd5ff;
+}
+
+
+.mostrable .titulo{
+    background: rgb(211, 221, 188,0);
+    color: rgb(199, 65, 42);
+    border-radius: 0px;
+    height: 100px;
+    font-size: 75px;
+    padding-top: 0px;
+
+}
+
+
+.mostrable .datos{
+    line-height : 40px;
+    font-size: 30px;
+    padding: 30px;
+    text-align: left;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+}
+.mostrable .foot{
+    line-height : 45px;
+    font-size: 30px;
+    font-weight: 500;
+    color: rgb(199, 65, 42);
+}
+
+
+.mostrable .nota{
+    padding:20px;
+    line-height : 45px;
+    font-size: 30px;
+    font-weight: 500;
+    color: rgb(199, 65, 42);
+    text-align: left;
+}
+.mostrable button{
+    
+    border-radius: 50px;
+    height: 60px;
+    
+}
+
+.mostrable .reco{
+    background: rgb(211, 221, 188);
+    border-radius: 20px;
+    height: 200px;
+    font-size: 15px;
+    text-align: justify;
+    padding: 20px;
+    
+}
