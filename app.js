@@ -1,7 +1,7 @@
 const express =require('express');//1.importando libreria
 const app =express(); 
 //montando el servidor en la ruta 3000
-app.listen(3075,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3075');
+app.listen(3000,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3000');
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
@@ -95,6 +95,13 @@ app.post('/auth', async(req,res)=>{
     const user= req.body.user;
     const pass= req.body.pass;
     const tipouser=req.body.usertype;
+    var mail="";
+    var name="";
+    var lastname="";
+    var pdni="";
+    var adress="";
+    var phone="";
+    var date="";
     let passwordHaash=await bcryptjs.hash(pass,8);
     if(user && pass){
         if(tipouser=="paciente"){
@@ -104,29 +111,38 @@ app.post('/auth', async(req,res)=>{
                     res.send("Email o contraseña incorrecta");
                     
                 }else{
-                    //let foto="foto.png";
-                    // ACA haz la cnsulta a la base de datos , supongo que eso lo haran los de back (o no?). Hecha la consulta a la BD , vacear todos esos datos en las variables de abajo , si aun faltan campos dejen con esos valores predeterminados 
-                    
-                    let nombre= "Marcelo Jimenez";
-                    let dni="645456";
-                    let region= "ancash";
-                    let edad = "18";
-                    let sexo="Masculino";
-                    let distrito ="Chimbote";
-                    let direccion = "AA.HH. El valle del dolor mz.X lt.0";
-                    let correo ="ga@gmail.com";
-                    let telefono = " 123456";
-                    let doctor = "Dr. House";
-                    let telefonoDoctor = "0000000";
-                    let correoDoctor="drhouse@hotmail.com";
-                    let dniDoctor="333333";
-                    let ultimaCita="ayer";
-                    let proximaCita="hoy";
+                    connection.query('SELECT * FROM paciente', [user], async(error,results)=>{
+                        if(error){
+                            console.log(error);
+                        }else{
 
-                    res.render('dash',{NOMBRE:nombre,EDAD:edad,DNI:dni, REGION:region,SEXO:sexo,DISTRITO:distrito,
-                    DIRECCION:direccion,CORREO:correo,TELEFONO:telefono,DR:doctor,TELEDR:telefonoDoctor,
-                    CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
-                    });
+                            mail=results[0].pac_email;
+                            name=results[0].pac_nombres + " " + results[0].pac_apellidos;
+                            lastname=results[0].pac_apellidos;
+                            pdni=results[0].pac_dni;
+                            adress=results[0].pac_direccion;
+                            phone=results[0].pac_celular;
+                            date=results[0].pac_nacimiento;
+                            console.log(name);
+
+                            let region= "ancash";
+                            let edad = "18";
+                            let sexo="Masculino";
+                            let distrito ="Chimbote";
+                            let doctor = "Dr. House";
+                            let telefonoDoctor = "0000000";
+                            let correoDoctor="drhouse@hotmail.com";
+                            let dniDoctor="333333";
+                            let ultimaCita="ayer";
+                            let proximaCita="hoy";
+
+                            res.render('dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+                            DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
+                            CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
+                            });
+                        }
+                    })
+                    
                 }
             })
         }else{
