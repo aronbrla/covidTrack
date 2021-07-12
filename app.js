@@ -1,7 +1,7 @@
 const express =require('express');//1.importando libreria
 const app =express(); 
 //montando el servidor en la ruta 3000
-app.listen(3005,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3005');
+app.listen(3075,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3075');
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
@@ -70,6 +70,9 @@ app.post('/register', async (req,res)=>{
     }else{
         connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error,results)=>{
             if(error){
+                
+
+
                 console.log(error);
             }else{
                 res.send('REGISTRO EXITOSO');
@@ -97,9 +100,33 @@ app.post('/auth', async(req,res)=>{
         if(tipouser=="paciente"){
             connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
                 if(results.length==0 || !(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
+                    
                     res.send("Email o contraseña incorrecta");
+                    
                 }else{
-                    res.send('Login Correcto');
+                    //let foto="foto.png";
+                    // ACA haz la cnsulta a la base de datos , supongo que eso lo haran los de back (o no?). Hecha la consulta a la BD , vacear todos esos datos en las variables de abajo , si aun faltan campos dejen con esos valores predeterminados 
+                    
+                    let nombre= "Marcelo Jimenez";
+                    let dni="645456";
+                    let region= "ancash";
+                    let edad = "18";
+                    let sexo="Masculino";
+                    let distrito ="Chimbote";
+                    let direccion = "AA.HH. El valle del dolor mz.X lt.0";
+                    let correo ="ga@gmail.com";
+                    let telefono = " 123456";
+                    let doctor = "Dr. House";
+                    let telefonoDoctor = "0000000";
+                    let correoDoctor="drhouse@hotmail.com";
+                    let dniDoctor="333333";
+                    let ultimaCita="ayer";
+                    let proximaCita="hoy";
+
+                    res.render('dash',{NOMBRE:nombre,EDAD:edad,DNI:dni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+                    DIRECCION:direccion,CORREO:correo,TELEFONO:telefono,DR:doctor,TELEDR:telefonoDoctor,
+                    CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
+                    });
                 }
             })
         }else{

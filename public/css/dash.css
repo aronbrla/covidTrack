@@ -133,27 +133,29 @@ a{
 .mostrable{
     background: #96eaff;
     border-radius: 20px;
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #4dd5ff;
 }
+
 
 .mostrable .titulo{
     background: rgb(211, 221, 188,0);
     color: rgb(199, 65, 42);
-    border-radius: 50px;
-    height: 70px;
-    font-size: 45px;
+    border-radius: 0px;
+    height: 100px;
+    font-size: 75px;
     padding-top: 0px;
 
 }
 
+
 .mostrable .datos{
-    line-height : 30px;
-    font-size: 20px;
+    line-height : 40px;
+    font-size: 30px;
     padding: 30px;
     text-align: left;
     font-weight: 500;
-    color: rgb(39, 38, 38);
+    color: rgb(0, 0, 0);
 }
 .mostrable .foot{
     line-height : 45px;
@@ -166,7 +168,7 @@ a{
 .mostrable .nota{
     padding:20px;
     line-height : 45px;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 500;
     color: rgb(199, 65, 42);
     text-align: left;
@@ -187,15 +189,3 @@ a{
     padding: 20px;
     
 }
-
-.mostrable .reco{
-    background: rgb(211, 221, 188);
-    border-radius: 20px;
-    height: 200px;
-    font-size: 15px;
-    text-align: justify;
-    padding: 20px;
-    
-}
-
-
