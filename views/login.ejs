@@ -57,6 +57,9 @@
                         container.style.background = "rgba(255,64,64,80%)";
                     }
                 });
+                window.addEventListener("beforeunload", function (e) {
+                    document.querySelector('.login-email').reset();
+                });
             </script>
 </body>
 </html>

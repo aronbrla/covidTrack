@@ -49,6 +49,10 @@
             <p class="login-register-text ">¿Tiene una cuenta? <a href="login">Inicie Sesión aquí</a>.</p>
         </form>
     </div>
-    
+    <script>
+        window.addEventListener("beforeunload", function (e) {
+                    document.querySelector('.login-email').reset();
+        });
+    </script>
 </body>
 </html>
