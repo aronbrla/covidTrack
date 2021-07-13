@@ -19,6 +19,7 @@ a{
 .barra{
     background: #FFFFFF;
     padding-top: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding-bottom: 15px;
     color: rgb(73, 73, 71);
     font-size: 35px;
@@ -66,7 +67,7 @@ a{
 
 .main .titulo{
     padding-top: 20px;
-    text-align: center;
+    text-align: left;
     height: 13%;
     background: rgba(255, 255, 255, 0);
 }
@@ -115,7 +116,7 @@ a{
     background: rgba(6, 18, 83, 0);
     margin-bottom: 15px;
     text-align: left;
-    padding-left: 15px;
+    padding-left: 0px;
     cursor: pointer;
 }
 
@@ -151,8 +152,8 @@ a{
 
 .mostrable .datos{
     line-height : 40px;
+    padding-top: 30px;
     font-size: 30px;
-    padding: 30px;
     text-align: left;
     font-weight: 500;
     color: rgb(0, 0, 0);
