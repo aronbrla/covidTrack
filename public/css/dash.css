@@ -28,7 +28,7 @@ a{
 
 .barra-lateral{
     background-color:#6D90EB ;
-    
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 20px 15px;
     min-width: 250px;
     min-height: 100vh;
 }
