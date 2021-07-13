@@ -17,16 +17,16 @@ a{
 
 
 .barra{
-    background: #CB460A;
+    background: #FFFFFF;
     padding-top: 15px;
     padding-bottom: 15px;
-    color: cornsilk;
+    color: rgb(73, 73, 71);
     font-size: 35px;
     margin: 5;
 }
 
 .barra-lateral{
-    background-color:#04041E ;
+    background-color:#6D90EB ;
     
     min-width: 250px;
     min-height: 100vh;
@@ -73,7 +73,7 @@ a{
 
 .main .titulo span {
     font-size:40px;
-    color:rgb(199, 65, 42);
+    color:#707070;
     font-weight: 500;
 }
 .main .contenido{
@@ -131,10 +131,10 @@ a{
 
 
 .mostrable{
-    background: #96eaff;
+    background: #E6E6FA;
     border-radius: 20px;
     padding: 40px;
-    border: 1px solid #4dd5ff;
+    border: 1px solid #E6E6FA;
 }
 
 
