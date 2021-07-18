@@ -18,5 +18,8 @@ router.get('/dash',(peticion,respuesta)=>{
     respuesta.render('dash');
 });
 
+router.get('/paciente/dash',(peticion,respuesta)=>{
+    respuesta.render('../views/paciente/index.ejs');
+});
 
 module.exports = router;
