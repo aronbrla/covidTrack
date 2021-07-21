@@ -188,30 +188,45 @@ a {
 /*Estilos contenido Principal*/
 .main-container {
     width: 100%;
-    height: 100vh;
+    min-width: 280px;
+    margin-top: 20%;
     display: flex;
     justify-content: center;
     align-items:center;
 }
 
 .main-title {
-    width: 65%;
-    height: 60px;
+    width: 75%;
+    min-width: 280px;
+    height: 75px;
     display: flex;
     align-items: center;
-    padding: auto;
     position: relative;
     background-color: var(--first-color-light);
     border-radius: 15px;
 }
 .main-logo{
     position: absolute;
-    right: 20px;
-    top: -20px;
+    left: 80%;
+    top: -10%;
 }
 
-.main-information {
-    width: 50%;
+.information-container {
+    margin-top: 15px;
+    padding: 10px;
+    width: 70%;
+    min-width: 280px;
+    border: 1px solid var(--second-color);
     border-radius: 15px;
+    box-shadow: 0px 0px 5px 4px rgba(150,150,150,0.35);
     background-color: var(--white-color);
+}
+
+.list-group-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:auto 10px;
+    color: rgba(0,0,0,0.5);
+    font-size: 14px;
 }
