@@ -2,9 +2,9 @@
     --header-height: 3rem;
     --nav-width: 68px;
     --first-color: #006a80;
-    --first-color-light: #f2f5fa;
+    --first-color-light: #24a6c0;
+    --second-color: #f2f5fa;
     --white-color: #fff;
-    /*--white-color: #F7F6FB;*/
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -18,6 +18,7 @@
 
 body {
     position: relative;
+    background-color: var(--second-color);
     margin: var(--header-height) 0 0 0;
     padding: 0 1rem;
     font-family: var(--body-font);
@@ -112,7 +113,7 @@ a {
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--second-color);
     margin-bottom: 1.5rem;
     transition: .3s
 }
@@ -182,4 +183,35 @@ a {
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)
     }
+}
+
+/*Estilos contenido Principal*/
+.main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.main-title {
+    width: 65%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: auto;
+    position: relative;
+    background-color: var(--first-color-light);
+    border-radius: 15px;
+}
+.main-logo{
+    position: absolute;
+    right: 20px;
+    top: -20px;
+}
+
+.main-information {
+    width: 50%;
+    border-radius: 15px;
+    background-color: var(--white-color);
 }
