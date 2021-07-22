@@ -4,6 +4,7 @@
   "description": "CREANDO PRIMER LOGIN DE PRUEBA",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jonathan Lara",
@@ -15,5 +16,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

@@ -187,16 +187,17 @@ a {
 
 /*Estilos contenido Principal*/
 .main-container {
-    width: 100%;
+    width: 80%;
+    max-width: 900px;
     min-width: 280px;
-    margin-top: 20%;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items:center;
 }
 
 .main-title {
-    width: 75%;
+    width: 65%;
     min-width: 280px;
     height: 75px;
     display: flex;
@@ -212,10 +213,10 @@ a {
 }
 
 .information-container {
-    margin-top: 15px;
-    padding: 10px;
-    width: 70%;
+    width: 65%;
     min-width: 280px;
+    margin-top: 25px;
+    padding: 10px;
     border: 1px solid var(--second-color);
     border-radius: 15px;
     box-shadow: 0px 0px 5px 4px rgba(150,150,150,0.35);
@@ -229,4 +230,19 @@ a {
     padding:auto 10px;
     color: rgba(0,0,0,0.5);
     font-size: 14px;
+}
+
+/* Editar datos de la cuenta */
+.input-group {
+    width: 40%;
+    height: 50%;
+    border: none;
+}
+.form-control{
+    border: none;
+}
+
+.btn .btn-outline-secondary{
+    border-radius: 15px;
+    padding: auto;
 }
