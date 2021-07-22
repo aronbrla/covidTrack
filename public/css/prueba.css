@@ -1,0 +1,84 @@
+.dropdown-container{
+  display: inline-block;
+  position: relative;
+}
+.dropdown-container .dropdown-menu .dropdown-header {
+  background: #FFF;
+  padding: 15px;
+  position: relative;
+  text-align: center;
+  color: #747F8B;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+  -webkit-box-shadow: 0px 2px 10px -2px #cedae0;
+          box-shadow: 0px 2px 10px -2px #cedae0;
+}
+
+.dropdown-container .dropdown-menu .dropdown-header .triangle {
+  position: absolute;
+  top: -17px;
+  left: 134px;
+  height: 20px;
+  width: 20px;
+  border-radius: 6px 0px 0px 0px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  background: #FFF;
+}
+
+.dropdown-container .dropdown-menu .dropdown-header .count {
+  position: static;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  line-height: 24px;
+  margin-left: 8px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body {
+  max-height: 292px;
+  background: #e9f0f3;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification {
+  background: #FFF;
+  padding: 15px;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification.new {
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+  background: #e9f0f3;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification .notification-image-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification .notification-image {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification .notification-text {
+  display: table-cell;
+  padding-left: 15px;
+  vertical-align: middle;
+  color: #747F8B;
+  cursor: pointer;
+  font-size: 14px;
+  word-spacing: 2px;
+  line-height: 21px;
+}
+
+.dropdown-container .dropdown-menu .dropdown-body .notification .notification-text .highlight {
+  font-weight: bold;
+}
