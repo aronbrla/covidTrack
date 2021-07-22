@@ -1,7 +1,7 @@
 const express =require('express');//1.importando libreria
 const app =express(); 
 //montando el servidor en la ruta 3000
-app.listen(3000,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3000');
+app.listen(3000,function(){console.log('SERVER RUNNING IN http://localhost:3000');
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
@@ -62,7 +62,7 @@ app.post('/register', async (req,res)=>{
                             res.send("USUARIO YA REGISTRADO"); 
                         }else{
                             //si no encuentra los datos, se puede registrar
-                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error,results)=>{
+                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error)=>{
                                 if(error){
                                     console.log(error);
                                 }else{
@@ -83,14 +83,6 @@ app.post('/auth', async(req,res)=>{
     const user= req.body.user;
     const pass= req.body.pass;
     const tipouser=req.body.usertype;
-    var mail="";
-    var name="";
-    var lastname="";
-    var pdni="";
-    var adress="";
-    var phone="";
-    var date="";
-    let passwordHaash=await bcryptjs.hash(pass,8);
     if(user && pass){
         if(tipouser=="paciente"){
             connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
@@ -99,11 +91,12 @@ app.post('/auth', async(req,res)=>{
                     res.send("Email o contraseña incorrecta");
                     
                 }else{
-                    connection.query('SELECT * FROM paciente', [user], async(error,results)=>{
+                    connection.query('SELECT * FROM paciente', [user], async(error)=>{
                         if(error){
                             console.log(error);
                         }else{
 
+                            /*
                             mail=results[0].pac_email;
                             name=results[0].pac_nombres + " " + results[0].pac_apellidos;
                             lastname=results[0].pac_apellidos;
@@ -111,6 +104,13 @@ app.post('/auth', async(req,res)=>{
                             adress=results[0].pac_direccion;
                             phone=results[0].pac_celular;
                             date=results[0].pac_nacimiento;
+                            console.log(name);
+                            */
+                            let mail="uno@mail.com";
+                            let name= "Aaron Blas";
+                            let pdni="05151846";
+                            let adress="Jr la Verga 123";
+                            let phone="03515531";
                             console.log(name);
 
                             let region= "ancash";
@@ -124,7 +124,7 @@ app.post('/auth', async(req,res)=>{
                             let ultimaCita="ayer";
                             let proximaCita="hoy";
 
-                            res.render('dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+                            res.render('/paciente',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
                             DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
                             CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
                             });
