@@ -23,8 +23,12 @@ router.get('/paciente',(peticion,respuesta)=>{
     respuesta.render('../views/paciente/index.ejs');
 });
 
+router.get('/paciente/informacion',(peticion,respuesta)=>{
+    respuesta.render('../views/paciente/index.ejs');
+});
+
 router.get('/paciente/doctor',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/sites/doctor.ejs');
+    respuesta.render('../views/paciente/sites/info.ejs');
 });
 
 router.get('/paciente/citas',(peticion,respuesta)=>{
