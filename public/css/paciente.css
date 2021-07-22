@@ -187,8 +187,7 @@ a {
 
 /*Estilos contenido Principal*/
 .main-container {
-    width: 80%;
-    max-width: 900px;
+    width: 100%;
     min-width: 280px;
     margin-top: 10%;
     display: flex;
@@ -197,10 +196,11 @@ a {
 }
 
 .main-title {
-    width: 65%;
+    width: 90%;
     min-width: 280px;
     height: 75px;
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
     background-color: var(--first-color-light);
@@ -213,7 +213,7 @@ a {
 }
 
 .information-container {
-    width: 65%;
+    width: 90%;
     min-width: 280px;
     margin-top: 25px;
     padding: 10px;
