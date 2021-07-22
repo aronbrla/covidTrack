@@ -24,11 +24,27 @@ router.get('/paciente',(peticion,respuesta)=>{
 });
 
 router.get('/paciente/informacion',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/index.ejs');
-});
+    let mail="uno@mail.com";
+                            let name= "Aaron Blas";
+                            let pdni="05151846";
+                            let adress="Jr la Verga 123";
+                            let phone="03515531";
+                            console.log(name);
 
-router.get('/paciente/doctor',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/sites/info.ejs');
+                            let region= "ancash";
+                            let edad = "18";
+                            let sexo="Masculino";
+                            let distrito ="Chimbote";
+                            let doctor = "Dr. House";
+                            let telefonoDoctor = "0000000";
+                            let correoDoctor="drhouse@hotmail.com";
+                            let dniDoctor="333333";
+                            let ultimaCita="ayer";
+                            let proximaCita="hoy";
+    respuesta.render('../views/paciente/sites/info.ejs',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+        DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
+        CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
+        });
 });
 
 router.get('/paciente/citas',(peticion,respuesta)=>{

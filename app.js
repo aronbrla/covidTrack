@@ -124,7 +124,7 @@ app.post('/auth', async(req,res)=>{
                             let ultimaCita="ayer";
                             let proximaCita="hoy";
 
-                            res.render('/paciente',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+                            res.render('/dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
                             DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
                             CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
                             });
