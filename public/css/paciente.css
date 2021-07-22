@@ -242,7 +242,18 @@ a {
     border: none;
 }
 
-.btn .btn-outline-secondary{
-    border-radius: 15px;
-    padding: auto;
+.input-item{
+    width: 100%;
+    min-width: 70px;
+    border: none;
+    border-bottom: 2px solid var(--second-color);
+}
+
+.input-item:focus {
+    outline: none;
+    border-bottom-color: var(--first-color-light);
+}
+
+.edit{
+    margin-right: 5%;
 }
