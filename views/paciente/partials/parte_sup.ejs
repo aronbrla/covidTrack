@@ -13,21 +13,33 @@
     <link rel="stylesheet" href="../../resources/css/paciente.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
-<body id="body-pd">
+<body id="body-pd" class="body-pd">
     <!-- Source Code -->
     <!-- https://bbbootstrap.com/snippets/bootstrap-5-sidebar-menu-toggle-button-34132202 -->
     <div class="container-fluid">
-        <header class="header" id="header">
-            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <header class="header body-pd" id="header">
+            <div class="header_toggle"> <i class='bx bx-x' id="header-toggle"></i> </div>
             <span class="d-none me-sm-4 d-sm-block">Hola, Martin</span>
             <div class="d-flex align-items-center">
-                <div class="my-auto me-3 me-sm-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-                  </svg></i>
+                <div class="notifications my-auto me-3">
+                    <button class="btn" data-bs-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                          </svg>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Cita 1</a></li>
+                        <li><a class="dropdown-item" href="#">Cita 2</a></li>
+                        <li><a class="dropdown-item" href="#">Cita 3</a></li>
+                    </ul>
                 </div>
-                <div class="me-3 me-sm-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-right-fill" viewBox="0 0 16 16">
-                    <path d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
-                  </svg></div>
+                <div class="me-3">
+                    <button class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-right-fill" viewBox="0 0 16 16">
+                            <path d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                        </svg>
+                    </button>
+                </div>
                 <div class="header_img"><img src="https://avatars.githubusercontent.com/u/67832305?v=4" alt=""></div>
             </div>
             
