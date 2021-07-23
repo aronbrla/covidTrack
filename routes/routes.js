@@ -24,8 +24,18 @@ router.get('/paciente',(peticion,respuesta)=>{
 });
 
 router.get('/paciente/informacion',(peticion,respuesta)=>{
+    
+                            
+    respuesta.render('../views/paciente/sites/info.ejs');
+});
+
+router.get('/paciente/citas',(peticion,respuesta)=>{
+    respuesta.render('../views/paciente/sites/citas.ejs');
+});
+
+router.get('/paciente/ajustes',(peticion,respuesta)=>{
     let mail="uno@mail.com";
-                            let name= "Aaron Blas";
+    let name= "Aaron Blas";
                             let pdni="05151846";
                             let adress="Jr la Verga 123";
                             let phone="03515531";
@@ -41,18 +51,10 @@ router.get('/paciente/informacion',(peticion,respuesta)=>{
                             let dniDoctor="333333";
                             let ultimaCita="ayer";
                             let proximaCita="hoy";
-    respuesta.render('../views/paciente/sites/info.ejs',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+    respuesta.render('../views/paciente/sites/ajustes.ejs',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
         DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
         CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
         });
-});
-
-router.get('/paciente/citas',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/sites/citas.ejs');
-});
-
-router.get('/paciente/ajustes',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/sites/ajustes.ejs');
 });
 
 router.get('/paciente/formulario',(peticion,respuesta)=>{

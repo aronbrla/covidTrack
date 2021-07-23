@@ -215,7 +215,6 @@ a {
 .info-container {
     width: 65%;
     min-width: 360px;
-    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items:center;
@@ -243,7 +242,7 @@ a {
 
 /* Editar datos de la cuenta */
 .input-group {
-    width: 40%;
+    max-width: 40%;
     height: 50%;
     border: none;
 }
@@ -253,7 +252,6 @@ a {
 
 .input-item{
     width: 100%;
-    min-width: 70px;
     border: none;
     border-bottom: 2px solid var(--second-color);
 }
@@ -265,6 +263,10 @@ a {
 
 .edit{
     margin-right: 5%;
+}
+
+.edit .btn+.btn-outline-info input:focus{
+  color: var(--white-color);
 }
 /*Fin de estilos de datos*/
 
