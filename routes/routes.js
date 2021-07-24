@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/',(peticion,respuesta)=>{
+/*router.get('/',(peticion,respuesta)=>{
     respuesta.render('index');
-});
+});*/
 router.get('/login',(peticion,respuesta)=>{
     respuesta.render('login');
 });
@@ -32,32 +32,30 @@ router.get('/paciente/informacion',(peticion,respuesta)=>{
 router.get('/paciente/citas',(peticion,respuesta)=>{
     respuesta.render('../views/paciente/sites/citas.ejs');
 });
-
-router.get('/paciente/ajustes',(peticion,respuesta)=>{
-    let mail="uno@mail.com";
-    let name= "Aaron Blas";
-                            let pdni="05151846";
-                            let adress="Jr la Verga 123";
-                            let phone="03515531";
-                            console.log(name);
-
-                            let region= "ancash";
-                            let edad = "18";
-                            let sexo="Masculino";
-                            let distrito ="Chimbote";
-                            let doctor = "Dr. House";
-                            let telefonoDoctor = "0000000";
-                            let correoDoctor="drhouse@hotmail.com";
-                            let dniDoctor="333333";
-                            let ultimaCita="ayer";
-                            let proximaCita="hoy";
-    respuesta.render('../views/paciente/sites/ajustes.ejs',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
-        DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
-        CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
+  //12 auth page
+router.get('/paciente/ajustes',(req,res)=>{
+    if(req.session.loggedin){
+        res.render('../views/paciente/sites/ajustes.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            DNI: req.session.DNi,
+            DIRECCION: req.session.DIRECCIOn,
+            TELEFONO: req.session.TELEFONo,
+            CORREO: req.session.CORREo,
+            EDAD: req.session.EDAd,
+            SEXO: 'F o M',
+            DISTRITO: 'un distrito',
+            REGION: 'region'
         });
+    }else{
+        res.render('/views/login.ejs',{
+            login: false
+        });
+    }
 });
 
 router.get('/paciente/formulario',(peticion,respuesta)=>{
+    
     respuesta.render('../views/paciente/sites/formulario.ejs');
 });
 //Fin de las rutas del dash paciente
