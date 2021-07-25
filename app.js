@@ -139,7 +139,9 @@ app.post('/auth', async(req,res)=>{
                             CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
                             });*/
 
-                            res.render('paciente');
+                            res.render('paciente',{
+                                ruta:''
+                            });
                         }
                     })
                     
@@ -155,8 +157,25 @@ app.post('/auth', async(req,res)=>{
             }) 
         }
      
+    } else{
+        res.send('Porfavor ingresa un usuario y contraseña!');
+        res.end();
     }
-    //12 auth page
+});
 
+//12. auth page
 
-})
+//13. Logout
+//Destruye la sesión.
+app.get('/logout', function (req, res) {
+	req.session.destroy(() => {
+	  res.redirect('/login') // siempre se ejecutará después de que se destruya la sesión
+	})
+});
+
+//función para limpiar la caché luego del logout
+app.use(function(req, res, next) {
+    if (!req.user)
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next();
+});
