@@ -20,13 +20,31 @@ router.get('/dash',(peticion,respuesta)=>{
 
 //Rutas del dash Paciente
 router.get('/paciente',(peticion,respuesta)=>{
+  
     respuesta.render('../views/paciente/index.ejs');
 });
 
-router.get('/paciente/informacion',(peticion,respuesta)=>{
-    
+router.get('/paciente/informacion',(req,res)=>{
+    if(req.session.loggedin){
+        res.render('../views/paciente/sites/info.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            DNI: req.session.DNi,
+            DIRECCION: req.session.DIRECCIOn,
+            TELEFONO: req.session.TELEFONo,
+            CORREO: req.session.CORREo,
+            EDAD: req.session.EDAd,
+            SEXO: 'F o M',
+            DISTRITO: 'un distrito',
+            REGION: 'region'
+            
+        });
+    }else{
+        res.render('/views/login.ejs',{
+            login: false
+        });
+    }
                             
-    respuesta.render('../views/paciente/sites/info.ejs');
 });
 
 router.get('/paciente/citas',(peticion,respuesta)=>{
