@@ -100,7 +100,7 @@ app.post('/auth', async(req,res)=>{
                     
                 }else{
                     
-                    connection.query('SELECT * FROM paciente', [user], async(error,results)=>{
+                    connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
                         if(error){
                             console.log(error);
                         }else{
@@ -116,16 +116,7 @@ app.post('/auth', async(req,res)=>{
                             req.session.DISTRITo="Chimbote";
                             req.session.EDAd=b;
                             req.session.SEXo='M o F';
-                            console.log(b);
-                            mail=results[0].pac_email;
-                            name=results[0].pac_nombres + " " + results[0].pac_apellidos;
-                            lastname=results[0].pac_apellidos;
-                            pdni=results[0].pac_dni;
-                            adress=results[0].pac_direccion;
-                            phone=results[0].pac_celular;
-                            date=results[0].pac_nacimiento;
-                            console.log(name);
-
+                            console.log(req.session.NOMBRe);
                             let region= "ancash";
                             let edad = "18";
                             let sexo="Masculino";
@@ -143,7 +134,6 @@ app.post('/auth', async(req,res)=>{
                             });*/
 
                             res.render('paciente',{
-                                ruta:''
                             });
                         }
                     })
@@ -171,9 +161,14 @@ app.post('/auth', async(req,res)=>{
 //13. Logout
 //Destruye la sesión.
 app.get('/logout', function (req, res) {
-	req.session.destroy(() => {
-	  res.redirect('/login') // siempre se ejecutará después de que se destruya la sesión
-	})
+	req.session.destroy((err) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('/login'); // siempre se ejecutará después de que se destruya la sesión
+        }
+	});
 });
 
 //función para limpiar la caché luego del logout
