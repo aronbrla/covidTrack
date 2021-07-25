@@ -110,10 +110,13 @@ app.post('/auth', async(req,res)=>{
                             req.session.DIRECCIOn=results[0].pac_direccion;
                             req.session.DNi=results[0].pac_dni;
                             req.session.TELEFONo=results[0].pac_celular;
+                            let fecha=results[0].pac_nacimiento;
+                            let a=fecha.toString();
+                            let b=a.substring(4,15);
                             req.session.DISTRITo="Chimbote";
-                            req.session.EDAd=results[0].pac_nacimiento;
+                            req.session.EDAd=b;
                             req.session.SEXo='M o F';
-                           
+                            console.log(b);
                             mail=results[0].pac_email;
                             name=results[0].pac_nombres + " " + results[0].pac_apellidos;
                             lastname=results[0].pac_apellidos;

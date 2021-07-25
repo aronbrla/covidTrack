@@ -65,6 +65,10 @@ router.get('/paciente/ajustes',(req,res)=>{
             DISTRITO: 'un distrito',
             REGION: 'region'
         });
+        res.render('../views/paciente/partials/parte_sup.ejs',{
+            login:true,
+            nombre :req.session.NOMBRe
+        });
     }else{
         res.render('/views/login.ejs',{
             login: false
