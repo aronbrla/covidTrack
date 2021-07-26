@@ -61,10 +61,10 @@
         </form>
     </div>
     <div id="changePassword" class="information-container mt-sm-4">
-        <form name="formName" action="" method="POST">
+        <form name="formName" action="EditCon" method="POST">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <span class="col-8"><i class='bx bxs-home bx-flip-horizontal'></i><span class="ms-2"></span>Contraseña anterios</span></span>
+                    <span class="col-8"><i class='bx bxs-home bx-flip-horizontal'></i><span class="ms-2"></span>Contraseña actual</span></span>
                     <div class="input-group">
                         <input id="password" type="password" name="pass" class="input-item" value="" required placeholder="Contraseña">
                     </div>
@@ -89,44 +89,3 @@
     </div>
 </div>
 <%- include('../partials/parte_inf.ejs')%>
-<script>
-    /**
-     * Function que inserta un error por encima del elemento recibido
-     * @param element -> texto que haga referencia al elemento
-     * @param error -> texto del error
-     */
-     const showError = (element, error) => {
-        const errorEl=document.createElement("div");
-        errorEl.setAttribute("class","error");
-        errorEl.innerHTML=error;
-        document.querySelector(element).parentElement.prepend(errorEl);
-    }
-    
-    const validatePassword = () => {
-        //Cogemos los valores actuales del formulario
-        const pasActual=document.formName.pass.value;
-        const pasNew1=document.formName.passwordNew1.value;
-        const pasNew2=document.formName.passwordNew2.value;
-        let button = document.getElementById('submitContraseña');
-        // Eliminamos los posible errores
-        for (let el of document.querySelectorAll("div[class=error]")) {
-            el.remove();
-        }
- 
-        if (pasNew1!=pasNew2 || pasNew1.length<6 || pasActual=="") {
-            if (pasActual=="") {
-                showError("input[name=passwordActual]", "Indicar tu contraseña actual");
-            }
-            if (pasNew1.length<6) {
-                showError("input[name=passwordNew1]", "La longitud mínima de 6 caracteres");
-            } else if (pasNew1!=pasNew2) {
-                showError("input[name=passwordNew1]", "Las contraseñas no coincide");
-            }
-            button.disabled = true;
-        }
-        button.disabled = false;
-    }
-    document.getElementById('changePassword').addEventListener('click',()=>{
-        validatePassword();
-    })
-</script>

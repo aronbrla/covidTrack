@@ -1,4 +1,5 @@
-const express =require('express');//1.importando libreria
+//1.importando libreria
+const express =require('express');
 const app =express(); 
 //montando el servidor en la ruta 3000
 app.listen(3000,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3000');
@@ -162,9 +163,7 @@ app.post('/auth', async(req,res)=>{
     }
 });
 
-//12. auth page
-
-//13. Logout
+//12. Logout
 //Destruye la sesión.
 app.get('/logout', function (req, res) {
 	req.session.destroy(() => {
@@ -174,65 +173,102 @@ app.get('/logout', function (req, res) {
 });
 
 
-//función para limpiar la caché luego del logout
+//13. función para limpiar la caché luego del logout
 app.use(function(req, res, next) {
     if (!req.user)
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     next();
 });
-//editar datos
+
+//14. Editar datos
 app.post('/paciente/editar',async(req,res)=>{
    // const distrito=req.body.distrito;
     const celular=req.body.phone;
     const domicilio=req.body.address;
-    connection.query('UPDATE paciente SET pac_direccion=? , pac_celular=? WHERE pac_dni=?',[domicilio,celular,req.session.DNi],async(error,results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            connection.query('SELECT * FROM paciente WHERE pac_email = ?', [req.session.CORREo], async(error,results)=>{
-                if(error){
-                    console.log(error);
-                }else{
-                    req.session.loggedin=true;
-                    req.session.NOMBRe=results[0].pac_nombres+ " "+ results[0].pac_apellidos;
-                    req.session.CORREo=results[0].pac_email;
-                    req.session.DIRECCIOn=results[0].pac_direccion;
-                    req.session.DNi=results[0].pac_dni;
-                    req.session.TELEFONo=results[0].pac_celular;
-                    let fecha=results[0].pac_nacimiento;
-                    let a=fecha.toString();
-                    let b=a.substring(4,15);
-                    req.session.DISTRITo="Chimbote";
-                    req.session.EDAd=b;
-                    req.session.SEXo='M o F';
-                    console.log(req.session.NOMBRe);
-                    let region= "ancash";
-                    let edad = "18";
-                    let sexo="Masculino";
-                    let distrito ="Chimbote";
-                    let doctor = "Dr. House";
-                    let telefonoDoctor = "0000000";
-                    let correoDoctor="drhouse@hotmail.com";
-                    let dniDoctor="333333";
-                    let ultimaCita="ayer";
-                    let proximaCita="hoy";
+        connection.query('UPDATE paciente SET pac_direccion=? , pac_celular=? WHERE pac_dni=?',[domicilio,celular,req.session.DNi],async(error,results)=>{
+            if(error){
+                console.log(error);
+            }else{
+                connection.query('SELECT * FROM paciente WHERE pac_email = ?', [req.session.CORREo], async(error,results)=>{
+                    if(error){
+                        console.log(error);
+                    }else{
+                        req.session.loggedin=true;
+                        req.session.NOMBRe=results[0].pac_nombres+ " "+ results[0].pac_apellidos;
+                        req.session.CORREo=results[0].pac_email;
+                        req.session.DIRECCIOn=results[0].pac_direccion;
+                        req.session.DNi=results[0].pac_dni;
+                        req.session.TELEFONo=results[0].pac_celular;
+                        let fecha=results[0].pac_nacimiento;
+                        let a=fecha.toString();
+                        let b=a.substring(4,15);
+                        req.session.DISTRITo="Chimbote";
+                        req.session.EDAd=b;
+                        req.session.SEXo='M o F';
+                        console.log(req.session.NOMBRe);
+                        let region= "ancash";
+                        let edad = "18";
+                        let sexo="Masculino";
+                        let distrito ="Chimbote";
+                        let doctor = "Dr. House";
+                        let telefonoDoctor = "0000000";
+                        let correoDoctor="drhouse@hotmail.com";
+                        let dniDoctor="333333";
+                        let ultimaCita="ayer";
+                        let proximaCita="hoy";
+                        
+                        res.render('paciente',{
+                            login:true,
+                            NOMBRE: req.session.NOMBRe,
+                            NDOC: "JUAN GAMARRA",
+                            NCOR: "juangamarra@gmail.com",
+                            CELDOC: "978546123",
+                            SEXODOC: "M"
+                        });
+                    }
+                })
+            }
+        });
+})
 
-                    /*res.render('dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
-                    DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
-                    CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
-                    });*/
+app.post('/paciente/EditCon',async(req,res)=>{
+    const pass = req.body.pass;
+    const npass = req.body.passwordNew1;
+    const cpass = req.body.passwordNew2;
+    let passwordHaash=await bcryptjs.hash(pass,8);
+    let passwordHaas=await bcryptjs.hash(npass,8);
+    console.log(pass);
+    console.log(npass);
+    console.log(cpass);
+    if(pass && npass && cpass){
+        connection.query('SELECT * FROM paciente WHERE pac_email = ?', [req.session.CORREo], async(error,results)=>{
+            if(!(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
 
-                    res.render('paciente',{
-                        login:true,
-                        NOMBRE: req.session.NOMBRe,
-                        NDOC: "JUAN GAMARRA",
-                        NCOR: "juangamarra@gmail.com",
-                        CELDOC: "978546123",
-                        SEXODOC: "M"
-                    });
+                res.send("La contraseña actual es incorrecta.");
+                
+            }else{
+                if(npass == pass){
+                    res.send("La constraseña actual y la nueva no pueden ser iguales.")
                 }
-            })
-        }
-    });
-    //UPDATE paciente SET pac_direccion="alfalfa", pac_celular=111111111 WHERE pac_dni="72865650";
+                else{
+                    if(npass == cpass){
+                        connection.query('UPDATE paciente SET pac_contrasenia=? WHERE pac_email=?',[passwordHaas,req.session.CORREo],async(error,results)=>{
+                            if(error){
+                                console.log(error);
+                            }else{
+                                console.log('¡Contraseña cambiada! Por favor vuelve a loguearte.');
+                                req.session.destroy(() => {
+                                    console.log('cerraste sesion desde home');
+                                })
+                            }
+                        })
+                    }
+                    else{
+                        console.log('Las contraseñas no son iguales.');
+                    }
+                }
+            }
+
+        })
+    }
 })
