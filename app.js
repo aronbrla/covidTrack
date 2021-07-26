@@ -181,3 +181,58 @@ app.use(function(req, res, next) {
     next();
 });
 //editar datos
+app.post('/paciente/editar',async(req,res)=>{
+   // const distrito=req.body.distrito;
+    const celular=req.body.phone;
+    const domicilio=req.body.address;
+    connection.query('UPDATE paciente SET pac_direccion=? , pac_celular=? WHERE pac_dni=?',[domicilio,celular,req.session.DNi],async(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            connection.query('SELECT * FROM paciente WHERE pac_email = ?', [req.session.CORREo], async(error,results)=>{
+                if(error){
+                    console.log(error);
+                }else{
+                    req.session.loggedin=true;
+                    req.session.NOMBRe=results[0].pac_nombres+ " "+ results[0].pac_apellidos;
+                    req.session.CORREo=results[0].pac_email;
+                    req.session.DIRECCIOn=results[0].pac_direccion;
+                    req.session.DNi=results[0].pac_dni;
+                    req.session.TELEFONo=results[0].pac_celular;
+                    let fecha=results[0].pac_nacimiento;
+                    let a=fecha.toString();
+                    let b=a.substring(4,15);
+                    req.session.DISTRITo="Chimbote";
+                    req.session.EDAd=b;
+                    req.session.SEXo='M o F';
+                    console.log(req.session.NOMBRe);
+                    let region= "ancash";
+                    let edad = "18";
+                    let sexo="Masculino";
+                    let distrito ="Chimbote";
+                    let doctor = "Dr. House";
+                    let telefonoDoctor = "0000000";
+                    let correoDoctor="drhouse@hotmail.com";
+                    let dniDoctor="333333";
+                    let ultimaCita="ayer";
+                    let proximaCita="hoy";
+
+                    /*res.render('dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
+                    DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
+                    CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
+                    });*/
+
+                    res.render('paciente',{
+                        login:true,
+                        NOMBRE: req.session.NOMBRe,
+                        NDOC: "JUAN GAMARRA",
+                        NCOR: "juangamarra@gmail.com",
+                        CELDOC: "978546123",
+                        SEXODOC: "M"
+                    });
+                }
+            })
+        }
+    });
+    //UPDATE paciente SET pac_direccion="alfalfa", pac_celular=111111111 WHERE pac_dni="72865650";
+})
