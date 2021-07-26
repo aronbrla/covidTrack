@@ -122,9 +122,9 @@
             } else if (pasNew1!=pasNew2) {
                 showError("input[name=passwordNew1]", "Las contraseñas no coincide");
             }
-            button.disabled = false;
+            button.disabled = true;
         }
-        button.disabled = true;
+        button.disabled = false;
     }
     document.getElementById('changePassword').addEventListener('click',()=>{
         validatePassword();
