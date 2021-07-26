@@ -19,18 +19,48 @@ router.get('/dash',(peticion,respuesta)=>{
 });
 
 //Rutas del dash Paciente
-router.get('/paciente',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/index.ejs');
+router.get('/paciente',(req,respuesta)=>{
+  
+    respuesta.render('../views/paciente/index.ejs',{
+        login:true,
+        NOMBRE: req.session.NOMBRe,
+        NDOC: "JUAN GAMARRA",
+        NCOR: "juangamarra@gmail.com",
+        CELDOC: "978546123",
+        SEXODOC: "M"
+    });
+
 });
 
-router.get('/paciente/informacion',(peticion,respuesta)=>{
-    
+router.get('/paciente/informacion',(req,res)=>{
+    if(req.session.loggedin){
+        res.render('../views/paciente/sites/info.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            DNI: req.session.DNi,
+            DIRECCION: req.session.DIRECCIOn,
+            TELEFONO: req.session.TELEFONo,
+            CORREO: req.session.CORREo,
+            EDAD: req.session.EDAd,
+            SEXO: 'F o M',
+            DISTRITO: 'un distrito',
+            REGION: 'region'
+            
+        });
+
+    }else{
+        res.render('/views/login.ejs',{
+            login: false
+        });
+    }
                             
-    respuesta.render('../views/paciente/sites/info.ejs');
 });
 
-router.get('/paciente/citas',(peticion,respuesta)=>{
-    respuesta.render('../views/paciente/sites/citas.ejs');
+router.get('/paciente/citas',(req,respuesta)=>{
+    respuesta.render('../views/paciente/sites/citas.ejs',{
+        login:true,
+        NOMBRE: req.session.NOMBRe,
+    });
 });
   //12 auth page
 router.get('/paciente/ajustes',(req,res)=>{
@@ -47,6 +77,7 @@ router.get('/paciente/ajustes',(req,res)=>{
             DISTRITO: 'un distrito',
             REGION: 'region'
         });
+
     }else{
         res.render('/views/login.ejs',{
             login: false
@@ -54,10 +85,25 @@ router.get('/paciente/ajustes',(req,res)=>{
     }
 });
 
-router.get('/paciente/formulario',(peticion,respuesta)=>{
-    
-    respuesta.render('../views/paciente/sites/formulario.ejs');
+router.get('/paciente/formulario',(req,respuesta)=>{
+
+    respuesta.render('../views/paciente/sites/formulario.ejs',{
+        login:true,
+        NOMBRE: req.session.NOMBRe,
+    });
 });
+
+router.get('/paciente/logout',(req,res)=>{
+    req.session.destroy((err) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('/login'); // siempre se ejecutará después de que se destruya la sesión
+            console.log("cerraste sesion 2");
+        }
+	});
+})
 //Fin de las rutas del dash paciente
 
 module.exports = router;
