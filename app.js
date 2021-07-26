@@ -116,16 +116,7 @@ app.post('/auth', async(req,res)=>{
                             req.session.DISTRITo="Chimbote";
                             req.session.EDAd=b;
                             req.session.SEXo='M o F';
-                            console.log(b);
-                            mail=results[0].pac_email;
-                            name=results[0].pac_nombres + " " + results[0].pac_apellidos;
-                            lastname=results[0].pac_apellidos;
-                            pdni=results[0].pac_dni;
-                            adress=results[0].pac_direccion;
-                            phone=results[0].pac_celular;
-                            date=results[0].pac_nacimiento;
-                            console.log(name);
-
+                            console.log(req.session.NOMBRe);
                             let region= "ancash";
                             let edad = "18";
                             let sexo="Masculino";
