@@ -147,13 +147,15 @@ app.post('/auth', async(req,res)=>{
                 }
             })
         }else{
-            connection.query('SELECT * FROM doctores WHERE doc_email = ?', [user], async(error,results)=>{
+            res.render('doctor');
+
+           /* connection.query('SELECT * FROM doctores WHERE doc_email = ?', [user], async(error,results)=>{
                 if(results.length==0 || !(await bcryptjs.compare(pass,results[0].pac_contrasenia))){
                     res.send("Email o contraseña incorrecta");
                 }else{
                     res.send('Login Correcto');
                 }
-            }) 
+            }) */
         }
      
     } else{
@@ -180,6 +182,7 @@ app.use(function(req, res, next) {
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     next();
 });
+
 //editar datos
 app.post('/paciente/editar',async(req,res)=>{
    // const distrito=req.body.distrito;
