@@ -100,7 +100,7 @@ app.post('/auth', async(req,res)=>{
                     
                 }else{
                     
-                    connection.query('SELECT * FROM paciente', [user], async(error,results)=>{
+                    connection.query('SELECT * FROM paciente WHERE pac_email = ?', [user], async(error,results)=>{
                         if(error){
                             console.log(error);
                         }else{
@@ -143,7 +143,12 @@ app.post('/auth', async(req,res)=>{
                             });*/
 
                             res.render('paciente',{
-                                ruta:''
+                                login:true,
+                                NOMBRE: req.session.NOMBRe,
+                                NDOC: "JUAN GAMARRA",
+                                NCOR: "juangamarra@gmail.com",
+                                CELDOC: "978546123",
+                                SEXODOC: "M"
                             });
                         }
                     })
@@ -172,9 +177,11 @@ app.post('/auth', async(req,res)=>{
 //Destruye la sesión.
 app.get('/logout', function (req, res) {
 	req.session.destroy(() => {
-	  res.redirect('/login') // siempre se ejecutará después de que se destruya la sesión
+      console.log('cerraste sesion desde home');
+	  res.redirect('login') // siempre se ejecutará después de que se destruya la sesión
 	})
 });
+
 
 //función para limpiar la caché luego del logout
 app.use(function(req, res, next) {
@@ -182,3 +189,4 @@ app.use(function(req, res, next) {
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     next();
 });
+//editar datos
