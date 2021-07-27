@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-/*router.get('/',(peticion,respuesta)=>{
+router.get('/',(peticion,respuesta)=>{
     respuesta.render('index');
-});*/
+});
 router.get('/login',(peticion,respuesta)=>{
     respuesta.render('login');
 });

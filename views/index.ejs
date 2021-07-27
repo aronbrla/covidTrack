@@ -15,18 +15,15 @@
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
                 <div class="container">
                     <a class="navbar-brand" href="/">
+                        <span class="me-2">COVIDTRACK</span>
                         <img class ="img-fluid w-5 h-5" 
-                        src ="https://static.wixstatic.com/media/a6ed58_5534a43660c74d59aca8d10d0beebaac~mv2.png " 
-                        title = "CovidTrack" 
-                        alt= "Logo de la empresa">
-                        COVIDTRACK
+                        src ="../resources/assets/img/main_logo.png" 
+                        title = "CovidTrack" alt= "Logo de la empresa">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                              </svg>
-                        </i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
@@ -40,33 +37,35 @@
             </nav>
         </header>
         <!-- Masthead-->
-        <section class="bg-dark text-light pb-0 text-center text-sm-start" style="padding-top: 90px;">
+        <section class="main-container pb-0">
             <div class="container">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div>
-                        <h1>Ten cuidado del<span class="text-warning"> Covid-19 </span></h1>
-                        <p class="lead my-4">
-                        Nos enfoncamos en ayudar a pasar este crucial desafio en tu vida
-                        </p>
+                <div class="d-none d-lg-block main-fondo"></div>
+                <div class="d-sm-flex">
+                    <div class="flex-column">
+                        <div class="main-title text-center">
+                            <h1>Ten cuidado del</h1><span> Covid-19 </span>
+                        </div>
+                        <p class="lead">Nos enfoncamos en ayudar a pasar este crucial desafio en tu vida</p>
                         <div class="container pb-3">
-                            <a class="btn btn-success btn-lg mx-3" href="register">Registrarse</a>
-                            <a class="btn btn-primary btn-lg my-2" href="#services">Saber Más</a>
+                            <a class="btn btn-register btn-lg mx-3" href="register">Registrarse</a>
+                            <a class="btn btn-more btn-lg my-2" href="#services">Saber Más</a>
                         </div>
                     </div>
                     <img
                         class="img-fluid w-50 d-none d-sm-block"
-                        src="../resources/assets/img/undraw_doctors_hwty.svg"
+                        src="../resources/assets/img/undraw_medical_research_qg4d.svg"
                         alt=""
                     />
+                    
                 </div>
             </div>
         </section>
         <!-- Services-->
-        <section class="page-section" id="services">
+        <section class="service-container page-section" id="services">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Servicios</h2>
-                    <h3 class="section-subheading text-muted">Esto es lo que te ofrecemos</h3>
+                    <h3 class="section-subheading">Esto es lo que te ofrecemos</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-4">
@@ -75,7 +74,7 @@
                             <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Pruebas covid a Domicilio</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     </div>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
@@ -83,7 +82,7 @@
                             <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Seguimiento</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     </div>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
@@ -91,13 +90,13 @@
                             <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Citas medicas virtuales</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Contact-->
-        <section class="page-section bg-dark" id="contact">
+        <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Contactanos</h2>
