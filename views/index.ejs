@@ -36,17 +36,17 @@
                 </div>
             </nav>
         </header>
-        <!-- Masthead-->
+        <!-- Main Content-->
         <section class="main-container pb-0">
             <div class="container">
                 <div class="d-none d-lg-block main-fondo"></div>
                 <div class="d-sm-flex">
                     <div class="flex-column">
-                        <div class="main-title text-center">
+                        <div class="main-title text-lg-start">
                             <h1>Ten cuidado del</h1><span> Covid-19 </span>
                         </div>
-                        <p class="lead">Nos enfoncamos en ayudar a pasar este crucial desafio en tu vida</p>
-                        <div class="container pb-3">
+                        <p class="lead text-center text-lg-start">Nos enfoncamos en ayudar a pasar este crucial desafio en tu vida</p>
+                        <div class="btn-container container pb-3">
                             <a class="btn btn-register btn-lg mx-3" href="register">Registrarse</a>
                             <a class="btn btn-more btn-lg my-2" href="#services">Saber Más</a>
                         </div>
@@ -102,30 +102,23 @@
                     <h2 class="section-heading text-uppercase">Contactanos</h2>
                     <h3 class="section-subheading text-muted">Nos gustaria saber que opinas</h3>
                 </div>
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- * * SB Forms Contact Form * *-->
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- This form is pre-integrated with SB Forms.-->
-                <!-- To make this form functional, sign up at-->
-                <!-- https://startbootstrap.com/solution/contact-forms-->
-                <!-- to get an API token!-->
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- Name input-->
                                 <input class="form-control" id="name" type="text" placeholder="Nombre" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Es necesario un Nombre</div>
+                                <div class="invalid-feedback" data-sb-feedback="name:required" autofocus>Es necesario un Nombre</div>
                             </div>
                             <div class="form-group">
                                 <!-- Email address input-->
-                                <input class="form-control" id="email" type="email" placeholder="Correo electronico" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">Es necesario un Nombre</div>
+                                <input class="form-control" id="email" type="email" placeholder="Correo electronico" data-sb-validations="required,email"/>
+                                <div class="invalid-feedback" data-sb-feedback="email:required" autofocus>Es necesario un Nombre</div>
                                 <div class="invalid-feedback" data-sb-feedback="email:email">Correo invalido</div>
                             </div>
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Teléfono" data-sb-validations="required" />
+                                <input class="form-control" id="phone" type="tel" placeholder="Teléfono" data-sb-validations="required" autofocus />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">Es necesario un Telefono</div>
                             </div>
                         </div>

@@ -1,7 +1,13 @@
-root{
-  --primary-color:#455A72;
-  --secondary-color:#6FC0EF;
-  --background:linear-gradient(180deg, rgba(47,112,188,1) 0%, rgba(111,192,239,1) 100%);
+:root {
+  --primary-color: #455a72;
+  --primary-color-light:#ced4da;
+  --secondary-color:#4086ca;
+  --secondary-color-light: #6fc0ef;
+  --background: linear-gradient(
+    180deg,
+    rgba(47, 112, 188, 1) 0%,
+    rgba(111, 192, 239, 1) 100%
+  );
   /*--primary-font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --second-font-family:"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"*/
 }
@@ -10,307 +16,329 @@ html {
   scroll-padding-top: 4.5rem;
   font-size: 62.5%;
 }
-  
-  body {
-    position: relative;
-    overflow-x: hidden;
-  }
-  
-  p {
-    line-height: 1.75;
-  }
-  
-  .page-section {
-    padding: 9.6rem 0;
-  }
-  .page-section h2.section-heading, .page-section .section-heading h2 {
-    font-size: 6rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  .page-section h3.section-subheading, .page-section .section-subheading h3 {
-    font-size: 2.7rem;
-    font-weight: 400;
-    font-family: var(--primary-font-family);
-    margin-bottom: 4rem;
-  }
-  
-  @media (min-width: 768px) {
-    section {
-      padding: 14rem 0;
-    }
-  }
-  .btn-xl {
-    padding: 2rem 4rem;
-    font-family: var(--second-font-family);
-    font-size: 1.125rem;
-    font-weight: 700;
-  }
-  
-  .btn-social {
-    height: 4rem;
-    width: 4rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border-radius: 100%;
-    background-color: #6BB9E7;
-    color: #fff;
-  }
-  
-  #mainNav {
-    padding-top: 1.6rem;
-    padding-bottom: 1.6rem;
-    background: var(--background);
-  }
-  #mainNav .navbar-toggler {
-    color: #455A72;
-    font-family: var(--second-font-family);
-  }
-  #mainNav .show{
-    background-color: #0F5D74;
-  }
-  #mainNav .navbar-brand {
-    display: flex;
-    color: #0F5D74;
-    font-family: var(--second-font-family);
-    font-weight: 700;
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    font-family: "Arial Rounded MT";
-    font-size: 3rem;
-  }
-  #mainNav .navbar-brand img {
-    height: 1.5rem;
-  }
-  #mainNav .navbar-nav .nav-item .nav-link {
-    font-family: "Segoe UI";
-    font-size: 2.7rem;
-    color: #fff;
-    letter-spacing: 0.0625em;
-  }
-  #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #0F5D74;
-  }
-  
-  @media (min-width: 992px) {
-    #mainNav {
-      padding-top: 2.4rem;
-      padding-bottom: 2.4rem;
-      border: none;
-      background-color: transparent;
-      transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
-    }
-    #mainNav .navbar-brand {
-      font-size: 2.4em;
-      transition: font-size 0.3s ease-in-out;
-    }
-    #mainNav .navbar-brand img {
-      height: 3.2rem;
-      transition: height 0.3s ease-in-out;
-    }
-    #mainNav.navbar-shrink {
-      padding-top: 1.6rem;
-      padding-bottom: 1.6rem;
-      background: linear-gradient(180deg, rgba(47,112,188,1) 0%, rgba(111,192,239,1) 100%);
-      font-size: 1.5rem;
-    }
-    #mainNav.navbar-shrink .navbar-brand svg,
-  #mainNav.navbar-shrink .navbar-brand img {
-      height: 2.4rem;
-    }
-    #mainNav .navbar-nav .nav-item {
-      margin-right: 1rem;
-    }
-    #mainNav .navbar-nav .nav-item:last-child {
-      margin-right: 0;
-    }
-  }
-  header.masthead {
-    padding-top: 10.5rem;
-    padding-bottom: 6rem;
-    text-align: center;
-    color: #fff;
-    background-image: url("../assets/img/header-bg.jpg");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
-    background-size: cover;
-  }
-  header.masthead .masthead-subheading {
-    font-size: 1.5rem;
-    font-style: italic;
-    line-height: 1.5rem;
-    margin-bottom: 25px;
-    font-family: var(--primary-font-family);
-  }
-  header.masthead .masthead-heading {
-    font-size: 3.25rem;
-    font-weight: 700;
-    line-height: 3.25rem;
-    margin-bottom: 2rem;
-    font-family: var(--second-font-family);
-  }
-  
-  @media (min-width: 768px) {
-    header.masthead {
-      padding-top: 17rem;
-      padding-bottom: 12.5rem;
-    }
-    header.masthead .masthead-subheading {
-      font-size: 2.25rem;
-      font-style: italic;
-      line-height: 2.25rem;
-      margin-bottom: 2rem;
-    }
-    header.masthead .masthead-heading {
-      font-size: 4.5rem;
-      font-weight: 700;
-      line-height: 4.5rem;
-      margin-bottom: 4rem;
-    }
-  }
-#services,#services p {
-  color: #fff;
-  font-size: 3rem;
+
+body {
+  position: relative;
+  overflow-x: hidden;
 }
-#services h4{
+
+p {
+  line-height: 1.75;
+}
+
+.page-section {
+  padding: 9.6rem 0;
+}
+.page-section h2.section-heading,
+.page-section .section-heading h2 {
+  font-size: 5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.page-section h3.section-subheading,
+.page-section .section-subheading h3 {
+  font-size: 2.7rem;
+  font-weight: 400;
+  font-family: var(--primary-font-family);
+  margin-bottom: 4rem;
+}
+
+.btn-xl {
+  padding: 2rem 4rem;
+  font-family: var(--second-font-family);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+
+#mainNav {
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+#mainNav .navbar-toggler {
+  color: #fff;
+  border-radius: 5px;
+  border-color: var(--primary-color-light);
+}
+#mainNav .navbar-brand {
+  display: flex;
+  align-items: center;
+  color: #0f5d74;
+  font-family: var(--second-font-family);
+  font-weight: bold;
+  letter-spacing: 0.0625em;
+  text-transform: uppercase;
+  font-family: "Arial Rounded MT";
+  font-size: 2.4rem;
+}
+#mainNav .navbar-nav .nav-item .nav-link {
+  font-family: "Segoe UI";
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fff;
+  letter-spacing: 0.0625em;
+}
+#mainNav .navbar-nav .nav-item .nav-link.active,
+#mainNav .navbar-nav .nav-item .nav-link:hover {
+  color: #0f5d74;
+}
+
+header.masthead {
+  padding-top: 10.5rem;
+  padding-bottom: 6rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/header-bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+header.masthead .masthead-subheading {
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+  font-family: var(--primary-font-family);
+}
+header.masthead .masthead-heading {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 3.25rem;
+  margin-bottom: 2rem;
+  font-family: var(--second-font-family);
+}
+
+/* Estilos Servicios */
+#services,
+#services p {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: lighter;
+}
+#services h4 {
   font-size: 3rem;
   font-weight: 600;
 }
 
-#services p{
-  font-weight: lighter;
+/* Fin estilos Servicios */
+
+/* Estilos Contactos */
+section#contact {
+  color: #455a72;
+}
+section#contact form#contactForm input,
+section#contact form textarea {
+  font-family: "Segoe UI";
+  font-size: 2rem;
+  color: #455a72;
+  border-radius: 17px;
+  background-color: #7ec7f1;
+}
+section#contact form#contactForm .form-group {
+  margin-bottom: 1.5rem;
+}
+section#contact form#contactForm .form-group input,
+section#contact form#contactForm .form-group textarea {
+  padding: 1.25rem;
+}
+section#contact form#contactForm .form-group input.form-control {
+  height: auto;
+}
+section#contact form#contactForm .form-group-textarea {
+  height: 100%;
+}
+section#contact form#contactForm .form-group-textarea textarea {
+  height: 100%;
+  min-height: 10rem;
+}
+section#contact form#contactForm p.help-block {
+  margin: 0;
 }
 
-  section#contact {
-    color: #455A72;
-  }
-  section#contact form#contactForm input, section#contact form textarea{
-    font-family: "Segoe UI";
-    font-size: 2rem;
-    color: #455A72;
-    border-radius: 17px;
-    background-color: #7ec7f1;
-  }
-  section#contact form#contactForm .form-group {
-    margin-bottom: 1.5rem;
-  }
-  section#contact form#contactForm .form-group input,
-  section#contact form#contactForm .form-group textarea {
-    padding: 1.25rem;
-  }
-  section#contact form#contactForm .form-group input.form-control {
-    height: auto;
-  }
-  section#contact form#contactForm .form-group-textarea {
-    height: 100%;
-  }
-  section#contact form#contactForm .form-group-textarea textarea {
-    height: 100%;
-    min-height: 10rem;
-  }
-  section#contact form#contactForm p.help-block {
-    margin: 0;
-  }
+section#contact form#contactForm .btn {
+  background-color: #4086ca;
+  border-radius: 38px;
+}
 
-  section#contact form#contactForm .btn {
-    background-color: #4086CA;
-    border-radius: 38px;
-  }
+section#contact form#contactForm .form-control:focus {
+  border-color: #6bb9e7;
+  box-shadow: none;
+}
+section#contact form#contactForm ::-webkit-input-placeholder {
+  font-family: var(--primary-font-family);
+  font-weight: 700;
+  color: #ced4da;
+}
+section#contact form#contactForm :-moz-placeholder {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  color: #ced4da;
+}
+section#contact form#contactForm ::-moz-placeholder {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  color: #ced4da;
+}
+section#contact form#contactForm :-ms-input-placeholder {
+  font-family: var(--second-font-family);
+  font-weight: 700;
+  color: #ced4da;
+}
+/* Fin estilos Contactos */
 
-  section#contact form#contactForm .form-control:focus {
-    border-color: #6BB9E7;
-    box-shadow: none;
-  }
-  section#contact form#contactForm ::-webkit-input-placeholder {
-    font-family: var(--primary-font-family);
-    font-weight: 700;
-    color: #ced4da;
-  }
-  section#contact form#contactForm :-moz-placeholder {
-    font-family:var(--second-font-family);
-    font-weight: 700;
-    color: #ced4da;
-  }
-  section#contact form#contactForm ::-moz-placeholder {
-    font-family: var(--second-font-family);
-    font-weight: 700;
-    color: #ced4da;
-  }
-  section#contact form#contactForm :-ms-input-placeholder {
-    font-family: var(--second-font-family);
-    font-weight: 700;
-    color: #ced4da;
-  }
-  
-  .footer {
-    text-align: center;
-    font-size: 1.5rem;
-    font-family: var(--second-font-family);
-  }
+/*Estilos Footer */
+.footer {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.btn-social {
+  height: 4rem;
+  width: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100%;
+  background-color: #6bb9e7;
+  color: #fff;
+}
+/* Fin estilos footer*/
 
-
-  /* Estilos nuevos */
+/* Estilos nuevos */
 .main-container {
   position: relative;
   padding-top: 200px;
   margin-bottom: 140px;
 }
-.main-container .main-fondo{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  z-index: -1;
-  background-image: url('../assets/img/main_fondo.png');
-  background-position-x: 100%;
-  background-position-y: -250px;
-  background-size: auto;
-  background-repeat: no-repeat;
+
+.main-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .main-title{
-  width: 70%;
-}
-.main-title,.main-title h1{
   font-size: 4.5rem;
-  color: #455A72;
   font-weight: bold;
 }
-.main-title span{
-  color: #6FC0EF;
+.main-title h1{
+  font-size: inherit;
+  color: #455a72;
+}
+.main-title span {
+  color: #6fc0ef;
 }
 
-.main-container p{
-  color: #455A72;
+.main-container p {
+  color: #455a72;
   font-size: 2.8rem;
 }
-
+.main-container .btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.main-container .btn {
+  width: 250px;
+  height: 75px;
+  border-radius: 38px;
+}
+.btn-register,
+.btn-more {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+}
+.btn-register {
+  background-color: #4086ca;
+}
+.btn-more {
+  background-color: #6bb9e7;
+}
 /*Servicios*/
 .service-container {
-  background-image: url('../assets/img/service_fondo.png');
+  background-image: url("../assets/img/service_fondo.png");
   background-repeat: no-repeat;
   overflow: hidden;
   background-position: center;
   background-size: 125% 100%;
 }
 
-.main-container .btn{
-  width: 250px;
-  height: 75px;
-  border-radius: 38px;
-}
-.btn-register,.btn-more{
-  font-size: 3rem;
-  font-weight: bold;
-  color: #fff;
-}
-.btn-register{
-  background-color: #4086CA;
-}
-.btn-more {
-  background-color: #6BB9E7;
+/* Break points*/
+@media (min-width: 768px) {
+  section {
+    padding: 12rem 0;
+  }
 }
 
+@media (max-width: 768px) {
+  #mainNav {
+    background: var(--background);
+  }
+  #mainNav .navbar-brand img {
+    height: 3.5rem;
+  }
+  #services{
+    background-image: none;
+    background-color: var(--secondary-color);
+  }
+  .main-container .btn-container {
+    flex-direction: column;
+  }
+  .main-container .btn {
+    margin: 25px auto;
+  }
+}
+
+@media (min-width: 992px) {
+  #mainNav {
+    padding-top: 2.4rem;
+    padding-bottom: 2.4rem;
+    border: none;
+    background-color: transparent;
+    transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+  }
+  #mainNav .navbar-brand {
+    font-size: 2.4rem;
+    transition: font-size 0.3s ease-in-out;
+  }
+  #mainNav .navbar-brand img {
+    height: 3.2rem;
+    transition: height 0.3s ease-in-out;
+  }
+  #mainNav.navbar-shrink {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    background: var(--background);
+    font-size: 1.5rem;
+  }
+  #mainNav.navbar-shrink .navbar-brand svg,
+  #mainNav.navbar-shrink .navbar-brand img {
+    height: 2.4rem;
+  }
+  #mainNav .navbar-nav .nav-item {
+    margin-right: 1rem;
+  }
+  #mainNav .navbar-nav .nav-item:last-child {
+    margin-right: 0;
+  }
+  .main-container .main-fondo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: -1;
+    background-image: url("../assets/img/main_fondo.png");
+    background-position-x: 100%;
+    background-position-y: calc(0% - 280px);
+    background-size: auto;
+    background-repeat: no-repeat;
+  }
+  .main-title {
+    width: 50%;
+  }
+  .main-container .btn-container {
+    margin: 50px auto;
+  }
+}
