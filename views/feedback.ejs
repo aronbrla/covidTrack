@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje enviado</title>
+    <%- include('partials/head')%>
+    <style>
+        html{
+            font-size: 62.5%;
+        }
+        body{
+            background-color: #6fc0ef;
+        }
+        .mensaje {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 6vw;
+        }
+        .mensaje .btn {
+            width: auto;
+            height: auto;
+            border-radius: 38px;
+            font-size: 3vw;
+            padding: 0 50px;
+        }
+        footer{
+            width: 100%;
+            position: absolute;
+            bottom: 0%;
+            background-color: aliceblue;
+        }
+        .social{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mensaje text-center">
+            <img src="../resources/assets/img/undraw_message_sent_1030.svg" alt=""
+                width="50%"
+                height="50%">
+            <p>Grancias por el Mensaje</p>
+            <a class="btn btn-success btn-lg" href="register">Registrarse</a>
+        </div>
+    </div>
+    <%- include('partials/footer')%>
+</body>
+</html>

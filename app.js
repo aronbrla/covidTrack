@@ -1,12 +1,14 @@
 //1.importando libreria
-const express =require('express');
-const app =express(); 
+const express = require('express');
+const app = express(); 
 //montando el servidor en la ruta 3000
-app.listen(3000,function(peticion,respuesta){console.log('SERVER RUNNING IN http://localhost:3000');
+const port = process.env.PORT || 3300;
+app.listen(port,() => {
+    console.log('SERVER RUNNING IN http://localhost:',port);
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
 //4 el directorio public
@@ -272,3 +274,6 @@ app.post('/paciente/EditCon',async(req,res)=>{
         })
     }
 })
+
+/* Contac Us Js usando nodemailer */
+app.use('/',require('./routes/contact-us'));
