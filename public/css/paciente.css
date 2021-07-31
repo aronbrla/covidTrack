@@ -210,6 +210,12 @@ a {
     left: 80%;
     top: -10%;
 }
+.main-logo img{
+  position: absolute;
+  left: 70%;
+  top: -50px;
+}
+
 
 
 .info-container {
