@@ -1,3 +1,44 @@
 <%- include('../partials/parte_sup.ejs')%>
-Contenido principal...
+<!-- CDN Calendar-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+<!-- Fullcalendar core JS-->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.setOption('locale', 'es');
+      calendar.render();
+    });
+</script>
+
+<div class="container mt-5" style="width: 80%;">
+    <div class="row mb-2">
+        <div class="col-xl-8 align-self-center">
+            <div class="main-title justify-content-xl-start">
+                <h1 class="text-light text-center ms-lg-5">Información Personal</h1>
+                <div class="main-logo d-none d-xl-block">
+                    <img src="../../../resources/assets/img/clipboard-solid.svg" width="120px" height="120px">
+                </div>
+            </div>
+        </div>
+        <div class="col-3 d-none d-xl-flex flex-column" style="background-color: #fff; border-radius: 25px; padding: 5px 25px;">
+            <span>- Cita: Viernes 19 de noviembre</span>
+            <span>- Hora: 7:00 PM</span>
+            <span>- Doctor: Louis Barrios</span>
+            <span>👉 Costo: 150 soles</span>
+            <span>👉 No olvide su DNI</span>
+            <span>👉 No olvide Orden de Procedimiento</span>
+            <span>⚠ Asistir con doble mascarilla
+                y protector facial obligatorio
+            </span>
+        </div>
+    </div>
+    <div class="container text-uppercase" width="100%">
+        <div id='calendar'></div>
+    </div>
+</div>
 <%- include('../partials/parte_inf.ejs')%>

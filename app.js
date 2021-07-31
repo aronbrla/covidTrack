@@ -4,7 +4,7 @@ const app = express();
 //montando el servidor en la ruta 3000
 const port = process.env.PORT || 3300;
 app.listen(port,() => {
-    console.log('SERVER RUNNING IN http://localhost:',port);
+    console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
 
 //2. seteamos urlencoded para capturar datos del formulario
