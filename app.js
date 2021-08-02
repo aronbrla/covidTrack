@@ -1,8 +1,8 @@
 //1.importando libreria
 const express = require('express');
 const app = express(); 
-//montando el servidor en la ruta 3000
-const port = process.env.PORT || 3000;
+//montando el servidor en la ruta 4000
+const port = process.env.PORT || 4000;
 app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
@@ -50,6 +50,7 @@ app.post('/register', async (req,res)=>{
     //encriptando la contraseña
     let passwordHaas=await bcryptjs.hash(pass,8);
     //buscamos correo y dni, si ya están en la base de datos no podrá registrarse:
+    console.log(req.body);
     connection.query('SELECT * FROM paciente WHERE pac_email= ? ',[mail],async(error,results)=>{
         if(error){
             console.log(error);
