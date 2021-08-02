@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express(); 
 //montando el servidor en la ruta 3000
-const port = process.env.PORT || 3300;
+const port = process.env.PORT || 3000;
 app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
@@ -260,7 +260,8 @@ app.post('/paciente/EditCon',async(req,res)=>{
                             }else{
                                 console.log('¡Contraseña cambiada! Por favor vuelve a loguearte.');
                                 req.session.destroy(() => {
-                                    console.log('cerraste sesion desde home');
+                                    console.log('cerraste sesion');
+                                    res.redirect('/login')
                                 })
                             }
                         })
