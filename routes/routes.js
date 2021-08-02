@@ -42,8 +42,8 @@ router.get('/paciente/informacion',(req,res)=>{
             TELEFONO: req.session.TELEFONo,
             CORREO: req.session.CORREo,
             EDAD: req.session.EDAd,
-            SEXO: 'F o M',
-            DISTRITO: 'un distrito',
+            SEXO: req.session.SEXo,
+            DISTRITO: req.session.DISTRITo,
             REGION: 'region'
             
         });
@@ -73,8 +73,8 @@ router.get('/paciente/ajustes',(req,res)=>{
             TELEFONO: req.session.TELEFONo,
             CORREO: req.session.CORREo,
             EDAD: req.session.EDAd,
-            SEXO: 'F o M',
-            DISTRITO: 'un distrito',
+            SEXO: req.session.SEXo,
+            DISTRITO: req.session.DISTRITo,
             REGION: 'region'
         });
 

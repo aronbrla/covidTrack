@@ -47,6 +47,8 @@ app.post('/register', async (req,res)=>{
     const address=req.body.address;
     const phone=req.body.phone;
     const date=req.body.date;
+    const distrito=req.body.distrito;
+    const sexo=req.body.sexo;
     //encriptando la contraseña
     let passwordHaas=await bcryptjs.hash(pass,8);
     //buscamos correo y dni, si ya están en la base de datos no podrá registrarse:
@@ -65,7 +67,7 @@ app.post('/register', async (req,res)=>{
                             res.send("USUARIO YA REGISTRADO"); 
                         }else{
                             //si no encuentra los datos, se puede registrar
-                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address},async(error,results)=>{
+                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address,pac_distrito:distrito,pac_sexo:sexo},async(error,results)=>{
                                 if(error){
                                     console.log(error);
                                 }else{
@@ -86,13 +88,6 @@ app.post('/auth', async(req,res)=>{
     const user= req.body.user;
     const pass= req.body.pass;
     const tipouser=req.body.usertype;
-    var mail="";
-    var name="";
-    var lastname="";
-    var pdni="";
-    var adress="";
-    var phone="";
-    var date="";
     let passwordHaash=await bcryptjs.hash(pass,8);
     if(user && pass){
         if(tipouser=="paciente"){
@@ -113,12 +108,12 @@ app.post('/auth', async(req,res)=>{
                             req.session.DIRECCIOn=results[0].pac_direccion;
                             req.session.DNi=results[0].pac_dni;
                             req.session.TELEFONo=results[0].pac_celular;
+                            req.session.SEXo=results[0].pac_sexo;
+                            req.session.DISTRITo=results[0].pac_distrito;
                             let fecha=results[0].pac_nacimiento;
                             let a=fecha.toString();
                             let b=a.substring(4,15);
-                            req.session.DISTRITo="Chimbote";
                             req.session.EDAd=b;
-                            req.session.SEXo='M o F';
                             console.log(req.session.NOMBRe);
                             let region= "ancash";
                             let edad = "18";
@@ -187,7 +182,8 @@ app.post('/paciente/editar',async(req,res)=>{
    // const distrito=req.body.distrito;
     const celular=req.body.phone;
     const domicilio=req.body.address;
-        connection.query('UPDATE paciente SET pac_direccion=? , pac_celular=? WHERE pac_dni=?',[domicilio,celular,req.session.DNi],async(error,results)=>{
+    const distrito=req.body.distrito;
+        connection.query('UPDATE paciente SET pac_distrito=?, pac_direccion=? , pac_celular=? WHERE pac_dni=?',[distrito,domicilio,celular,req.session.DNi],async(error,results)=>{
             if(error){
                 console.log(error);
             }else{
@@ -204,9 +200,9 @@ app.post('/paciente/editar',async(req,res)=>{
                         let fecha=results[0].pac_nacimiento;
                         let a=fecha.toString();
                         let b=a.substring(4,15);
-                        req.session.DISTRITo="Chimbote";
+                        req.session.DISTRITo=results[0].pac_distrito;
                         req.session.EDAd=b;
-                        req.session.SEXo='M o F';
+                        req.session.SEXo=results[0].pac_sexo;
                         console.log(req.session.NOMBRe);
                         let region= "ancash";
                         let edad = "18";
