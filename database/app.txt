@@ -1,0 +1,46 @@
+DROP DATABASE covidtrack;
+CREATE DATABASE covidtrack;
+
+SET GLOBAL time_zone = '-5:00';
+#DROP TABLE paciente;
+#DROP TABLE doctores;
+#DROP TABLE seguimiento;
+
+USE covidtrack;
+
+CREATE TABLE paciente (
+   pac_codigo int NOT NULL AUTO_INCREMENT,
+   pac_dni VARCHAR(9) NOT NULL,
+   pac_apellidos VARCHAR (40) NOT NULL,
+   pac_nombres VARCHAR (40) NOT NULL,
+   pac_email VARCHAR (40) NOT NULL,
+   pac_contrasenia VARCHAR (255) NOT NULL,
+   pac_celular VARCHAR (9) NOT NULL,
+   pac_direccion VARCHAR (40) NOT NULL,
+   pac_nacimiento DATE NOT NULL,
+   pac_distrito VARCHAR(40) NOT NULL,
+   pac_sexo VARCHAR(20) NOT NULL,
+   PRIMARY KEY (pac_codigo)
+);
+
+CREATE TABLE doctores (
+   doc_codigo int NOT NULL AUTO_INCREMENT,
+   doc_apellidos VARCHAR (40) NOT NULL,
+   doc_nombres VARCHAR (40) NOT NULL,
+   doc_email VARCHAR (40) NOT NULL,
+   doc_contrasenia VARCHAR (255) NOT NULL,
+   doc_celular VARCHAR (9) NOT NULL,
+   pac_codigo INT NOT NULL,
+	FOREIGN KEY (pac_codigo) REFERENCES paciente (pac_codigo), 
+   PRIMARY KEY (doc_codigo)
+);
+
+CREATE TABLE seguimiento (
+	seg_id int NOT NULL AUTO_INCREMENT,
+	pac_codigo INT NOT NULL,
+	doc_codigo INT NOT NULL,
+	seg_observacion VARCHAR (80) NOT NULL,
+   FOREIGN KEY (pac_codigo) REFERENCES paciente (pac_codigo),
+   FOREIGN KEY (doc_codigo) REFERENCES doctores (doc_codigo),
+   PRIMARY KEY(seg_id)
+);
