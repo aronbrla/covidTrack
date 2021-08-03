@@ -1,9 +1,9 @@
 const mysql =require('mysql');
 const connection =mysql.createConnection({
-    host: process.env.HOST || "localhost",
-    database: process.env.DATABASE || "covidtrack",
-    user: process.env.USER || "root",
-    password: process.env.PASSWORD || "",
+    host: "us-cdbr-east-04.cleardb.com" || "localhost",
+    database: "heroku_c960b61942b19d8" || "covidtrack",
+    user: 'b9bce1223109e1' || "root",
+    password: '141d05d2' || "",
     multipleStatements: true
 });
 connection.connect((error)=>{
