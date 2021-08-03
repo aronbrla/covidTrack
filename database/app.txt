@@ -1,12 +1,8 @@
-DROP DATABASE covidtrack;
-CREATE DATABASE covidtrack;
-
-SET GLOBAL time_zone = '-5:00';
-#DROP TABLE paciente;
-#DROP TABLE doctores;
 #DROP TABLE seguimiento;
+#DROP TABLE doctores;
+#DROP TABLE paciente;
 
-USE covidtrack;
+USE heroku_c960b61942b19d8;
 
 CREATE TABLE paciente (
    pac_codigo int NOT NULL AUTO_INCREMENT,
