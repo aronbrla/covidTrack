@@ -106,4 +106,49 @@ router.get('/paciente/logout',(req,res)=>{
 })
 //Fin de las rutas del dash paciente
 
+
+//Rutas del dash DOCTOR
+router.get('/doctor',(peticion,respuesta)=>{
+    respuesta.render('../views/doctor/index.ejs');
+});
+
+router.get('/doctor/informacion',(peticion,respuesta)=>{                            
+    respuesta.render('../views/doctor/sites/info.ejs');
+});
+
+router.get('/doctor/pacientes',(peticion,respuesta)=>{                            
+    respuesta.render('../views/doctor/sites/pacientes.ejs');
+});
+
+router.get('/doctor/citas',(peticion,respuesta)=>{
+    respuesta.render('../views/doctor/sites/citas.ejs');
+});
+  //12 auth page
+router.get('/doctor/ajustes',(req,res)=>{
+    if(/*req.session.loggedin*/ true){
+        res.render('../views/doctor/sites/ajustes.ejs',{
+            login:true,
+            NOMBRE: "req.session.NOMBRe",
+            DNI: "req.session.DNi",
+            DIRECCION: "req.session.DIRECCIOn",
+            TELEFONO: "req.session.TELEFONo",
+            CORREO: "req.session.CORREo",
+            EDAD: "req.session.EDAd",
+            SEXO: 'F o M',
+            DISTRITO: 'un distrito',
+            REGION: 'region'
+        });
+    }else{
+        res.render('/views/login.ejs',{
+            login: false
+        });
+    }
+});
+
+
+
+
+
+
+
 module.exports = router;

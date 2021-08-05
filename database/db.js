@@ -3,7 +3,7 @@ const connection =mysql.createConnection({
     host: process.env.HOST || "localhost",
     database: process.env.DATABASE || "covidtrack",
     user: process.env.USER || "root",
-    password: process.env.PASSWORD || "",
+    password: process.env.PASSWORD || "123456",
     multipleStatements: true
 });
 connection.connect((error)=>{
