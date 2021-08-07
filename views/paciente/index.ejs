@@ -1,6 +1,6 @@
 <%- include('./partials/parte_sup.ejs')%>
 <div class="main-container row mb-3">
-    <div class="col col-lg-8 my-4">
+    <div class="col col-lg-7 my-4">
         <div class="main-title justify-content-lg-start">
             <h1 class="text-light ms-lg-5">Contacto del Doctor</h1>
             <div class="main-logo d-none d-lg-block">
@@ -36,7 +36,7 @@
             </ul>
         </div>
     </div>
-    <div class="col col-lg-4 my-4 align-items-top">
+    <div class="col col-lg-5 my-4 align-items-top">
         <div class="main-title justify-content-lg-start">
             <h1 class="text-light ms-lg-5">Historial de Citas</h1>
             <div class="main-logo d-none d-lg-block">
@@ -52,11 +52,16 @@
                     <span class="col"><strong>Hora</strong></span>
                     <span class="col"><strong>Estado</strong></span>
                 </div>
-                <li class="list-group-item">
-                    <span class="col">Dato 1</span> 
-                    <span class="col">Dato 1</span>
-                    <span class="col">Dato 1</span>  
-                </li>
+                <%  var citas = [["17/8/21","15:30","Próximo"],["05/08/21","16:30","Completado"],["17/09/21","16:30","Completado"]]; %> 
+                <%  var cita;%> 
+                <% for( let index = 0; index < citas.length; index++ ) { %>
+                    <%  var cita = citas[index]; %> 
+                    <li class="list-group-item">
+                        <% for( let j = 0; j < cita.length; j++ ) { %>
+                            <span class="col"><%- cita[j] %> </span> 
+                        <% } %>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>
