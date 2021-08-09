@@ -137,18 +137,14 @@ router.get('/doctor/chat',(peticion,respuesta)=>{
 
   //12 auth page
 router.get('/doctor/ajustes',(req,res)=>{
-    if(/*req.session.loggedin*/ true){
+    if(req.session.loggedin){
         res.render('../views/doctor/sites/ajustes.ejs',{
             login:true,
-            NOMBRE: "req.session.NOMBRe",
-            DNI: "req.session.DNi",
-            DIRECCION: "req.session.DIRECCIOn",
-            TELEFONO: "req.session.TELEFONo",
-            CORREO: "req.session.CORREo",
-            EDAD: "req.session.EDAd",
-            SEXO: 'F o M',
-            DISTRITO: 'un distrito',
-            REGION: 'region'
+            nombred: req.session.NOMBREDOCTOR,
+            dnid: "12362812",
+            telefonod: req.session.TELEFONODOCTOR,
+            correod: req.session.CORREODOCTOR,
+            sexod: req.session.SEXODOC,
         });
     }else{
         res.render('/views/login.ejs',{
@@ -157,7 +153,17 @@ router.get('/doctor/ajustes',(req,res)=>{
     }
 });
 
-
+router.get('/doctor/logout',(req,res)=>{
+    req.session.destroy((err) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('/login'); // siempre se ejecutará después de que se destruya la sesión
+            console.log("cerraste sesion 2");
+        }
+	});
+})
 
 
 

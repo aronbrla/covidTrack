@@ -213,7 +213,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-//14. Editar datos
+//14. Editar datos paciente
 app.post('/paciente/editar',async(req,res)=>{
    // const distrito=req.body.distrito;
     const celular=req.body.phone;
@@ -307,6 +307,83 @@ app.post('/paciente/EditCon',async(req,res)=>{
         })
     }
 })
+
+//15. Editar datos doctor
+app.post('/doctor/editar',async(req,res)=>{
+    // const distrito=req.body.distrito;
+     const celular=req.body.phone;
+     const email=req.body.email;
+         connection.query('UPDATE doctores SET doc_email, doc_celular=? WHERE doc_nombres=?',[distrito,domicilio,celular,req.session.NOMBREDOCTOR],async(error,results)=>{
+             if(error){
+                 console.log(error);
+             }else{
+                 connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
+                     if(error){
+                         console.log(error);
+                     }else{
+                         req.session.loggedin=true;
+                         req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
+                         req.session.CORREODOCTOR=results[0].doc_email;
+                         req.session.TELEFONODOCTOR=results[0].doc_celular;
+                         req.session.SEXODOC=results[0].doc_sexo;
+                         console.log(req.session.NOMBREDOCTOR);
+                         let region= "ancash";
+                         let edad = "18";
+                         let sexo="Masculino";
+                         let distrito ="Chimbote";
+                         let doctor = "Dr. House";
+                         let telefonoDoctor = "0000000";
+                         let correoDoctor="drhouse@hotmail.com";
+                         let dniDoctor="333333";
+                         let ultimaCita="ayer";
+                         let proximaCita="hoy";
+
+                         res.render('doctor',{
+                            npacientes:req.session.NUMEROPACIENTES
+                        });
+                     }
+                 })
+             }
+         });
+ })
+
+ app.post('/doctor/EditCon',async(req,res)=>{
+     const pass = req.body.pass;
+     const npass = req.body.passwordNew1;
+     const cpass = req.body.passwordNew2;
+     if(pass && npass && cpass){
+         connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
+             if(pass != results.doc_contrasenia[0]){
+ 
+                 res.send("La contraseña actual es incorrecta.");
+                 
+             }else{
+                 if(npass == pass){
+                     res.send("La constraseña actual y la nueva no pueden ser iguales.")
+                 }
+                 else{
+                     if(npass == cpass){
+                         connection.query('UPDATE doctores SET doc_contrasenia=? WHERE doc_email=?',[npass,req.session.CORREODOCTOR],async(error,results)=>{
+                             if(error){
+                                 console.log(error);
+                             }else{
+                                 console.log('¡Contraseña cambiada! Por favor vuelve a loguearte.');
+                                 req.session.destroy(() => {
+                                     console.log('cerraste sesion');
+                                     res.redirect('/login')
+                                 })
+                             }
+                         })
+                     }
+                     else{
+                         console.log('Las contraseñas no son iguales.');
+                     }
+                 }
+             }
+ 
+         })
+     }
+ })
 
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));
