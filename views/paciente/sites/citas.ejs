@@ -1,20 +1,38 @@
 <%- include('../partials/parte_sup.ejs')%>
-<!-- CDN Calendar-->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-<!-- Fullcalendar core JS-->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.setOption('locale', 'es');
-      calendar.render();
-    });
-</script>
-
+<head>
+    <!-- CDN Calendar-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+    <!-- Fullcalendar core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'Cita medica',
+                        start: '2021-08-13',
+                    },
+                    {
+                        title: 'Cita medica',
+                        start: '2021-08-18',
+                    },
+                    {
+                        title: 'Cita medica',
+                        start: '2021-08-27',
+                    }
+                ]
+            });
+            calendar.setOption('locale', 'es');
+            calendar.render();
+        });
+    </script>
+</head>
+<% datenew = new Date(2021,08,27) %> 
+<% d = datenew.toLocaleDateString(); %> 
+<% event = {date: d}; %> 
 <div class="container mt-5" style="width: 80%;">
     <div class="row mb-2">
         <div class="col-xl-8 align-self-center">
@@ -26,7 +44,7 @@
             </div>
         </div>
         <div class="col-3 d-none d-xl-flex flex-column" style="background-color: #fff; border-radius: 25px; padding: 5px 25px;">
-            <span>- Cita: Viernes 19 de noviembre</span>
+            <span>- Cita: <%= event.date %>  </span>
             <span>- Hora: 7:00 PM</span>
             <span>- Doctor: Louis Barrios</span>
             <span>👉 Costo: 150 soles</span>

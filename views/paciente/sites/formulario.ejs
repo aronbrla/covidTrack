@@ -1,3 +1,144 @@
 <%- include('../partials/parte_sup.ejs')%>
-Mis Formularios...
+<head>
+    <style>
+        .form-input{
+            width: auto;
+            max-width: 700px;
+            margin-top: 25px;
+        }
+        /*Estilos Box input*/
+        .form-input .input-group{
+            width: 100%;
+            max-width: 800px;
+            background-color: #FFFFFF;
+            padding: 10px 15px;
+            border-radius: 34px;
+            border: 1px solid #707070;
+            box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.57);
+        }
+        .form-input .input-group-text{
+            background-color: transparent;
+            color: #655F5F;
+            border: none;
+            gap: 10px;
+        }
+        .form-input .input-group span{
+            background-color: transparent;
+            color: #655F5F;
+            border: none;
+        }
+        .input-group .check-input{
+            width: 16px;
+            height: 16px;
+        }
+        /* Fin de estilos Box input */
+
+        /* Estilos titulo de input*/
+        .input-title{
+            display: block;
+            margin: 10px 0;
+            font-size: 25px;
+            font-weight: 600;
+            color: #3B3333;
+        }
+        .input-title .input-img{
+            display: inline-block;
+            width: 50px;
+            border: 1px solid;
+        }
+        /* Fin de estilos titulo de input*/
+    </style>
+</head>
+<div class="flex-column" style="margin-top: 20px;">
+    <div class="container">
+        <div class="main-title justify-content-lg-start" style="max-width: 700px;">
+            <h1 class="text-light text-center ms-lg-5">Información Personal</h1>
+            <div class="main-logo d-none d-xl-block">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="book-reader" class="svg-inline--fa fa-book-reader fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64">
+                    <path fill="currentColor" d="M352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zM233.59 241.1c-59.33-36.32-155.43-46.3-203.79-49.05C13.55 191.13 0 203.51 0 219.14v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87V252.56c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06V219.14c-.01-15.63-13.56-28.01-29.81-27.09z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-container" style="width: 70%; margin-top: 50px;">
+            <form action="" method="POST">
+                <div class="flex-column">
+                    <div class="form-input">
+                        <div class="input-title">
+                            <div class="input-img">
+                                <img src="../../../resources/assets/icons/thermometer-three-quarters-solid.png" alt="">
+                            </div>
+                            <span>TEMPERATURA</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="temp" class="input-group-text">INGRESE SU TEMPERATURA ACTUAL</label>
+                            <input type="number" min="30" max="50" name="temp" id="temp" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <span class="input-group-text px-1">C°</span>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <div class="input-title">
+                            <div class="input-img">
+                                <img src="../../../resources/assets/icons/soap-solid.png" alt="">
+                            </div>
+                            <span>SATURACIÓN DE OXÍGENO</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="oxig" class="input-group-text">INGRESE SU PORCENTAJE DE SATURACIÓN DE OXÍGENO</label>
+                            <input type="number" min="10" max="100" name="oxig" id="oxig" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <span class="input-group-text px-1">%</span>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <div class="input-title">
+                            <div class="input-img">
+                                <img src="../../../resources/assets/icons/lungs-virus-solid.png" alt="">
+                            </div>
+                            <span>SÍNTOMAS</span>
+                        </div>
+                        <div class="input-group d-block">
+                            <span class="input-group-text">MARQUE TODOS SUS SÍNTOMAS ACTUALES</span>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">TOS</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">ESCALOFRÍOS</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">CANSANCIO INTENSO</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">DOLOR DE GARGANTA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">DOLOR DE CABEZA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">NÁUSEAS, VÓMITOS O DIARREA</label>
+                            <label class="input-group-text" for="sintoma">OTRO (INGRESE SU SÍNTOMA):</label>
+                            <textarea class="ms-3 form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="2"></textarea>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">NO POSEO NINGÚN SÍNTOMA</label>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <div class="input-title">
+                            <div class="input-img">
+                                <img src="../../../resources/assets/icons/head-side-virus-solid.png" alt="">
+                            </div>
+                            <span>OTRAS ENFERMEDADES</span>
+                        </div>
+                        <div class="input-group">
+                            <div class="container">
+                                <span class="input-group-text ps-0">SELECCIONE LAS ENFERMEDADES QUE TIENE </span>
+                                <select name="select" class="custom-select" style="width: 100%; max-width: 350px; border: 2px solid #728C91">
+                                    <option selected disabled>Seleccionar enfermedad...</option>
+                                    <option value="value2">Value 2</option>
+                                    <option value="value3">Value 3</option>
+                                </select>
+                            </div>
+                            <div class="container">
+                                <span class="input-group-text ps-0">OTRAS ENFERMEDADES (OPCIONAL):</span>
+                                <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="1"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="edit my-3 d-flex justify-content-center justify-content-lg-end" style="max-width: 700px;">
+                        <button id="submitDatos" name="submit" class="btn btn-outline-info" style="height: 35px;">Guardar cambios</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container" style="margin-bottom: 60px;"></div>
+</div>
 <%- include('../partials/parte_inf.ejs')%>

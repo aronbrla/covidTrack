@@ -1,3 +1,13 @@
+<% var notificaciones = []; %> 
+<% var notificacion = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Formulario', action: 'Responder formulario'} %> 
+<% notificaciones.push(notificacion);%>
+<% var notificacion2 = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Cita', action: 'Cita pendiente de asistir'} %> 
+<% notificaciones.push(notificacion2);%>  
+<% var notificacion3 = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30', nombre: 'Formulario2', action: 'Responder formulario2'} %> 
+<% notificaciones.push(notificacion3);%> 
+<% var notificacionNew = []; %>
+<% notificacionNew.push(notificacion); %>
+
 <div class="dropdown-container">
   <div class="notifications" data-bs-toggle="dropdown">
     <span class="count animated"></span>
@@ -11,29 +21,39 @@
     <div class="dropdown-header">
       <span class="triangle"></span>
       <span class="heading">Notifications</span>
-      <span class="count" id="dd-notifications-count">{{newNotifications.length}}</span>
+      <span class="count" id="dd-notifications-count"><%= notificaciones.length %> </span>
     </div>
-    <li class="dropdown-body">
-      <div class="notification new">
-        <div class="notification-image-wrapper">
-          <div class="notification-image">
-            <img src="{{notification.user.imageUrl}}" alt="" width="32">
+    <% notificaciones.forEach((notificacion) => { %>
+      <% if (notificacionNew.length > 0) { %>
+        <li class="dropdown-body">
+          <div class="notification new">
+            <div class="notification-image-wrapper">
+              <div class="notification-image">
+                <img alt="" width="32" src=<%= notificacion.icon %>>
+              </div>
+            </div>
+            <div class="notification-text">
+              <p class="d-flex justify-content-between my-0  highlight"><%= notificacion.nombre %> <span><%= notificacion.time %></span> </p> 
+              <p class="my-0"><%= notificacion.action %></p>
+            </div>
+          </div>
+        </li>
+        <% notificaciones.pop();%> 
+        <% notificacionNew.pop();%> 
+      <% } %>
+       <li class="dropdown-body">
+        <div class="notification">
+          <div class="notification-image-wrapper">
+            <div class="notification-image">
+              <img alt="" width="32" src=<%= notificacion.icon %>>
+            </div>
+          </div>
+          <div class="notification-text">
+            <p class="d-flex justify-content-between my-0  highlight"><%= notificacion.nombre %> <span class="justify-content-end"><%= notificacion.time %></span> </p> 
+            <p class="my-0"><%= notificacion.action %></p>
           </div>
         </div>
-        <div class="notification-text">
-          <span class="highlight">{{notification.user.name}}</span> {{notification.action}} {{notification.target}}
-        </div>
-      </div>
-      <div class="notification" ng-repeat="notification in readNotifications.slice().reverse() track by $index">
-        <div class="notification-image-wrapper">
-          <div class="notification-image">
-            <img src="{{notification.user.imageUrl}}" alt="" width="32">
-          </div>
-        </div>
-        <div class="notification-text">
-          <span class="highlight">{{notification.user.name}}</span> {{notification.action}} {{notification.target}}
-        </div>
-      </div>
-    </li>
+       </li>
+    <% }) %>
   </ul>
 </div>
