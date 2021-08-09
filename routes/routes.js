@@ -170,7 +170,7 @@ router.get('/doctor/ajustes',(req,res)=>{
         res.render('../views/doctor/sites/ajustes.ejs',{
             login:true,
             nombred: req.session.NOMBREDOCTOR,
-            dnid: "12362812",
+            dnid: req.session.DNIDOCTOR,
             telefonod: req.session.TELEFONODOCTOR,
             correod: req.session.CORREODOCTOR,
             sexod: req.session.SEXODOC,
