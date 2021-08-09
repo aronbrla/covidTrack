@@ -305,6 +305,7 @@ app.use('/',require('./routes/contact-us'));
 
 
 ///////////////////////SOCKETS//////////////////////
+/*
 let ides = new Map();
 let mensajes=[{dniE:"1",msje:"HOLA soy el 1",dniR:"2"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
 const SocketIO= require('socket.io');
@@ -329,6 +330,6 @@ io.on('connection',(socket)=>{
         console.log({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR},ides.get(data.dniR));
         io.to(ides.get(data.dniR)).emit('mensaje',{dniE:data.dniE,msje:data.mensaje,dniR:data.dniR} );
     })
-})
+})*/
 
 
