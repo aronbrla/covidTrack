@@ -1,16 +1,49 @@
 <%- include('../partials/parte_sup.ejs')%>
 
+<head>
+    <style>
+        .mensaje-container{
+            min-height: 50px;
+            max-height: fit-content;
+        }
+        .mensaje{
+            height: fit-content;
+            word-wrap: break-word;
+            max-width: 50%;
+            width: fit-content;
+        }
+        #OUPUT{
+            height: 90%;
+        }
+        .send-text {
+            max-height: 50px;
+        }
+        #boton .btn{
+            background-color: rgb(230, 112, 194);
+        }
+        .user-chat{
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+
 <div id="chatConteiner" class="container w-100 pt-1" style="height:90vh;">
     <div class="row w-100 h-100">
-        <div class="col-3 border h-100"></div>
+        <div class="list-group col-3 border h-100 pe-0">
+            <div class="user-chat list-group-item w-100 container btn" onclick="console.log('Hola');">
+                <img src="../../../resources/assets/icons/usuario.png" alt="" width="36px" height="36px">
+                <span style="font-weight: bold;">Dr. Pedro Martinez</span>
+            </div>
+        </div> 
         <div class="col-9 border h-100">
-            <div id ="chatWindow " class="h-100">
-                <div id ="OUPUT" class=" row w-100 border overflow-auto h-75">
+            <div id ="chatWindow" class="h-100">
+                <div id ="OUPUT" class="w-100 border overflow-auto">
                    
                 </div>
-                <div class="row w-100 h-25 border inpupt-group">
+                <div class="send-text row w-100 border m-auto  inpupt-group">
                     <textarea id ="INPUT" type="text" class="col-9"></textarea>
-                    <button id="boton" class="col-3">Enviar</button>
+                    <button id="boton" class="btn btn-secondary col-3">Enviar</button>
                 </div>
                 
             </div>  
@@ -65,10 +98,20 @@
 
     function mostrarMensaje(msj){
         if(msj.dniE==DNI){
-            salida.innerHTML+= `<div class= "row w-100 "><div class="col-3"></div><div class="pt-2 pb-2 m-2 col-9" style="min-height: 60px;word-wrap: break-word;max-width: 420px;min-width: 120px; background-color: rgba(0,0,0,.1)">${msj.msje}</div></div><br/>`;
+            salida.innerHTML+= `
+            <div class= "mensaje-container d-flex w-100 justify-content-end">
+                <div class="mensaje p-3 m-2 col-9" style="background-color: rgba(0,0,0,.1)">
+                    ${msj.msje}
+                </div>
+            </div><br/>`;
         }
         if(msj.dniE==DNIR){
-            salida.innerHTML+= `<div class= "row w-100 "><div class="pt-2 pb-2 m-2 float-left" style="min-height: 60px;word-wrap: break-word; max-width: 420px;min-width: 120px; background-color: rgba(0,0,255,.1)">${msj.msje}</div></div><br/>`;
+            salida.innerHTML+= `
+            <div class= "mensaje-container d-flex w-100 justify-content-start">
+                <div class="mensaje p-3 m-2" style="background-color: rgba(0,0,255,.1)">
+                    ${msj.msje}
+                </div>
+            </div><br/>`;
         }
         
     }
