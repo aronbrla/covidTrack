@@ -123,6 +123,11 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 router.get('/doctor/citas',(peticion,respuesta)=>{
     respuesta.render('../views/doctor/sites/citas.ejs');
 });
+
+router.get('/doctor/chat',(peticion,respuesta)=>{
+    respuesta.render('../views/doctor/sites/chat.ejs');
+});
+
   //12 auth page
 router.get('/doctor/ajustes',(req,res)=>{
     if(/*req.session.loggedin*/ true){
