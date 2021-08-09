@@ -119,7 +119,8 @@ router.get('/doctor/informacion',(peticion,respuesta)=>{
     respuesta.render('../views/doctor/sites/info.ejs',{
         nombred:peticion.session.NOMBREDOCTOR,
         correod:peticion.session.CORREODOCTOR,
-        telefonod:peticion.session.TELEFONODOCTOR
+        telefonod:peticion.session.TELEFONODOCTOR,
+        dnid:peticion.session.DNIDOCTOR,
     });
 });
 
@@ -141,7 +142,7 @@ router.get('/doctor/ajustes',(req,res)=>{
         res.render('../views/doctor/sites/ajustes.ejs',{
             login:true,
             nombred: req.session.NOMBREDOCTOR,
-            dnid: "12362812",
+            dnid: req.session.DNIDOCTOR,
             telefonod: req.session.TELEFONODOCTOR,
             correod: req.session.CORREODOCTOR,
             sexod: req.session.SEXODOC,

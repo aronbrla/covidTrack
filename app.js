@@ -167,6 +167,7 @@ app.post('/auth', async(req,res)=>{
                     req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
                     req.session.CORREODOCTOR=results[0].doc_email;
                     req.session.TELEFONODOCTOR=results[0].doc_celular;
+                    req.session.DNIDOCTOR=results[0].doc_dni;
                     let npacientes;
                     connection.query('SELECT pac_codigo FROM paciente', async(error,results)=>{
                         if(results.length==0 ){
@@ -239,7 +240,6 @@ app.post('/paciente/editar',async(req,res)=>{
                         req.session.DISTRITo=results[0].pac_distrito;
                         req.session.EDAd=b;
                         req.session.SEXo=results[0].pac_sexo;
-                        console.log(req.session.NOMBRe);
                         let region= "ancash";
                         let edad = "18";
                         let sexo="Masculino";
@@ -311,41 +311,42 @@ app.post('/paciente/EditCon',async(req,res)=>{
 //15. Editar datos doctor
 app.post('/doctor/editar',async(req,res)=>{
     // const distrito=req.body.distrito;
-     const celular=req.body.phone;
-     const email=req.body.email;
-         connection.query('UPDATE doctores SET doc_email, doc_celular=? WHERE doc_nombres=?',[distrito,domicilio,celular,req.session.NOMBREDOCTOR],async(error,results)=>{
-             if(error){
-                 console.log(error);
-             }else{
-                 connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
-                     if(error){
-                         console.log(error);
-                     }else{
-                         req.session.loggedin=true;
-                         req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
-                         req.session.CORREODOCTOR=results[0].doc_email;
-                         req.session.TELEFONODOCTOR=results[0].doc_celular;
-                         req.session.SEXODOC=results[0].doc_sexo;
-                         console.log(req.session.NOMBREDOCTOR);
-                         let region= "ancash";
-                         let edad = "18";
-                         let sexo="Masculino";
-                         let distrito ="Chimbote";
-                         let doctor = "Dr. House";
-                         let telefonoDoctor = "0000000";
-                         let correoDoctor="drhouse@hotmail.com";
-                         let dniDoctor="333333";
-                         let ultimaCita="ayer";
-                         let proximaCita="hoy";
+    
+    const celular=req.body.phone;
+    const email=req.body.email;
+        connection.query('UPDATE doctores SET doc_email=?, doc_celular=? WHERE doc_dni=?',[email,celular,req.session.DNIDOCTOR],async(error,results)=>{
+            if(error){
+                console.log(error);
+            }else{
+                connection.query('SELECT * FROM doctores WHERE doc_dni = ?', [req.session.DNIDOCTOR], async(error,results)=>{
+                    if(error){
+                        console.log(error);
+                    }else{
+                        req.session.loggedin=true;
+                        req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
+                        req.session.CORREODOCTOR=results[0].doc_email;
+                        req.session.DNIDOCTOR=results[0].doc_dni;
+                        req.session.TELEFONODOCTOR=results[0].doc_celular;
+                        req.session.SEXODOC=results[0].doc_sexo;
+                        let region= "ancash";
+                        let edad = "18";
+                        let sexo="Masculino";
+                        let distrito ="Chimbote";
+                        let doctor = "Dr. House";
+                        let telefonoDoctor = "0000000";
+                        let correoDoctor="drhouse@hotmail.com";
+                        let dniDoctor="333333";
+                        let ultimaCita="ayer";
+                        let proximaCita="hoy";
 
-                         res.render('doctor',{
+                        res.render('doctor',{
                             npacientes:req.session.NUMEROPACIENTES
                         });
-                     }
-                 })
-             }
-         });
- })
+                    }
+                })
+            }
+        });
+})
 
  app.post('/doctor/EditCon',async(req,res)=>{
      const pass = req.body.pass;
@@ -353,7 +354,7 @@ app.post('/doctor/editar',async(req,res)=>{
      const cpass = req.body.passwordNew2;
      if(pass && npass && cpass){
          connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
-             if(pass != results.doc_contrasenia[0]){
+             if(pass != results[0].doc_contrasenia){
  
                  res.send("La contraseña actual es incorrecta.");
                  
