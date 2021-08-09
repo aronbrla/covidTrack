@@ -3,7 +3,7 @@ const express = require('express');
 const app = express(); 
 //montando el servidor en la ruta 3000
 const port = process.env.PORT || 3000;
-app.listen(port,() => {
+var server=app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
 
@@ -70,7 +70,7 @@ app.post('/register', async (req,res)=>{
                             res.send("USUARIO YA REGISTRADO"); 
                         }else{
                             //si no encuentra los datos, se puede registrar
-                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address,pac_distrito:distrito,pac_sexo:sexo},async(error,results)=>{
+                            connection.query('INSERT INTO paciente SET ?',{pac_nacimiento:date,pac_dni:dni,pac_apellidos:lastname,pac_nombres:name,pac_email:mail,pac_contrasenia:passwordHaas,pac_celular:phone,pac_direccion:address,pac_distrito:distrito,pac_sexo:sexo,doc_dni:"72865690"},async(error,results)=>{
                                 if(error){
                                     console.log(error);
                                 }else{
@@ -133,20 +133,21 @@ app.post('/auth', async(req,res)=>{
                             DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
                             CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
                             });*/
-                            connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular FROM paciente INNER JOIN doctores ON paciente.doc_codigo=?',[1],async(error,results)=>{
+                            connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo FROM paciente INNER JOIN doctores ON paciente.doc_dni=?',["72865690"],async(error,results)=>{
                                 if (error){
                                     console.log(error);
                                 }else{
                                     req.session.NOMDOC=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
                                     req.session.CORDOC=results[0].doc_email;
                                     req.session.CELULDOC=results[0].doc_celular;
+                                    req.session.SEXODOC=results[0].doc_sexo;
                                     res.render('paciente',{
                                         login:true,
                                         NOMBRE: req.session.NOMBRe,
                                         NDOC: req.session.NOMDOC,
                                         NCOR: req.session.CORDOC,
                                         CELDOC: req.session.CELULDOC,
-                                        SEXODOC: "M"
+                                        SEXODOC: req.session.SEXODOC
                                     });
                                 }
                             })
@@ -157,8 +158,9 @@ app.post('/auth', async(req,res)=>{
                 }
             })
         }else{
-            connection.query('SELECT * FROM doctores WHERE doc_email = ?', [user], async(error,results)=>{
-                if(results.length==0 || pass!=results[0].doc_contrasenia){
+            connection.query('SELECT * FROM doctores WHERE doc_email= ?', [user], async(error,results)=>{
+                
+                if(results.length==0  || pass!=results[0].doc_contrasenia){
                     
                     res.send("Email o contraseña incorrecta");
                     
@@ -167,20 +169,13 @@ app.post('/auth', async(req,res)=>{
                     req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
                     req.session.CORREODOCTOR=results[0].doc_email;
                     req.session.TELEFONODOCTOR=results[0].doc_celular;
-                    let npacientes;
-                    connection.query('SELECT pac_codigo FROM paciente', async(error,results)=>{
-                        if(results.length==0 ){
-                            req.session.NUMEROPACIENTES=0;
+                    req.session.DNIDOCTOR=results[0].doc_dni;
+                    
+                    connection.query('SELECT pac_dni FROM paciente', async(error,results)=>{
+                        req.session.NUMEROPACIENTES=results.length;
                             res.render('doctor',{
                                 npacientes:req.session.NUMEROPACIENTES
-                            });
-                            
-                        }else{
-                            req.session.NUMEROPACIENTES=results[results.length-1].pac_codigo;
-                            res.render('doctor',{
-                                npacientes:req.session.NUMEROPACIENTES
-                            });
-                        } 
+                            }); 
                     })
                     
                    
@@ -240,16 +235,7 @@ app.post('/paciente/editar',async(req,res)=>{
                         req.session.EDAd=b;
                         req.session.SEXo=results[0].pac_sexo;
                         console.log(req.session.NOMBRe);
-                        let region= "ancash";
-                        let edad = "18";
-                        let sexo="Masculino";
-                        let distrito ="Chimbote";
-                        let doctor = "Dr. House";
-                        let telefonoDoctor = "0000000";
-                        let correoDoctor="drhouse@hotmail.com";
-                        let dniDoctor="333333";
-                        let ultimaCita="ayer";
-                        let proximaCita="hoy";
+                        
                         
                         res.render('paciente',{
                             login:true,
@@ -257,7 +243,7 @@ app.post('/paciente/editar',async(req,res)=>{
                             NDOC: req.session.NOMDOC,
                             NCOR: req.session.CORDOC,
                             CELDOC: req.session.CELULDOC,
-                            SEXODOC: "M"
+                            SEXODOC: req.session.SEXo
                         });
                     }
                 })
@@ -314,8 +300,8 @@ app.use('/',require('./routes/contact-us'));
 
 
 ///////////////////////SOCKETS//////////////////////
-/*
 let ides = new Map();
+
 let mensajes=[{dniE:"1",msje:"HOLA soy el 1",dniR:"2"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
 const SocketIO= require('socket.io');
 const io=SocketIO(server);
@@ -330,15 +316,13 @@ io.on('connection',(socket)=>{
             }
         }
         ides.set(data.dni,socket.id);  
-        console.log(data.dni,socket.id);
+       
         io.to(socket.id).emit('inicio', mensajesDelchat);
     })
     
     socket.on('mensaje',(data)=>{
         mensajes.push({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR});
-        console.log({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR},ides.get(data.dniR));
+        
         io.to(ides.get(data.dniR)).emit('mensaje',{dniE:data.dniE,msje:data.mensaje,dniR:data.dniR} );
     })
-})*/
-
-
+})

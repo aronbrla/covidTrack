@@ -30,11 +30,8 @@
 
 <div id="chatConteiner" class="container w-100 pt-1" style="height:90vh;">
     <div class="row w-100 h-100">
-        <div class="list-group col-3 border h-100 pe-0">
-            <div class="user-chat list-group-item w-100 container btn" onclick="console.log('Hola');">
-                <img src="../../../resources/assets/icons/usuario.png" alt="" width="36px" height="36px">
-                <span style="font-weight: bold;">Dr. Pedro Martinez</span>
-            </div>
+        <div class="list-group col-3 border h-100 pe-0" id="user-list">
+           
         </div> 
         <div class="col-9 border h-100">
             <div id ="chatWindow" class="h-100">
@@ -49,7 +46,12 @@
             </div>  
         </div>
     </div>
-
+    <div style="display: none;" id="dnioculto">
+        <%=dnioculto%>
+    </div>
+    <div style="display: none;" id="datospaciente">
+        <%=listapacientes%>
+    </div>
     
     
 </div>
@@ -58,61 +60,94 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const DNI=prompt("");
-    const DNIR=prompt("");
-    const socket=io();
-    console.log("este es el chat?");
-    socket.emit('conectar',{dni:DNI});
+    var usuarios=JSON.parse(document.getElementById("datospaciente").innerText);
+    var contactos=[];
+    const DNI=document.getElementById("dnioculto").innerText;
+    
+    
+    const lista = document.getElementById("user-list");
+    
+    lista.innerHTML="";
+    for(x of usuarios){
+        contactos.push({nombre: x.pac_nombres,dni: x.pac_dni});
+        
+    }
+    contactos.forEach(element => {
+        lista.innerHTML+=`
+        <div id=${element.dni+""} class="user-chat list-group-item w-100 container btn" onclick="iniciarchat(${element.dni});">
+                <img src="../../../resources/assets/icons/usuario.png" alt="" width="36px" height="36px">
+                <span style="font-weight: bold;">${element.nombre}</span>
+        </div>
+        `;
+    });
     var entrada = document.getElementById("INPUT");
     var salida = document.getElementById("OUPUT");
     var boton = document.getElementById("boton");
-    var mensajes=[]
 
-    boton.addEventListener('click',()=>{
-        if(entrada.value){
-        let mensajito =entrada.value.replaceAll("\n","<br>");
-        mensajes.push({dniE:DNI,mensaje:mensajito,dniR:DNIR});
-        socket.emit('mensaje',{dniE:DNI,mensaje:mensajito,dniR:DNIR});
-        console.log(mensajes);
-        mostrarMensaje({dniE:DNI,msje:mensajito,dniR:DNIR});
-        entrada.value="";
-        }
-    })
-
-    socket.on('inicio',(data)=>{
-        for(mensaje of data){
-            if((mensaje.dniE==DNI&&mensaje.dniR==DNIR)||(mensaje.dniR==DNI||mensaje.dniE==DNIR)){
-               mostrarMensaje(mensaje);
-            }
-            mensajes.push(mensaje)
-        }   
-        console.log(mensajes);
-
-    });
     
-    socket.on('mensaje',(data)=>{
-        mensajes.push(data);
-        console.log(mensajes);
-        mostrarMensaje(data);
-    });
-
-    function mostrarMensaje(msj){
-        if(msj.dniE==DNI){
-            salida.innerHTML+= `
-            <div class= "mensaje-container d-flex w-100 justify-content-end">
-                <div class="mensaje p-3 m-2 col-9" style="background-color: rgba(0,0,0,.1)">
-                    ${msj.msje}
-                </div>
-            </div><br/>`;
-        }
-        if(msj.dniE==DNIR){
-            salida.innerHTML+= `
-            <div class= "mensaje-container d-flex w-100 justify-content-start">
-                <div class="mensaje p-3 m-2" style="background-color: rgba(0,0,255,.1)">
-                    ${msj.msje}
-                </div>
-            </div><br/>`;
-        }
+    
+    function iniciarchat(cliente){
+        const socket=io();
+        DNIR=cliente;
+        console.log("este es el chat?");
+        socket.emit('conectar',{dni:(DNI+"")});
         
+        
+        var mensajes=[];
+        salida.innerHTML='';
+        boton.addEventListener('click',()=>{
+            if(entrada.value){
+            let mensajito =entrada.value.replaceAll("\n","<br>");
+            mensajes.push({dniE:(DNI+""),mensaje:mensajito,dniR:(DNIR+"")});
+            socket.emit('mensaje',{dniE:(DNI+""),mensaje:mensajito,dniR:(DNIR+"")});
+            console.log(mensajes);
+            mostrarMensaje({dniE:(DNI+""),msje:mensajito,dniR:(DNIR+"")});
+            entrada.value="";
+            salida.scrollTop =salida.scrollTop +99999;
+            }
+        })
+
+        socket.on('inicio',(data)=>{
+            for(mensaje of data){
+                if((mensaje.dniE==DNI&&mensaje.dniR==DNIR)||(mensaje.dniR==DNI||mensaje.dniE==DNIR)){
+                mostrarMensaje(mensaje);
+                }
+                mensajes.push(mensaje)
+            }   
+            console.log(mensajes);
+
+        });
+        
+        socket.on('mensaje',(data)=>{
+            mensajes.push(data);
+            console.log(mensajes);
+            mostrarMensaje(data);
+        });
+
+        function mostrarMensaje(msj){
+            if(msj.dniE==DNI){
+                salida.innerHTML+= `
+                <div class= "mensaje-container d-flex w-100 justify-content-end">
+                    <div class="mensaje p-3 m-2 col-9" style="background-color: rgba(0,0,0,.1)">
+                        ${msj.msje}
+                    </div>
+                </div><br/>`;
+                salida.scrollTop =salida.scrollTop +99999;
+            }
+            if(msj.dniE==DNIR){
+                salida.innerHTML+= `
+                <div class= "mensaje-container d-flex w-100 justify-content-start">
+                    <div class="mensaje p-3 m-2" style="background-color: rgba(0,0,255,.1)">
+                        ${msj.msje}
+                    </div>
+                </div><br/>`;
+                salida.scrollTop =salida.scrollTop +99999;
+            }
+            
+        }
+    }
+
+    if(contactos[0]){   
+        iniciarchat(contactos[0].dni);
     }
 </script>

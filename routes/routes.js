@@ -1,4 +1,5 @@
 const express = require('express');
+const connection = require('../database/db');
 const router = express.Router();
 
 router.get('/',(peticion,respuesta)=>{
@@ -27,7 +28,7 @@ router.get('/paciente',(req,respuesta)=>{
         NDOC: req.session.NOMDOC,
         NCOR: req.session.CORDOC,
         CELDOC: req.session.CELULDOC,
-        SEXODOC: "M"
+        SEXODOC: req.session.SEXODOC
         
     });
 
@@ -119,12 +120,22 @@ router.get('/doctor/informacion',(peticion,respuesta)=>{
     respuesta.render('../views/doctor/sites/info.ejs',{
         nombred:peticion.session.NOMBREDOCTOR,
         correod:peticion.session.CORREODOCTOR,
-        telefonod:peticion.session.TELEFONODOCTOR
+        telefonod:peticion.session.TELEFONODOCTOR,
+        dnid: peticion.session.DNIDOCTOR
     });
 });
 
-router.get('/doctor/pacientes',(peticion,respuesta)=>{                            
-    respuesta.render('../views/doctor/sites/pacientes.ejs');
+router.get('/doctor/pacientes',(peticion,respuesta)=>{
+   
+    connection.query('SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+        
+        
+        
+        respuesta.render('../views/doctor/sites/pacientes.ejs',{listapacientes:JSON.stringify(results)});
+        
+    })
+                   
+  
 });
 
 router.get('/doctor/citas',(peticion,respuesta)=>{
@@ -132,7 +143,15 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{
-    respuesta.render('../views/doctor/sites/chat.ejs');
+    connection.query('SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+        
+        
+        respuesta.render('../views/doctor/sites/chat.ejs',{dnioculto:peticion.session.DNIDOCTOR,listapacientes:JSON.stringify(results)});
+       
+        
+    })
+        
+    
 });
 
   //12 auth page
