@@ -7,6 +7,8 @@ app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
 
+
+///////////////////////////////////
 //2. seteamos urlencoded para capturar datos del formulario
 app.use(express.urlencoded({extended: false}));
 app.use(express.json())
@@ -299,3 +301,34 @@ app.post('/paciente/EditCon',async(req,res)=>{
 
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));
+
+
+
+///////////////////////SOCKETS//////////////////////
+let ides = new Map();
+let mensajes=[{dniE:"1",msje:"HOLA soy el 1",dniR:"2"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
+const SocketIO= require('socket.io');
+const io=SocketIO(server);
+
+io.on('connection',(socket)=>{
+    
+    socket.on('conectar',(data)=>{
+        let mensajesDelchat=[];
+        for(mensaje  of mensajes){
+            if(mensaje.dniE==data.dni||mensaje.dniR==data.dni){
+                mensajesDelchat.push(mensaje);
+            }
+        }
+        ides.set(data.dni,socket.id);  
+        console.log(data.dni,socket.id);
+        io.to(socket.id).emit('inicio', mensajesDelchat);
+    })
+    
+    socket.on('mensaje',(data)=>{
+        mensajes.push({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR});
+        console.log({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR},ides.get(data.dniR));
+        io.to(ides.get(data.dniR)).emit('mensaje',{dniE:data.dniE,msje:data.mensaje,dniR:data.dniR} );
+    })
+})
+
+

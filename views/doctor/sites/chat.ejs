@@ -1,0 +1,75 @@
+<%- include('../partials/parte_sup.ejs')%>
+
+<div id="chatConteiner" class="container w-100 pt-1" style="height:90vh;">
+    <div class="row w-100 h-100">
+        <div class="col-3 border h-100"></div>
+        <div class="col-9 border h-100">
+            <div id ="chatWindow " class="h-100">
+                <div id ="OUPUT" class=" row w-100 border overflow-auto h-75">
+                   
+                </div>
+                <div class="row w-100 h-25 border inpupt-group">
+                    <textarea id ="INPUT" type="text" class="col-9"></textarea>
+                    <button id="boton" class="col-3">Enviar</button>
+                </div>
+                
+            </div>  
+        </div>
+    </div>
+
+    
+    
+</div>
+
+<%- include('../partials/parte_inf.ejs')%>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const DNI=prompt("");
+    const DNIR=prompt("");
+    const socket=io();
+    console.log("este es el chat?");
+    socket.emit('conectar',{dni:DNI});
+    var entrada = document.getElementById("INPUT");
+    var salida = document.getElementById("OUPUT");
+    var boton = document.getElementById("boton");
+    var mensajes=[]
+
+    boton.addEventListener('click',()=>{
+        if(entrada.value){
+        let mensajito =entrada.value.replaceAll("\n","<br>");
+        mensajes.push({dniE:DNI,mensaje:mensajito,dniR:DNIR});
+        socket.emit('mensaje',{dniE:DNI,mensaje:mensajito,dniR:DNIR});
+        console.log(mensajes);
+        mostrarMensaje({dniE:DNI,msje:mensajito,dniR:DNIR});
+        entrada.value="";
+        }
+    })
+
+    socket.on('inicio',(data)=>{
+        for(mensaje of data){
+            if((mensaje.dniE==DNI&&mensaje.dniR==DNIR)||(mensaje.dniR==DNI||mensaje.dniE==DNIR)){
+               mostrarMensaje(mensaje);
+            }
+            mensajes.push(mensaje)
+        }   
+        console.log(mensajes);
+
+    });
+    
+    socket.on('mensaje',(data)=>{
+        mensajes.push(data);
+        console.log(mensajes);
+        mostrarMensaje(data);
+    });
+
+    function mostrarMensaje(msj){
+        if(msj.dniE==DNI){
+            salida.innerHTML+= `<div class= "row w-100 "><div class="col-3"></div><div class="pt-2 pb-2 m-2 col-9" style="min-height: 60px;word-wrap: break-word;max-width: 420px;min-width: 120px; background-color: rgba(0,0,0,.1)">${msj.msje}</div></div><br/>`;
+        }
+        if(msj.dniE==DNIR){
+            salida.innerHTML+= `<div class= "row w-100 "><div class="pt-2 pb-2 m-2 float-left" style="min-height: 60px;word-wrap: break-word; max-width: 420px;min-width: 120px; background-color: rgba(0,0,255,.1)">${msj.msje}</div></div><br/>`;
+        }
+        
+    }
+</script>
