@@ -21,11 +21,18 @@
             <div class="header_toggle"> <i class='bx bx-x' id="header-toggle"></i> </div>
             <span class="d-none me-sm-4 d-sm-block">Hola, <%= NOMBRE %>  </span>
             <div class="d-flex align-items-center">
-                <div class="me-3">
+                <div class="me-3" style="display: none;">
                     <%- include('notification.ejs')%>
                 </div>
-                <div class="d-none me-3">
+                <div class="me-3">
                     <button class="btn">
+                        <a href="/paciente/chat"  >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-right-fill" viewBox="0 0 16 16">
+                            <path d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                        </svg>
+                        </a>
+                <div class="d-none me-3">
+                    <button class="btn" style="display: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-right-fill" viewBox="0 0 16 16">
                             <path d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
                         </svg>

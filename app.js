@@ -113,26 +113,14 @@ app.post('/auth', async(req,res)=>{
                             req.session.TELEFONo=results[0].pac_celular;
                             req.session.SEXo=results[0].pac_sexo;
                             req.session.DISTRITo=results[0].pac_distrito;
+                            req.session.DNIDOCTOR1=results[0].doc_dni;
                             let fecha=results[0].pac_nacimiento;
                             let a=fecha.toString();
                             let b=a.substring(4,15);
                             req.session.EDAd=b;
                             console.log(req.session.NOMBRe);
-                            let region= "ancash";
-                            let edad = "18";
-                            let sexo="Masculino";
-                            let distrito ="Chimbote";
-                            let doctor = "Dr. House";
-                            let telefonoDoctor = "0000000";
-                            let correoDoctor="drhouse@hotmail.com";
-                            let dniDoctor="333333";
-                            let ultimaCita="ayer";
-                            let proximaCita="hoy";
+                           
 
-                            /*res.render('dash',{NOMBRE:name,EDAD:edad,DNI:pdni, REGION:region,SEXO:sexo,DISTRITO:distrito,
-                            DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
-                            CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
-                            });*/
                             connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo FROM paciente INNER JOIN doctores ON paciente.doc_dni=?',["72865690"],async(error,results)=>{
                                 if (error){
                                     console.log(error);
@@ -141,6 +129,7 @@ app.post('/auth', async(req,res)=>{
                                     req.session.CORDOC=results[0].doc_email;
                                     req.session.CELULDOC=results[0].doc_celular;
                                     req.session.SEXODOC=results[0].doc_sexo;
+                                    
                                     res.render('paciente',{
                                         login:true,
                                         NOMBRE: req.session.NOMBRe,
@@ -379,12 +368,12 @@ app.use('/',require('./routes/contact-us'));
 ///////////////////////SOCKETS//////////////////////
 let ides = new Map();
 
-let mensajes=[{dniE:"1",msje:"HOLA soy el 1",dniR:"2"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
+let mensajes=[{dniE:"72865690",msje:"HOLA soy el 1",dniR:"72865650"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
 const SocketIO= require('socket.io');
 const io=SocketIO(server);
 
+//////////////////
 io.on('connection',(socket)=>{
-    
     socket.on('conectar',(data)=>{
         let mensajesDelchat=[];
         for(mensaje  of mensajes){
@@ -393,13 +382,12 @@ io.on('connection',(socket)=>{
             }
         }
         ides.set(data.dni,socket.id);  
-       
+        console.log(data.dni,socket.id);
         io.to(socket.id).emit('inicio', mensajesDelchat);
     })
-    
     socket.on('mensaje',(data)=>{
-        mensajes.push({dniE:data.dniE,msje:data.mensaje,dniR:data.dniR});
-        
-        io.to(ides.get(data.dniR)).emit('mensaje',{dniE:data.dniE,msje:data.mensaje,dniR:data.dniR} );
+        mensajes.push({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")});
+        console.log({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")},ides.get(data.dniR+""));
+        io.to(ides.get(data.dniR)).emit('mensaje',{dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")} );
     })
 })

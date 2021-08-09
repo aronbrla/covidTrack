@@ -95,6 +95,16 @@ router.get('/paciente/formulario',(req,respuesta)=>{
     });
 });
 
+router.get('/paciente/chat',(peticion,respuesta)=>{
+    connection.query('SELECT doc_apellidos, doc_nombres, doc_dni, FROM doctores WHERE doc_dni =?',[peticion.session.DNIDOCTOR1],async(error,results)=>{
+        await console.log(peticion.session.DNIDOCTOR1);
+        await console.log([{doc_dni:"72865690",doc_apellidos:"GAMARRA SOTO",doc_nombres:"JUAN"}]);
+        
+        await respuesta.render('../views/paciente/sites/chat.ejs',{dnioculto:peticion.session.DNi,listadoctor:JSON.stringify([{doc_dni:"72865690",doc_apellidos:"GAMARRA SOTO",doc_nombres:"JUAN"}]),NOMBRE:peticion.session.NOMBRe});
+       
+        
+    })
+})
 router.get('/paciente/logout',(req,res)=>{
     req.session.destroy((err) => {
         if(err){

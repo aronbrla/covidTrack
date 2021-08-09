@@ -47,8 +47,8 @@
         </div>
     </div>
     <div style="display: none;" id="dnioculto"><%=dnioculto%></div>
-    <div style="display: none;" id="datospaciente">
-        <%=listapacientes%>
+    <div style="display: none;" id="datosdoctor">
+        <%=listadoctor%>
     </div>
     
     
@@ -58,7 +58,9 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var usuarios=JSON.parse(document.getElementById("datospaciente").innerText);
+    console.log(document.getElementById("datosdoctor").innerText);
+    var usuarios=JSON.parse(document.getElementById("datosdoctor").innerText);
+    
     var contactos=[];
     const DNI=document.getElementById("dnioculto").innerText;
     
@@ -67,7 +69,7 @@
     
     lista.innerHTML="";
     for(x of usuarios){
-        contactos.push({nombre: x.pac_nombres,dni: x.pac_dni});
+        contactos.push({nombre: x.doc_nombres,dni: x.doc_dni});
         
     }
     contactos.forEach(element => {
