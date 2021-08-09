@@ -133,15 +133,24 @@ app.post('/auth', async(req,res)=>{
                             DIRECCION:adress,CORREO:mail,TELEFONO:phone,DR:doctor,TELEDR:telefonoDoctor,
                             CORREODR:correoDoctor,DNIDR:dniDoctor,LAST:ultimaCita,NEXT:proximaCita
                             });*/
-
-                            res.render('paciente',{
-                                login:true,
-                                NOMBRE: req.session.NOMBRe,
-                                NDOC: "JUAN GAMARRA",
-                                NCOR: "juangamarra@gmail.com",
-                                CELDOC: "978546123",
-                                SEXODOC: "M"
-                            });
+                            connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular FROM paciente INNER JOIN doctores ON paciente.doc_codigo=?',[1],async(error,results)=>{
+                                if (error){
+                                    console.log(error);
+                                }else{
+                                    req.session.NOMDOC=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
+                                    req.session.CORDOC=results[0].doc_email;
+                                    req.session.CELULDOC=results[0].doc_celular;
+                                    res.render('paciente',{
+                                        login:true,
+                                        NOMBRE: req.session.NOMBRe,
+                                        NDOC: req.session.NOMDOC,
+                                        NCOR: req.session.CORDOC,
+                                        CELDOC: req.session.CELULDOC,
+                                        SEXODOC: "M"
+                                    });
+                                }
+                            })
+                            
                         }
                     })
                     
@@ -245,9 +254,9 @@ app.post('/paciente/editar',async(req,res)=>{
                         res.render('paciente',{
                             login:true,
                             NOMBRE: req.session.NOMBRe,
-                            NDOC: "JUAN GAMARRA",
-                            NCOR: "juangamarra@gmail.com",
-                            CELDOC: "978546123",
+                            NDOC: req.session.NOMDOC,
+                            NCOR: req.session.CORDOC,
+                            CELDOC: req.session.CELULDOC,
                             SEXODOC: "M"
                         });
                     }

@@ -24,10 +24,11 @@ router.get('/paciente',(req,respuesta)=>{
     respuesta.render('../views/paciente/index.ejs',{
         login:true,
         NOMBRE: req.session.NOMBRe,
-        NDOC: "JUAN GAMARRA",
-        NCOR: "juangamarra@gmail.com",
-        CELDOC: "978546123",
+        NDOC: req.session.NOMDOC,
+        NCOR: req.session.CORDOC,
+        CELDOC: req.session.CELULDOC,
         SEXODOC: "M"
+        
     });
 
 });
