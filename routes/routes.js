@@ -109,11 +109,17 @@ router.get('/paciente/logout',(req,res)=>{
 
 //Rutas del dash DOCTOR
 router.get('/doctor',(peticion,respuesta)=>{
-    respuesta.render('../views/doctor/index.ejs');
-});
+            respuesta.render('../views/doctor/index.ejs',{
+                npacientes:peticion.session.NUMEROPACIENTES
+            });
+})
 
 router.get('/doctor/informacion',(peticion,respuesta)=>{                            
-    respuesta.render('../views/doctor/sites/info.ejs');
+    respuesta.render('../views/doctor/sites/info.ejs',{
+        nombred:peticion.session.NOMBREDOCTOR,
+        correod:peticion.session.CORREODOCTOR,
+        telefonod:peticion.session.TELEFONODOCTOR
+    });
 });
 
 router.get('/doctor/pacientes',(peticion,respuesta)=>{                            

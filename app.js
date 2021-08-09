@@ -1,8 +1,8 @@
 //1.importando libreria
 const express = require('express');
 const app = express(); 
-//montando el servidor en la ruta 4000
-const port = process.env.PORT || 4000;
+//montando el servidor en la ruta 3000
+const port = process.env.PORT || 3000;
 app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
@@ -146,7 +146,37 @@ app.post('/auth', async(req,res)=>{
                 }
             })
         }else{
-            res.render('doctor');
+            connection.query('SELECT * FROM doctores WHERE doc_email = ?', [user], async(error,results)=>{
+                if(results.length==0 || pass!=results[0].doc_contrasenia){
+                    
+                    res.send("Email o contraseña incorrecta");
+                    
+                }else{
+                    req.session.loggedin=true;
+                    req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
+                    req.session.CORREODOCTOR=results[0].doc_email;
+                    req.session.TELEFONODOCTOR=results[0].doc_celular;
+                    let npacientes;
+                    connection.query('SELECT pac_codigo FROM paciente', async(error,results)=>{
+                        if(results.length==0 ){
+                            req.session.NUMEROPACIENTES=0;
+                            res.render('doctor',{
+                                npacientes:req.session.NUMEROPACIENTES
+                            });
+                            
+                        }else{
+                            req.session.NUMEROPACIENTES=results[results.length-1].pac_codigo;
+                            res.render('doctor',{
+                                npacientes:req.session.NUMEROPACIENTES
+                            });
+                        } 
+                    })
+                    
+                   
+                }  
+            })
+
+            
         }
      
     } else{
