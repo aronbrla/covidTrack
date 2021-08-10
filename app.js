@@ -286,41 +286,42 @@ app.post('/paciente/EditCon',async(req,res)=>{
 //15. Editar datos doctor
 app.post('/doctor/editar',async(req,res)=>{
     // const distrito=req.body.distrito;
-     const celular=req.body.phone;
-     const email=req.body.email;
-         connection.query('UPDATE doctores SET doc_email, doc_celular=? WHERE doc_nombres=?',[distrito,domicilio,celular,req.session.NOMBREDOCTOR],async(error,results)=>{
-             if(error){
-                 console.log(error);
-             }else{
-                 connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
-                     if(error){
-                         console.log(error);
-                     }else{
-                         req.session.loggedin=true;
-                         req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
-                         req.session.CORREODOCTOR=results[0].doc_email;
-                         req.session.TELEFONODOCTOR=results[0].doc_celular;
-                         req.session.SEXODOC=results[0].doc_sexo;
-                         console.log(req.session.NOMBREDOCTOR);
-                         let region= "ancash";
-                         let edad = "18";
-                         let sexo="Masculino";
-                         let distrito ="Chimbote";
-                         let doctor = "Dr. House";
-                         let telefonoDoctor = "0000000";
-                         let correoDoctor="drhouse@hotmail.com";
-                         let dniDoctor="333333";
-                         let ultimaCita="ayer";
-                         let proximaCita="hoy";
+    
+    const celular=req.body.phone;
+    const email=req.body.email;
+        connection.query('UPDATE doctores SET doc_email=?, doc_celular=? WHERE doc_dni=?',[email,celular,req.session.DNIDOCTOR],async(error,results)=>{
+            if(error){
+                console.log(error);
+            }else{
+                connection.query('SELECT * FROM doctores WHERE doc_dni = ?', [req.session.DNIDOCTOR], async(error,results)=>{
+                    if(error){
+                        console.log(error);
+                    }else{
+                        req.session.loggedin=true;
+                        req.session.NOMBREDOCTOR=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
+                        req.session.CORREODOCTOR=results[0].doc_email;
+                        req.session.DNIDOCTOR=results[0].doc_dni;
+                        req.session.TELEFONODOCTOR=results[0].doc_celular;
+                        req.session.SEXODOC=results[0].doc_sexo;
+                        let region= "ancash";
+                        let edad = "18";
+                        let sexo="Masculino";
+                        let distrito ="Chimbote";
+                        let doctor = "Dr. House";
+                        let telefonoDoctor = "0000000";
+                        let correoDoctor="drhouse@hotmail.com";
+                        let dniDoctor="333333";
+                        let ultimaCita="ayer";
+                        let proximaCita="hoy";
 
-                         res.render('doctor',{
+                        res.render('doctor',{
                             npacientes:req.session.NUMEROPACIENTES
                         });
-                     }
-                 })
-             }
-         });
- })
+                    }
+                })
+            }
+        });
+})
 
  app.post('/doctor/EditCon',async(req,res)=>{
      const pass = req.body.pass;
@@ -328,7 +329,7 @@ app.post('/doctor/editar',async(req,res)=>{
      const cpass = req.body.passwordNew2;
      if(pass && npass && cpass){
          connection.query('SELECT * FROM doctores WHERE doc_email = ?', [req.session.CORREODOCTOR], async(error,results)=>{
-             if(pass != results.doc_contrasenia[0]){
+             if(pass != results[0].doc_contrasenia){
  
                  res.send("La contraseña actual es incorrecta.");
                  
@@ -358,6 +359,40 @@ app.post('/doctor/editar',async(req,res)=>{
  
          })
      }
+ })
+
+ //guardar formulario paciente
+ app.post('/paciente/guardarformulario',async(req,res)=>{
+    console.log(req.body);
+    var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+    console.log( formatedMysqlString );
+    var fechas=new Date();
+    let sintom="";
+    let enferme=""
+    for(x of req.body.sintoma){
+        sintom+=x+" ";
+    }
+    for(x of req.body.enfermedad){
+        enferme+=x+" ";
+    }
+    console.log(sintom);
+
+    
+    connection.query('INSERT INTO formulario SET ?',{pac_dni:req.session.DNi,doc_dni:req.session.DNIDOCTOR1,temperatura:req.body.temp,saturacion:req.body.oxig,sintomas:sintom,enfermedades:enferme,fecha:fechas},async(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            res.render('paciente',{
+                login:true,
+                NOMBRE: req.session.NOMBRe,
+                NDOC: req.session.NOMDOC,
+                NCOR: req.session.CORDOC,
+                CELDOC: req.session.CELULDOC,
+                SEXODOC: req.session.SEXo
+            });
+        }
+    })
+    
  })
 
 /* Contac Us Js usando nodemailer */

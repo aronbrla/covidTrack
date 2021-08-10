@@ -62,7 +62,7 @@
     </div>
     <div class="container">
         <div class="form-container" style="width: 70%; margin-top: 50px;">
-            <form action="" method="POST">
+            <form action="guardarformulario" method="POST" >
                 <div class="flex-column">
                     <div class="form-input">
                         <div class="input-title">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="input-group">
                             <label for="temp" class="input-group-text">INGRESE SU TEMPERATURA ACTUAL</label>
-                            <input type="number" min="30" max="50" name="temp" id="temp" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <input type="number" min="30" max="50" step=".01" name="temp" id="temp" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
                             <span class="input-group-text px-1">C°</span>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="input-group">
                             <label for="oxig" class="input-group-text">INGRESE SU PORCENTAJE DE SATURACIÓN DE OXÍGENO</label>
-                            <input type="number" min="10" max="100" name="oxig" id="oxig" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <input type="number" min="10" max="100" step=".01" name="oxig" id="oxig" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
                             <span class="input-group-text px-1">%</span>
                         </div>
                     </div>
@@ -99,15 +99,15 @@
                         </div>
                         <div class="input-group d-block">
                             <span class="input-group-text">MARQUE TODOS SUS SÍNTOMAS ACTUALES</span>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">TOS</label>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">ESCALOFRÍOS</label>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">CANSANCIO INTENSO</label>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">DOLOR DE GARGANTA</label>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">DOLOR DE CABEZA</label>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">NÁUSEAS, VÓMITOS O DIARREA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Tos" class="check-input">TOS</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Escalofríos" class="check-input">ESCALOFRÍOS</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Cansancio intenso" class="check-input">CANSANCIO INTENSO</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Dolor de garganta" class="check-input">DOLOR DE GARGANTA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Dolor de Cabeza" class="check-input">DOLOR DE CABEZA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Naúseas, vómitos o diarrea" class="check-input">NÁUSEAS, VÓMITOS O DIARREA</label>
                             <label class="input-group-text" for="sintoma">OTRO (INGRESE SU SÍNTOMA):</label>
                             <textarea class="ms-3 form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="2"></textarea>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" class="check-input">NO POSEO NINGÚN SÍNTOMA</label>
+                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Ninguno" class="check-input">NO POSEO NINGÚN SÍNTOMA</label>
                         </div>
                     </div>
                     <div class="form-input">
@@ -120,15 +120,15 @@
                         <div class="input-group">
                             <div class="container">
                                 <span class="input-group-text ps-0">SELECCIONE LAS ENFERMEDADES QUE TIENE </span>
-                                <select name="select" class="custom-select" style="width: 100%; max-width: 350px; border: 2px solid #728C91">
+                                <select name="enfermedad" class="custom-select" style="width: 100%; max-width: 350px; border: 2px solid #728C91">
                                     <option selected disabled>Seleccionar enfermedad...</option>
-                                    <option value="value2">Value 2</option>
-                                    <option value="value3">Value 3</option>
+                                    <option value="Gripe">Gripe</option>
+                                    <option value="Asma">Asma</option>
                                 </select>
                             </div>
                             <div class="container">
                                 <span class="input-group-text ps-0">OTRAS ENFERMEDADES (OPCIONAL):</span>
-                                <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="1"></textarea>
+                                <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="enfermedad" id="sintoma" rows="1"></textarea>
                             </div>
                         </div>
                     </div>
