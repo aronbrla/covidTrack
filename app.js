@@ -370,10 +370,10 @@ app.post('/doctor/editar',async(req,res)=>{
     let sintom="";
     let enferme=""
     for(x of req.body.sintoma){
-        sintom+=x+" ";
+        sintom+=x+" ,";
     }
     for(x of req.body.enfermedad){
-        enferme+=x+" ";
+        enferme+=x+" ,";
     }
     console.log(sintom);
 
