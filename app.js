@@ -372,11 +372,19 @@ app.post('/doctor/editar',async(req,res)=>{
     var fechas=new Date();
     let sintom="";
     let enferme=""
-    for(x of req.body.sintoma){
-        sintom+=x+" ,";
+    for(let i=0;i<req.body.sintoma.length;i++){
+        if(i!=req.body.sintoma.length-1 && req.body.sintoma[i].length>2){
+            sintom+=req.body.sintoma[i]+" ,";
+        }else{
+            if(req.body.sintoma[i].length>2){
+                sintom+=req.body.sintoma[i];
+            }
+            
+        }
     }
-    for(x of req.body.enfermedad){
-        enferme+=x+" ,";
+    enferme+=req.body.enfermedad[0];
+    if(req.body.enfermedad[1].length>2){
+        enferme+=" ,"+req.body.enfermedad[1];
     }
     console.log(sintom);
 
