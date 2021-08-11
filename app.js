@@ -13,6 +13,11 @@ var server=app.listen(port,() => {
 app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
+//3. doteenv
+const dotenv= require('dotenv');
+dotenv.config({path:'./env/.env'})
+
+
 //4 el directorio public
 app.use('/resources',express.static('public'));
 app.use('resources',express.static(__dirname +'public'));
