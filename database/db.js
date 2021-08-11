@@ -1,6 +1,6 @@
 const mysql =require('mysql');
 const connection =mysql.createConnection({
-    host: process.env.HOST || "localhost";
+    host: process.env.HOST || "localhost",
     database:process.env.DATABASE ||  "covidtrack",
     user: process.env.USER ||"root",// 
     password:process.env.PASSWORD || "",// 
