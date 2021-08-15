@@ -13,6 +13,9 @@ var server=app.listen(port,() => {
 app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
+
+
+
 //4 el directorio public
 app.use('/resources',express.static('public'));
 app.use('resources',express.static(__dirname +'public'));
@@ -369,11 +372,19 @@ app.post('/doctor/editar',async(req,res)=>{
     var fechas=new Date();
     let sintom="";
     let enferme=""
-    for(x of req.body.sintoma){
-        sintom+=x+" ,";
+    for(let i=0;i<req.body.sintoma.length;i++){
+        if(i!=req.body.sintoma.length-1 && req.body.sintoma[i].length>2){
+            sintom+=req.body.sintoma[i]+" ,";
+        }else{
+            if(req.body.sintoma[i].length>2){
+                sintom+=req.body.sintoma[i];
+            }
+            
+        }
     }
-    for(x of req.body.enfermedad){
-        enferme+=x+" ,";
+    enferme+=req.body.enfermedad[0];
+    if(req.body.enfermedad[1].length>2){
+        enferme+=" ,"+req.body.enfermedad[1];
     }
     console.log(sintom);
 
@@ -408,27 +419,40 @@ app.use('/',require('./routes/contact-us'));
 
 ///////////////////////SOCKETS//////////////////////
 let ides = new Map();
+let mensajes=[];
+connection.query('SELECT * FROM mensajes ',async(error,results)=>{
+    for(x of results){
+        mensajes.push({dniE:x.emisor_dni,msje:x.mensaje,dniR:x.receptor_dni})
+    }
+    const SocketIO= require('socket.io');
+    const io=SocketIO(server);
 
-let mensajes=[{dniE:"72865690",msje:"HOLA soy el 1",dniR:"72865650"},{dniE:"2",msje:"HOLA soy el 2",dniR:"1"},{dniE:"2",msje:"HOLA soy el 2",dniR:"3"}];
-const SocketIO= require('socket.io');
-const io=SocketIO(server);
-
-//////////////////
-io.on('connection',(socket)=>{
-    socket.on('conectar',(data)=>{
-        let mensajesDelchat=[];
-        for(mensaje  of mensajes){
-            if(mensaje.dniE==data.dni||mensaje.dniR==data.dni){
-                mensajesDelchat.push(mensaje);
+    //////////////////
+    io.on('connection',(socket)=>{
+        socket.on('conectar',(data)=>{
+            let mensajesDelchat=[];
+            for(mensaje  of mensajes){
+                if(mensaje.dniE==data.dni||mensaje.dniR==data.dni){
+                    mensajesDelchat.push(mensaje);
+                }
             }
-        }
-        ides.set(data.dni,socket.id);  
-        console.log(data.dni,socket.id);
-        io.to(socket.id).emit('inicio', mensajesDelchat);
-    })
-    socket.on('mensaje',(data)=>{
-        mensajes.push({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")});
-        console.log({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")},ides.get(data.dniR+""));
-        io.to(ides.get(data.dniR)).emit('mensaje',{dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")} );
+            ides.set(data.dni,socket.id);  
+            console.log(data.dni,socket.id);
+            io.to(socket.id).emit('inicio', mensajesDelchat);
+        })
+        socket.on('mensaje',(data)=>{
+            mensajes.push({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")});
+            console.log({dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")},ides.get(data.dniR+""));
+            io.to(ides.get(data.dniR)).emit('mensaje',{dniE:(data.dniE+""),msje:data.mensaje,dniR:(data.dniR+"")} );
+            connection.query('INSERT INTO mensajes( mensaje,  emisor_dni, receptor_dni) VALUES ("'+(data.mensaje+"")+'", "'+(data.dniE+"")+'","'+(data.dniR+"")+'"); ',async(error,results)=>{})
+
+        })
+
+        /*
+        socket.on('tipeando',(data)=>{
+            io.to(ides.get(data.dniR)).emit('tipeando',{dniE:(data.dniE+""),dniR:(data.dniR+"")});
+        })*/
     })
 })
+
+

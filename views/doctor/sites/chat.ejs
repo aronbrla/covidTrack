@@ -105,6 +105,13 @@
             }
         })
 
+        /*
+        entrada.addEventListener('keyup',()=>{
+            socket.emit('tipeando',{dniE:(DNI+""),dniR:(DNIR+"")});
+            
+        })*/
+
+
         socket.on('inicio',(data)=>{
             for(mensaje of data){
                 if((mensaje.dniE==DNI&&mensaje.dniR==DNIR)||(mensaje.dniR==DNI||mensaje.dniE==DNIR)){
@@ -121,7 +128,18 @@
             console.log(mensajes);
             mostrarMensaje(data);
         });
-
+        /*
+        socket.on('tipeando',(data)=>{
+            salida.innerHTML+= `
+                <div class= "mensaje-container d-flex w-100 justify-content-end">
+                    <div class="mensaje p-3 m-2 col-9" style="background-color: rgba(0,0,0,.1)">
+                        Escribiendo....
+                    </div>
+                </div><br/>`;
+            
+            mostrarMensaje(data);
+        });
+        */
         function mostrarMensaje(msj){
             if(msj.dniE==DNI){
                 salida.innerHTML+= `
