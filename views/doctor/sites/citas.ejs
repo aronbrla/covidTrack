@@ -1,22 +1,11 @@
 <%- include('../partials/parte_sup.ejs')%>
 <!-- CDN Calendar-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-<!-- Fullcalendar core JS-->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.setOption('locale', 'es');
-      calendar.render();
-    });
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 
 <div class="container mt-5" style="width: 80%;">
-    <div class="row mb-2">
+    <div class="row my-3">
         <div class="col-xl-8 align-self-center">
             <div class="main-title justify-content-xl-start">
                 <h1 class="text-light text-center ms-lg-5">Citas</h1>
@@ -24,8 +13,46 @@
                     <img src="../../../resources/assets/img/clipboard-solid.svg" width="120px" height="120px">
                 </div>
             </div>
+            <div class="d-flex">
+                <div class="container my-2">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Agregar Cita
+                    </button>
+                </div>
+                  
+                  <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%;">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Programar cita</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="">Ingresar nombre</label>
+                                        <input type="text" id="titleInput" class="form-control" name="username" placeholder="Enter First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Elegir fecha y hora de la cita</label>
+                                        <input type="datetime-local" id="dateTimeInput" class="form-control" name="date" placeholder="Enter date" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" id="addBtn" class="btn btn-primary">Agregar cita</button>
+                                </div>
+                            <form action="./addCita" method="POST">   
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+            </div>
         </div>
-        <div class="col-3 d-none d-xl-flex flex-column" style="background-color: #fff; border-radius: 25px; padding: 5px 25px;">
+        <div class="col-3 d-none d-xl-flex flex-column justify-content-center" style="background-color: #fff; font-size: 10px; border-radius: 25px; padding: 5px 25px;">
             <span>- Cita: Viernes 19 de noviembre</span>
             <span>- Hora: 7:00 PM</span>
             <span>- Doctor: Louis Barrios</span>
@@ -37,8 +64,21 @@
             </span>
         </div>
     </div>
-    <div class="container text-uppercase" width="100%">
+    <div class="container text-uppercase" width="900px">
         <div id='calendar'></div>
     </div>
 </div>
+
+
+
+<!-- Fullcalendar core JS-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.min.js"></script>
+
+<%- include('../partials/citasScript.ejs')%>
+
 <%- include('../partials/parte_inf.ejs')%>

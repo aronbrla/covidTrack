@@ -149,6 +149,7 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/citas',(peticion,respuesta)=>{
+    let citasList = [];
     respuesta.render('../views/doctor/sites/citas.ejs');
 });
 

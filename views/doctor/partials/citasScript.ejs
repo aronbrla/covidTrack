@@ -1,0 +1,94 @@
+<script>
+/* Referencia: https://github.com/todo-list-app/todo-list-app.github.io/blob/e35d8a23a934f74b7e47cf07b3e8814930970b37/todo.js#L522*/
+main();
+
+function main(){
+  let titleInput,
+      dateTimeInput,
+      todoList = [],
+      citasList = [];
+  var calendar;
+  getElement();
+  addListeners();
+  initCalendar();
+  load();
+
+  function getElement(){
+    titleInput = document.getElementById("titleInput");
+    dateTimeInput = document.getElementById("dateTimeInput");
+    addButton = document.getElementById("addBtn");
+  }
+
+  function addListeners() {
+    addButton.addEventListener("click", addEntry, false);
+  }
+
+  function addEntry(event){
+    let titleValue = titleInput.value;
+    titleInput.value = "";
+    let dateValue = dateTimeInput.value;
+    dateTimeInput.value = "";
+
+    let obj = {
+        todo: titleValue,
+        date: dateValue,
+        done: false,
+    };
+
+    todoList.push(obj);
+    console.log(todoList);
+    save();
+  }
+
+  function load() {
+    let retrieved = localStorage.getItem("todoList");
+    todoList = JSON.parse(retrieved);
+    //console.log(typeof todoList)
+    
+    if(citasList.length > 0){
+        todoList.push.apply(todoList, citasList);
+    }
+    
+    if(citasList != []){
+        citasList= [];
+    }
+    console.log(todoList);
+    if (todoList == null)
+      todoList = [];
+
+    todoList.map(obj => {
+        addEvent({
+            title: 'Cita Medica - '+ obj.todo,
+            start: obj.date,
+        });
+    });
+  }
+
+  function save() {
+    let stringified = JSON.stringify(todoList);
+    localStorage.setItem("todoList", stringified);
+  }
+  
+  function initCalendar(){
+    var calendarE1 = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarE1,{
+      timeZone: 'local',
+      themeSystem: 'bootstrap',
+      dayMaxEvents: true, // allow "more" link when too many events
+      locales: ['idLocale'],
+      editable: true,
+      selectable: true,
+      headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,listMonth'
+      },
+      events: [], // [{},{}], Agregar Json de eventos
+    });
+    calendar.render();
+  }
+  function addEvent(event) {
+        calendar.addEvent( event );
+    } 
+}
+</script>

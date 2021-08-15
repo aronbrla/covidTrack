@@ -395,6 +395,12 @@ app.post('/doctor/editar',async(req,res)=>{
     
  })
 
+ //Agregar cita Doctor
+
+ app.post('/doctor/addCita', (req,res)=>{
+     let eventos = [];
+     res.render(res.redirect('/doctor/citas'),eventos)
+ })
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));
 
