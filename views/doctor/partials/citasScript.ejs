@@ -12,7 +12,7 @@ function main(){
   addListeners();
   initCalendar();
   load();
-
+    console.log(citasList);
   function getElement(){
     titleInput = document.getElementById("titleInput");
     dateTimeInput = document.getElementById("dateTimeInput");
@@ -49,9 +49,6 @@ function main(){
         todoList.push.apply(todoList, citasList);
     }
     
-    if(citasList != []){
-        citasList= [];
-    }
     console.log(todoList);
     if (todoList == null)
       todoList = [];
@@ -62,6 +59,10 @@ function main(){
             start: obj.date,
         });
     });
+
+    if(citasList != []){
+        citasList= [];
+    }
   }
 
   function save() {
@@ -83,12 +84,71 @@ function main(){
           center: 'title',
           right: 'dayGridMonth,listMonth'
       },
+      eventClick: function (info) {
+        toEditItem(info.event);
+      },
+      eventDrop: function (info) {
+        calendarEventDragged(info.event);
+      },
       events: [], // [{},{}], Agregar Json de eventos
     });
     calendar.render();
   }
   function addEvent(event) {
         calendar.addEvent( event );
-    } 
+    }
+
+  function toEditItem(event) {
+    showEditModalBox();
+
+    let id;
+
+    if (event.target) // mouse event
+      id = event.target.dataset.id;
+    else // calendar event
+      id = event.id;
+
+    preFillEditForm(id);
+  }
+  function preFillEditForm(id) {
+    let result = todoList.find(todoObj => todoObj.id == id);
+    let { todo, category, date, time } = result;
+
+    document.getElementById("todo-edit-todo").value = todo;
+    document.getElementById("todo-edit-category").value = category;
+    document.getElementById("todo-edit-date").value = date;
+    document.getElementById("todo-edit-time").value = time;
+
+    changeBtn.dataset.id = id;
+  }
+  function calendarEventDragged(event) {
+    let dateObj = new Date(event.start);
+    let year = dateObj.getFullYear();
+    let month = dateObj.getMonth() + 1;
+    let date = dateObj.getDate();
+
+    let paddedMonth = month.toString();
+    if (paddedMonth.length < 2) {
+      paddedMonth = "0" + paddedMonth;
+    }
+
+    let paddedDate = date.toString();
+    if (paddedDate.length < 2) {
+      paddedDate = "0" + paddedDate;
+    }
+
+    let toStoreDate = `${year}-${paddedMonth}-${paddedDate}`;
+    console.log(toStoreDate);
+
+    todoList.forEach(todoObj => {
+      if (todoObj.id == id) {
+        todoObj.date = toStoreDate;
+      }
+    });
+
+    save();
+
+  }
+
 }
 </script>

@@ -149,8 +149,13 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/citas',(peticion,respuesta)=>{
-    let citasList = [];
-    respuesta.render('../views/doctor/sites/citas.ejs');
+    let citasList = [
+        {
+            todo: 'Cita medica',
+            date: '2021-08-27',
+        }
+    ];
+    respuesta.render('../views/doctor/sites/citas.ejs',citasList);
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{
