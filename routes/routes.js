@@ -21,15 +21,35 @@ router.get('/dash',(peticion,respuesta)=>{
 
 //Rutas del dash Paciente
 router.get('/paciente',(req,respuesta)=>{
-  
+    let citasList = [
+        {
+            todo: 'Cita medica',
+            date: '2021-08-27',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-22',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        }
+    ];
     respuesta.render('../views/paciente/index.ejs',{
         login:true,
-        NOMBRE: req.session.NOMBRe,
-        NDOC: req.session.NOMDOC,
-        NCOR: req.session.CORDOC,
-        CELDOC: req.session.CELULDOC,
-        SEXODOC: req.session.SEXODOC
-        
+        NOMBRE: req.session.NOMBRe || 'Manfredo',
+        NDOC: req.session.NOMDOC || '74894684',
+        NCOR: req.session.CORDOC || 'manfri@gmail.com',
+        COLDOC: req.session.CORDOC || 'Medicina especial',
+        citasList:JSON.stringify(citasList),
     });
 
 });
