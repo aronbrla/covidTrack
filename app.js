@@ -411,7 +411,14 @@ app.post('/doctor/editar',async(req,res)=>{
  app.post('/doctor/addCita', async(req,res)=>{
      let evento = req.body;
      console.log(evento);
-     res.render(res.redirect('/doctor/citas'));
+     connection.query('INSERT INTO citas SET?',{pac_dni:req.body.pacientedni,estado: "No realizado", doc_dni:req.session.DNIDOCTOR, fecha:req.body.date },async(error,results)=>{
+         if(error){
+             console.log(error);
+         }else{
+            res.render(res.redirect('/doctor/citas'));
+         }
+     })
+     
  })
  
 /* Contac Us Js usando nodemailer */
