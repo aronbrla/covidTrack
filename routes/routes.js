@@ -85,7 +85,7 @@ router.get('/paciente/citas',(req,respuesta)=>{
         respuesta.render('../views/paciente/sites/citas.ejs',{
             login:true,
             NOMBRE: req.session.NOMBRe,
-            //variable donde guardas el array : citasList,
+            citasList:JSON.stringify(citasList),
         });
     })
 
