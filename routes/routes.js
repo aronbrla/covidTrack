@@ -59,24 +59,7 @@ router.get('/paciente/informacion',(req,res)=>{
 });
 
 router.get('/paciente/citas',(req,respuesta)=>{
-    let citasList = [
-        {
-            
-            todo: 'Cita médica',
-            date: '2021-08-27T19:00:00',
-        },
-        {
-            
-            todo: 'Cita médica',
-            date: '2021-08-22T19:00:00',
-        },
-        {
-            //si quieres añades el nombre del doctor xd
-        //  doctor: '',
-            todo: 'Cita médica',
-            date: '2021-08-21T19:00:00',
-        }
-    ];
+    let citasList = [];
     connection.query('SELECT * FROM citas',async(error,results)=>{
         for(let i=0;i<results.length;i++){
             citasList.push({todo:"Cita médica",date: results[i].fecha});
@@ -175,47 +158,8 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/citas',(peticion,respuesta)=>{
-    let citasList = [
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-27T19:00:00',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        }
-    ];
-    let pacienteList = [
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-    ]
+    let citasList = [];
+    let pacienteList = [];
     console.log(peticion.session.NOMBREDOCTOR);
     connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
           for(let i=0;i<results.length;i++){
