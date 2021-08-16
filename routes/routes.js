@@ -114,7 +114,7 @@ router.get('/paciente/formulario',(req,respuesta)=>{
 
 router.get('/paciente/chat',(peticion,respuesta)=>{
     connection.query('SELECT doc_apellidos, doc_nombres, doc_dni FROM doctores WHERE doc_dni =?',[peticion.session.DNIDOCTOR1],async(error,results)=>{
-        await respuesta.render('../views/paciente/sites/chat.ejs',{dnioculto:peticion.session.DNi,listadoctor:JSON.stringify(results),NOMBRE:peticion.session.NOMBRe});
+        respuesta.render('../views/paciente/sites/chat.ejs', { dnioculto: peticion.session.DNi, listadoctor: JSON.stringify(results), NOMBRE: peticion.session.NOMBRe });
     })
 })
 router.get('/paciente/logout',(req,res)=>{
@@ -149,13 +149,18 @@ router.get('/doctor/informacion',(peticion,respuesta)=>{
 
 router.get('/doctor/pacientes',(peticion,respuesta)=>{
    
-    connection.query('SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?',[peticion.session.DNIDOCTOR],async(error,results)=>{
-        
-        
-        
-        respuesta.render('../views/doctor/sites/pacientes.ejs',{listapacientes:JSON.stringify(results)});
-        
-    })
+    connection.query(
+        'SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?',
+        [peticion.session.DNIDOCTOR],
+        async(err, results) => {
+            if (err) {
+                console.log("ERROR: " + err);
+            }
+            else {
+                respuesta.render('../views/doctor/sites/pacientes.ejs', { listapacientes: JSON.stringify(results) });
+            }
+        }
+    )
                    
   
 });
@@ -163,48 +168,49 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 router.get('/doctor/citas',(peticion,respuesta)=>{
     let citasList = [
         {
-            todo: 'Cita medica',
-            date: '2021-08-27',
+            pacDNI: '16485',
+            todo: '',
+            date: '2021-08-27T19:00:00',
         },
         {
-            todo: 'Cita medica',
-            date: '2021-08-22',
-        },
-        {
-            todo: 'Cita medica',
+            pacDNI: '16485',
+            todo: '',
             date: '2021-08-21',
         },
         {
-            todo: 'Cita medica',
+            pacDNI: '16485',
+            todo: '',
             date: '2021-08-21',
         },
         {
-            todo: 'Cita medica',
+            pacDNI: '16485',
+            todo: '',
+            date: '2021-08-21',
+        },
+        {
+            pacDNI: '16485',
+            todo: '',
             date: '2021-08-21',
         }
     ];
-    let pacientes = [
+    let pacienteList = [
         {
-            nombre: 'Paola',
-            dni: '71545552',
+            dni:'684631',
+            nombre: 'Manuel',
         },
         {
-            nombre: 'Andrea',
-            dni: '71545552',
+            dni:'684631',
+            nombre: 'Manuel',
         },
         {
-            nombre: 'Elvis',
-            dni: '71545552',
+            dni:'684631',
+            nombre: 'Manuel',
         },
-        {
-            nombre: 'Aaron',
-            dni: '71545552',
-        }
     ]
     console.log(peticion.session.NOMBREDOCTOR);
     respuesta.render('../views/doctor/sites/citas.ejs',{
         dnid: peticion.session.DNIDOCTOR||'1651838',
-        pacientes:JSON.stringify(pacientes),
+        pacientes:JSON.stringify(pacienteList),
         citasList:JSON.stringify(citasList)});
 });
 

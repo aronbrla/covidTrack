@@ -413,6 +413,7 @@ app.post('/doctor/editar',async(req,res)=>{
      console.log(evento);
      res.render(res.redirect('/doctor/citas'));
  })
+ 
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));
 
