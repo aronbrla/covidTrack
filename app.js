@@ -124,21 +124,21 @@ app.post('/auth', async(req,res)=>{
                             console.log(req.session.NOMBRe);
                            
 
-                            connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo FROM paciente INNER JOIN doctores ON paciente.doc_dni=?',["72865690"],async(error,results)=>{
+                            connection.query('SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo,doc_especialidad FROM paciente INNER JOIN doctores ON paciente.doc_dni=?',["72865690"],async(error,results)=>{
                                 if (error){
                                     console.log(error);
                                 }else{
                                     req.session.NOMDOC=results[0].doc_nombres+ " "+ results[0].doc_apellidos;
                                     req.session.CORDOC=results[0].doc_email;
-                                    req.session.CELULDOC=results[0].doc_celular;
+                                    req.session.COLDOC=results[0].doc_especialidad;
                                     req.session.SEXODOC=results[0].doc_sexo;
-                                    
+                                    console.log()
                                     res.render('paciente',{
                                         login:true,
                                         NOMBRE: req.session.NOMBRe,
                                         NDOC: req.session.NOMDOC,
                                         NCOR: req.session.CORDOC,
-                                        CELDOC: req.session.CELULDOC,
+                                        COLDOC: req.session.COLDOC,
                                         SEXODOC: req.session.SEXODOC
                                     });
                                 }

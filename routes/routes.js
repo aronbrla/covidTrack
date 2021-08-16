@@ -21,35 +21,15 @@ router.get('/dash',(peticion,respuesta)=>{
 
 //Rutas del dash Paciente
 router.get('/paciente',(req,respuesta)=>{
-    let citasList = [
-        {
-            todo: 'Cita medica',
-            date: '2021-08-27',
-        },
-        {
-            todo: 'Cita medica',
-            date: '2021-08-22',
-        },
-        {
-            todo: 'Cita medica',
-            date: '2021-08-21',
-        },
-        {
-            todo: 'Cita medica',
-            date: '2021-08-21',
-        },
-        {
-            todo: 'Cita medica',
-            date: '2021-08-21',
-        }
-    ];
+  
     respuesta.render('../views/paciente/index.ejs',{
         login:true,
-        NOMBRE: req.session.NOMBRe || 'Manfredo',
-        NDOC: req.session.NOMDOC || '74894684',
-        NCOR: req.session.CORDOC || 'manfri@gmail.com',
-        COLDOC: req.session.COlDOC || 'UNMSM',
-        citasList:JSON.stringify(citasList),
+        NOMBRE: req.session.NOMBRe,
+        NDOC: req.session.NOMDOC,
+        NCOR: req.session.CORDOC,
+        COLDOC: req.session.COLDOC,
+        SEXODOC: req.session.SEXODOC
+        
     });
 
 });
@@ -99,7 +79,6 @@ router.get('/paciente/citas',(req,respuesta)=>{
     respuesta.render('../views/paciente/sites/citas.ejs',{
         login:true,
         NOMBRE: req.session.NOMBRe,
-        citasList:JSON.stringify(citasList),
     });
 });
   //12 auth page
@@ -134,13 +113,8 @@ router.get('/paciente/formulario',(req,respuesta)=>{
 });
 
 router.get('/paciente/chat',(peticion,respuesta)=>{
-    connection.query('SELECT doc_apellidos, doc_nombres, doc_dni, FROM doctores WHERE doc_dni =?',[peticion.session.DNIDOCTOR1],async(error,results)=>{
-        await console.log(peticion.session.DNIDOCTOR1);
-        await console.log([{doc_dni:"72865690",doc_apellidos:"GAMARRA SOTO",doc_nombres:"JUAN"}]);
-        
-        await respuesta.render('../views/paciente/sites/chat.ejs',{dnioculto:peticion.session.DNi,listadoctor:JSON.stringify([{doc_dni:"72865690",doc_apellidos:"GAMARRA SOTO",doc_nombres:"JUAN"}]),NOMBRE:peticion.session.NOMBRe});
-       
-        
+    connection.query('SELECT doc_apellidos, doc_nombres, doc_dni FROM doctores WHERE doc_dni =?',[peticion.session.DNIDOCTOR1],async(error,results)=>{
+        await respuesta.render('../views/paciente/sites/chat.ejs',{dnioculto:peticion.session.DNi,listadoctor:JSON.stringify(results),NOMBRE:peticion.session.NOMBRe});
     })
 })
 router.get('/paciente/logout',(req,res)=>{
