@@ -59,9 +59,24 @@ router.get('/paciente/informacion',(req,res)=>{
 });
 
 router.get('/paciente/citas',(req,respuesta)=>{
+    let citasList = [
+        {
+            todo: 'Cita medica',
+            date: '2021-08-27',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-22',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        }
+    ];
     respuesta.render('../views/paciente/sites/citas.ejs',{
         login:true,
         NOMBRE: req.session.NOMBRe,
+        citasList:JSON.stringify(citasList),
     });
 });
   //12 auth page
@@ -153,9 +168,47 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
         {
             todo: 'Cita medica',
             date: '2021-08-27',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-22',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
+        },
+        {
+            todo: 'Cita medica',
+            date: '2021-08-21',
         }
     ];
-    respuesta.render('../views/doctor/sites/citas.ejs',citasList);
+    let pacientes = [
+        {
+            nombre: 'Paolo',
+            dni: '71545552',
+        },
+        {
+            nombre: 'Paolo',
+            dni: '71545552',
+        },
+        {
+            nombre: 'Paolo',
+            dni: '71545552',
+        },
+        {
+            nombre: 'Paolo',
+            dni: '71545552',
+        }
+    ]
+    console.log(peticion.session.NOMBREDOCTOR);
+    respuesta.render('../views/doctor/sites/citas.ejs',{
+        dnid: peticion.session.DNIDOCTOR||'1651838',
+        pacientes:JSON.stringify(pacientes),
+        citasList:JSON.stringify(citasList)});
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{
