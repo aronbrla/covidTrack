@@ -48,7 +48,7 @@ router.get('/paciente',(req,respuesta)=>{
         NOMBRE: req.session.NOMBRe || 'Manfredo',
         NDOC: req.session.NOMDOC || '74894684',
         NCOR: req.session.CORDOC || 'manfri@gmail.com',
-        COLDOC: req.session.CORDOC || 'Medicina especial',
+        COLDOC: req.session.COlDOC || 'UNMSM',
         citasList:JSON.stringify(citasList),
     });
 
@@ -81,16 +81,19 @@ router.get('/paciente/informacion',(req,res)=>{
 router.get('/paciente/citas',(req,respuesta)=>{
     let citasList = [
         {
-            todo: 'Cita medica',
-            date: '2021-08-27',
+            daysOfWeek: [ '5' ],
+            todo: 'Cita médica',
+            date: '2021-08-27T19:00:00',
         },
         {
-            todo: 'Cita medica',
-            date: '2021-08-22',
+            daysOfWeek: '',
+            todo: 'Cita médica',
+            date: '2021-08-22T19:00:00',
         },
         {
-            todo: 'Cita medica',
-            date: '2021-08-21',
+            daysOfWeek: '',
+            todo: 'Cita médica',
+            date: '2021-08-21T19:00:00',
         }
     ];
     respuesta.render('../views/paciente/sites/citas.ejs',{
@@ -208,19 +211,19 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
     ];
     let pacientes = [
         {
-            nombre: 'Paolo',
+            nombre: 'Paola',
             dni: '71545552',
         },
         {
-            nombre: 'Paolo',
+            nombre: 'Andrea',
             dni: '71545552',
         },
         {
-            nombre: 'Paolo',
+            nombre: 'Elvis',
             dni: '71545552',
         },
         {
-            nombre: 'Paolo',
+            nombre: 'Aaron',
             dni: '71545552',
         }
     ]

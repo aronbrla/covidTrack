@@ -26,7 +26,8 @@
         
         todoList.map(obj => {
             addEvent({
-                title: 'Cita Medica - '+ obj.todo,
+                daysOfWeek: obj.daysOfWeek,
+                title: obj.todo,
                 start: obj.date,
             });
         });
