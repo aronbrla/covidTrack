@@ -30,22 +30,25 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            
+                            <form action="./addCita" method="POST">   
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="">Ingresar nombre</label>
-                                        <input type="text" id="titleInput" class="form-control" name="username" placeholder="Enter First Name" required>
+                                        <select class="form-select" name="pacientedni" aria-label="Default select example"id="pacienteSelect" required>
+                                            <option selected>Nombre de paciente</option>
+                                            
+                                          </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Elegir fecha y hora de la cita</label>
                                         <input type="datetime-local" id="dateTimeInput" class="form-control" name="date" placeholder="Enter date" required>
                                     </div>
+                                    <div class="d-none"><input type="text" name="dnid" value=<%- dnid %>></div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                     <button type="submit" id="addBtn" class="btn btn-primary">Agregar cita</button>
                                 </div>
-                            <form action="./addCita" method="POST">   
                             </form>
                         </div>
                         </div>
@@ -68,7 +71,8 @@
         <div id='calendar'></div>
     </div>
 </div>
-
+<div id="citasList" class="d-none"><%- citasList %> </div>
+<div id="pacientes" class="d-none"><%- pacientes %> </div>
 
 
 <!-- Fullcalendar core JS-->

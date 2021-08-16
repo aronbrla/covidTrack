@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express(); 
 //montando el servidor en la ruta 3000
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 2000;
 var server=app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
@@ -408,9 +408,10 @@ app.post('/doctor/editar',async(req,res)=>{
 
  //Agregar cita Doctor
 
- app.post('/doctor/addCita', (req,res)=>{
-     let eventos = [];
-     res.render(res.redirect('/doctor/citas'),eventos)
+ app.post('/doctor/addCita', async(req,res)=>{
+     let evento = req.body;
+     console.log(evento);
+     res.render(res.redirect('/doctor/citas'));
  })
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));
