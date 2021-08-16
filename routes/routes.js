@@ -208,10 +208,17 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
         },
     ]
     console.log(peticion.session.NOMBREDOCTOR);
-    respuesta.render('../views/doctor/sites/citas.ejs',{
-        dnid: peticion.session.DNIDOCTOR||'1651838',
-        pacientes:JSON.stringify(pacienteList),
-        citasList:JSON.stringify(citasList)});
+    connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+          for(let i=0;i<results.length;i++){
+            citasList.push({pacDNI:results[i].pac_dni,todo:results[i].pac_apellidos +" "+ results[i].pac_nombres,date: results[i].fecha});
+            pacienteList.push({dni:results[i].pac_dni,nombre:results[i].pac_apellidos +" "+ results[i].pac_nombres});
+          }  
+          respuesta.render('../views/doctor/sites/citas.ejs',{
+            dnid: peticion.session.DNIDOCTOR,
+            pacientes:JSON.stringify(pacienteList),
+            citasList:JSON.stringify(citasList)});  
+    })
+
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{
