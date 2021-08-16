@@ -61,25 +61,34 @@ router.get('/paciente/informacion',(req,res)=>{
 router.get('/paciente/citas',(req,respuesta)=>{
     let citasList = [
         {
-            daysOfWeek: [ '5' ],
+            
             todo: 'Cita médica',
             date: '2021-08-27T19:00:00',
         },
         {
-            daysOfWeek: '',
+            
             todo: 'Cita médica',
             date: '2021-08-22T19:00:00',
         },
         {
-            daysOfWeek: '',
+            //si quieres añades el nombre del doctor xd
+        //  doctor: '',
             todo: 'Cita médica',
             date: '2021-08-21T19:00:00',
         }
     ];
-    respuesta.render('../views/paciente/sites/citas.ejs',{
-        login:true,
-        NOMBRE: req.session.NOMBRe,
-    });
+    connection.query('SELECT * FROM citas',async(error,results)=>{
+        for(let i=0;i<results.length;i++){
+            citasList.push({todo:"Cita médica",date: results[i].fecha});
+            //citasList.push({todo:"Cita médica",date: results[i].fecha,doctor:req.session.NOMDOC});
+        }
+        respuesta.render('../views/paciente/sites/citas.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            //variable donde guardas el array : citasList,
+        });
+    })
+
 });
   //12 auth page
 router.get('/paciente/ajustes',(req,res)=>{
