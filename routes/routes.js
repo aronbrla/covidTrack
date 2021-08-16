@@ -128,7 +128,8 @@ router.get('/paciente/logout',(req,res)=>{
 //Rutas del dash DOCTOR
 router.get('/doctor',(peticion,respuesta)=>{
             respuesta.render('../views/doctor/index.ejs',{
-                npacientes:peticion.session.NUMEROPACIENTES
+                npacientes:peticion.session.NUMEROPACIENTES,
+                ncitas:peticion.session.NUMEROCITAS
             });
 })
 
@@ -174,6 +175,7 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
               respuesta.render('../views/doctor/sites/citas.ejs',{
                 dnid: peticion.session.DNIDOCTOR,
                 pacientes:JSON.stringify(pacienteList),
+                doc: peticion.session.NOMBREDOCTOR,
                 citasList:JSON.stringify(citasList)}); 
           })  
         

@@ -94,6 +94,7 @@ app.post('/auth', async(req,res)=>{
     const user= req.body.user;
     const pass= req.body.pass;
     const tipouser=req.body.usertype;
+    var ncitas=0;
     let passwordHaash=await bcryptjs.hash(pass,8);
     if(user && pass){
         if(tipouser=="paciente"){
@@ -165,9 +166,24 @@ app.post('/auth', async(req,res)=>{
                     
                     connection.query('SELECT pac_dni FROM paciente', async(error,results)=>{
                         req.session.NUMEROPACIENTES=results.length;
+                        
+                        var hoy = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+                        
+                        connection.query('SELECT * FROM citas WHERE doc_dni=?',[req.session.DNIDOCTOR],async(error,results)=>{
+                            for(let i=0;i<results.length;i++){
+                                var bbdd=(new Date ((new Date((new Date(new Date(results[i].fecha))).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
+                                console.log("BBDD: "+ bbdd+ " HOY: "+hoy);
+                                if(hoy==bbdd){
+                                    console.log("fechas iguales");
+                                    console.log("BBDD: "+ bbdd+ " HOY: "+hoy);
+                                }
+                            }
+                            req.session.NUMEROCITAS=ncitas;
                             res.render('doctor',{
-                                npacientes:req.session.NUMEROPACIENTES
+                                npacientes:req.session.NUMEROPACIENTES,
+                                ncitas:req.session.NUMEROCITAS
                             }); 
+                        })
                     })
                     
                    
@@ -398,7 +414,7 @@ app.post('/doctor/editar',async(req,res)=>{
                 NOMBRE: req.session.NOMBRe,
                 NDOC: req.session.NOMDOC,
                 NCOR: req.session.CORDOC,
-                CELDOC: req.session.CELULDOC,
+                COLDOC: req.session.COLDOC,
                 SEXODOC: req.session.SEXo
             });
         }
@@ -415,7 +431,9 @@ app.post('/doctor/editar',async(req,res)=>{
          if(error){
              console.log(error);
          }else{
-            res.render(res.redirect('/doctor/citas'));
+            res.render(res.redirect('/doctor/citas',{
+                doc: req.session.NOMBREDOCTOR
+            }));
          }
      })
      
