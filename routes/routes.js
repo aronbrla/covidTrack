@@ -65,10 +65,12 @@ router.get('/paciente/citas',(req,respuesta)=>{
             citasList.push({todo:"Cita médica",date: results[i].fecha});
             //citasList.push({todo:"Cita médica",date: results[i].fecha,doctor:req.session.NOMDOC});
         }
+
         respuesta.render('../views/paciente/sites/citas.ejs',{
             login:true,
             NOMBRE: req.session.NOMBRe,
             citasList:JSON.stringify(citasList),
+            doc: req.session.NOMDOC
         });
     })
 
