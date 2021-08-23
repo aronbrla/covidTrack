@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
 /* Referencia: https://github.com/todo-list-app/todo-list-app.github.io/blob/e35d8a23a934f74b7e47cf07b3e8814930970b37/todo.js#L522*/
 
 var citasList = JSON.parse(document.getElementById("citasList").innerText);
@@ -11,7 +11,8 @@ var pacienteSelect = document.getElementById("pacienteSelect");
 for (obj of pacientes) {
   pacienteSelect.innerHTML += `<option value=${obj.dni}>${obj.nombre}</option>`; 
 }
-
+dniDValue = document.getElementById("dnid").value;
+console.log(dniDValue);
 main();
 
 
@@ -75,9 +76,11 @@ function main(){
         addEvent({
             title: 'Cita Medica - '+ obj.todo,
             start: obj.date,
+            paciente: obj.todo,
+            dateTime: obj.date,
+            dnid: dniDValue,
         });
     });
-
     if(citasList != []){
         citasList= [];
     }
@@ -103,10 +106,8 @@ function main(){
           right: 'dayGridMonth,listMonth'
       },
       eventClick: function (info) {
-        toEditItem(info.event);
-      },
-      eventDrop: function (info) {
-        calendarEventDragged(info.event);
+        toDeleteItem(info.event);
+        //alert('Event: ' + info.event.title);
       },
       events: [], // [{},{}], Agregar Json de eventos
     });
@@ -115,6 +116,36 @@ function main(){
   function addEvent(event) {
         calendar.addEvent( event );
     }
-
+  function toDeleteItem (event){
+    let dniDoctor = event._def.extendedProps.dnid;
+    let nomPaciente = event._def.extendedProps.paciente;
+    let dateTime = event._def.extendedProps.dateTime;
+    let dniPaciente;
+    pacientes.map(obj =>{
+      if(obj.nombre == nomPaciente)
+        dniPaciente = obj.dni;
+    });
+    console.log(dniPaciente);
+    document.innerHTML = `
+    <form class="d-none" action="./deleteCita" method="POST">
+      <input type="text" class="d-none" name="pacientedni" value=${dniPaciente}>
+      <input type="datetime-local" class="d-none" name="date" value=${dateTime}>
+      <input type="text" id="dnid" class="d-none" name="dnid" value=${dniDoctor}>
+    </form>
+    `;
+    Swal.fire({
+      title: "¿Deseas eliminar la cita?",
+      text: `Se eliminara la cita del paciente ${nomPaciente} programada para la fecha ${dateTime}`,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Sí, Eliminar cita!",
+      closeOnConfirm: false
+    },
+    function(){
+      Swal.fire("Eliminar!", "La cita fue eliminada.", "success");
+    });
+  }
+  
 }
 </script>
