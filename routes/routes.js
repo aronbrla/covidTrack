@@ -163,6 +163,7 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 router.get('/doctor/citas',(peticion,respuesta)=>{
     let citasList = [];
     let pacienteList = [];
+    citasList = [{}]
     console.log(peticion.session.NOMBREDOCTOR);
     connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
           for(let i=0;i<results.length;i++){
@@ -180,7 +181,6 @@ router.get('/doctor/citas',(peticion,respuesta)=>{
           })  
         
     })
-
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{

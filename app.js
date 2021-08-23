@@ -438,6 +438,22 @@ app.post('/doctor/editar',async(req,res)=>{
      })
      
  })
+
+ app.post('/doctor/deleteCita', async(req,res)=>{
+    let evento = req.body;
+    console.log(evento);
+    connection.query('DELETE INTO citas SET?',{pac_dni:req.body.pacienteDni,estado: "No realizado", doc_dni:req.session.DNIDOCTOR, fecha:req.body.dateTime },async(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+           res.render(res.redirect('/doctor/citas',{
+               doc: req.session.NOMBREDOCTOR
+           }));
+        }
+    })
+    
+})
+
  
 /* Contac Us Js usando nodemailer */
 app.use('/',require('./routes/contact-us'));

@@ -127,9 +127,9 @@ function main(){
     });
     console.log(dniPaciente);
     document.innerHTML = `
-    <form class="d-none" action="./deleteCita" method="POST">
-      <input type="text" class="d-none" name="pacientedni" value=${dniPaciente}>
-      <input type="datetime-local" class="d-none" name="date" value=${dateTime}>
+    <form class="d-none" name="eliminarcita" action="./deleteCita" method="POST">
+      <input type="text" class="d-none" name="pacienteDni" value=${dniPaciente}>
+      <input type="datetime-local" class="d-none" name="dateTime" value=${dateTime}>
       <input type="text" id="dnid" class="d-none" name="dnid" value=${dniDoctor}>
     </form>
     `;
@@ -141,9 +141,14 @@ function main(){
       confirmButtonClass: "btn-danger",
       confirmButtonText: "Sí, Eliminar cita!",
       closeOnConfirm: false
-    },
-    function(){
-      Swal.fire("Eliminar!", "La cita fue eliminada.", "success");
+    }).then((result) => {  
+    /* Read more about isConfirmed, isDenied below */  
+      if (result.isConfirmed) {    
+        document.eliminarcita.submit();
+        Swal.fire("Eliminado!", "La cita fue eliminada.", "success");
+      } else if (result.isDenied) {    
+        Swal.fire('Changes are not saved', '', 'info')  
+      }
     });
   }
   
