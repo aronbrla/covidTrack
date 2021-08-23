@@ -59,27 +59,21 @@ router.get('/paciente/informacion',(req,res)=>{
 });
 
 router.get('/paciente/citas',(req,respuesta)=>{
-    let citasList = [
-        {
-            daysOfWeek: [ '5' ],
-            todo: 'Cita médica',
-            date: '2021-08-27T19:00:00',
-        },
-        {
-            daysOfWeek: '',
-            todo: 'Cita médica',
-            date: '2021-08-22T19:00:00',
-        },
-        {
-            daysOfWeek: '',
-            todo: 'Cita médica',
-            date: '2021-08-21T19:00:00',
+    let citasList = [];
+    connection.query('SELECT * FROM citas',async(error,results)=>{
+        for(let i=0;i<results.length;i++){
+            citasList.push({todo:"Cita médica",date: results[i].fecha});
+            //citasList.push({todo:"Cita médica",date: results[i].fecha,doctor:req.session.NOMDOC});
         }
-    ];
-    respuesta.render('../views/paciente/sites/citas.ejs',{
-        login:true,
-        NOMBRE: req.session.NOMBRe,
-    });
+
+        respuesta.render('../views/paciente/sites/citas.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            citasList:JSON.stringify(citasList),
+            doc: req.session.NOMDOC
+        });
+    })
+
 });
   //12 auth page
 router.get('/paciente/ajustes',(req,res)=>{
@@ -134,7 +128,8 @@ router.get('/paciente/logout',(req,res)=>{
 //Rutas del dash DOCTOR
 router.get('/doctor',(peticion,respuesta)=>{
             respuesta.render('../views/doctor/index.ejs',{
-                npacientes:peticion.session.NUMEROPACIENTES
+                npacientes:peticion.session.NUMEROPACIENTES,
+                ncitas:peticion.session.NUMEROCITAS
             });
 })
 
@@ -166,52 +161,26 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/citas',(peticion,respuesta)=>{
-    let citasList = [
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-27T19:00:00',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        },
-        {
-            pacDNI: '16485',
-            todo: '',
-            date: '2021-08-21',
-        }
-    ];
-    let pacienteList = [
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-        {
-            dni:'684631',
-            nombre: 'Manuel',
-        },
-    ]
+    let citasList = [];
+    let pacienteList = [];
     console.log(peticion.session.NOMBREDOCTOR);
-    respuesta.render('../views/doctor/sites/citas.ejs',{
-        dnid: peticion.session.DNIDOCTOR||'1651838',
-        pacientes:JSON.stringify(pacienteList),
-        citasList:JSON.stringify(citasList)});
+    connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+          for(let i=0;i<results.length;i++){
+            citasList.push({pacDNI:results[i].pac_dni,todo:results[i].pac_apellidos +" "+ results[i].pac_nombres,date: results[i].fecha});
+          }
+          connection.query('SELECT * FROM paciente WHERE doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+              for(let i=0;i<results.length;i++){
+                pacienteList.push({dni:results[i].pac_dni,nombre:results[i].pac_apellidos +" "+ results[i].pac_nombres});
+              }
+              respuesta.render('../views/doctor/sites/citas.ejs',{
+                dnid: peticion.session.DNIDOCTOR,
+                pacientes:JSON.stringify(pacienteList),
+                doc: peticion.session.NOMBREDOCTOR,
+                citasList:JSON.stringify(citasList)}); 
+          })  
+        
+    })
+
 });
 
 router.get('/doctor/chat',(peticion,respuesta)=>{
