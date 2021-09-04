@@ -1,18 +1,18 @@
 <script type="text/javascript">
 /* Referencia: https://github.com/todo-list-app/todo-list-app.github.io/blob/e35d8a23a934f74b7e47cf07b3e8814930970b37/todo.js#L522*/
 
-var citasList = JSON.parse(document.getElementById("citasList").innerText);
-console.log(citasList);
+let citasList = JSON.parse(document.getElementById("citasList").innerText);
+// console.log(citasList);
 
-var pacientes = JSON.parse(document.getElementById("pacientes").innerText);
-console.log(pacientes);
+let pacientes = JSON.parse(document.getElementById("pacientes").innerText);
+// console.log(pacientes);
 
-var pacienteSelect = document.getElementById("pacienteSelect");
+let pacienteSelect = document.getElementById("pacienteSelect");
 for (obj of pacientes) {
   pacienteSelect.innerHTML += `<option value=${obj.dni}>${obj.nombre}</option>`; 
 }
 dniDValue = document.getElementById("dnid").value;
-console.log(dniDValue);
+
 main();
 
 
@@ -50,7 +50,7 @@ function main(){
     };
 
     todoList.push(obj);
-    console.log(todoList);
+    // console.log(todoList);
     save();
     addEvent({
             title: 'Cita Medica - '+ obj.todo,
@@ -70,7 +70,7 @@ function main(){
         todoList.push.apply(todoList, citasList);
     }
     
-    console.log(todoList);
+    // console.log(todoList);
     
     todoList.map(obj => {
         addEvent({
@@ -78,7 +78,6 @@ function main(){
             start: obj.date,
             paciente: obj.todo,
             dateTime: obj.date,
-            dnid: dniDValue,
         });
     });
     if(citasList != []){
@@ -117,40 +116,34 @@ function main(){
         calendar.addEvent( event );
     }
   function toDeleteItem (event){
-    console.log(event.start.Str);
-    let dniDoctor = event._def.extendedProps.dnid;
     let nomPaciente = event._def.extendedProps.paciente;
     const dateTime = (new Date ((event.start).getTime() - ((event.start).getTimezoneOffset()*60000))).toISOString().slice(0, 19);
-    console.log(dateTime);
-    let dniPaciente;
-    pacientes.map(obj =>{
-      if(obj.nombre == nomPaciente)
-        dniPaciente = obj.dni;
+    let pacienteDNI;
+    citasList.map(obj =>{
+      if(obj.todo == nomPaciente)
+        pacienteDNI = obj.pacDNI;
     });
-    console.log(dniPaciente);
-    
     var div = document.createElement("div");
     div.innerHTML = `<form id="eliminarcita"  action="./deleteCita" method="POST">
-      <input type="text" class="d-node" name="pacienteDni" value=${dniPaciente} >
-      <input type="text" class="d-node" name="dateTime" value=${dateTime} >
+      <input type="hidden" name="pacienteDni" value=${pacienteDNI}>
+      <input type="hidden" name="dateTime" value=${dateTime}>
       <button type="submit" class="btn btn-primary my-4">OK!</button>
     </form>`;
     Swal.fire({
       title: "¿Deseas eliminar la cita?",
       text: `Se eliminara la cita del paciente ${nomPaciente} programada para la fecha ${dateTime}`,
-
-      type: "warning",
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonClass: "btn-danger",
       confirmButtonText: "Sí, Eliminar cita!",
      
     }).then((result) => {  
     /* Read more about isConfirmed, isDenied below */  
-      if (result.isConfirmed) {    
+      if (result.isConfirmed) {
+        console.log(`Dni del paciente a eliminar: ${pacienteDNI}. Fecha a eliminar: ${dateTime}`);    
         Swal.fire({
-          title: "Eliminado!",
-          text: "La cita fue eliminada.",
-          type: "success",
+          title: "Cita eliminada!",
+          icon: 'success',
           html: div,
           showConfirmButton: false,
         });

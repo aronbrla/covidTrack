@@ -160,26 +160,26 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
   
 });
 
+
+
 router.get('/doctor/citas',(peticion,respuesta)=>{
     let citasList = [];
     let pacienteList = [];
-    citasList = [{}]
-    console.log(peticion.session.NOMBREDOCTOR);
+    citasList = [{}];
     connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
-          for(let i=0;i<results.length;i++){
-            citasList.push({pacDNI:results[i].pac_dni,todo:results[i].pac_apellidos +" "+ results[i].pac_nombres,date: results[i].fecha});
-          }
-          connection.query('SELECT * FROM paciente WHERE doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
-              for(let i=0;i<results.length;i++){
-                pacienteList.push({dni:results[i].pac_dni,nombre:results[i].pac_apellidos +" "+ results[i].pac_nombres});
-              }
-              respuesta.render('../views/doctor/sites/citas.ejs',{
-                dnid: peticion.session.DNIDOCTOR,
-                pacientes:JSON.stringify(pacienteList),
-                doc: peticion.session.NOMBREDOCTOR,
-                citasList:JSON.stringify(citasList)}); 
-          })  
-        
+        for(let i=0;i<results.length;i++){
+          citasList.push({pacDNI:results[i].pac_dni,todo:results[i].pac_apellidos +" "+ results[i].pac_nombres,date: results[i].fecha});
+        }
+        connection.query('SELECT * FROM paciente WHERE doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+            for(let i=0;i<results.length;i++){
+              pacienteList.push({dni:results[i].pac_dni,nombre:results[i].pac_apellidos +" "+ results[i].pac_nombres});
+            }
+            respuesta.render('../views/doctor/sites/citas.ejs',{
+              dnid: peticion.session.DNIDOCTOR,
+              pacientes:JSON.stringify(pacienteList),
+              doc: peticion.session.NOMBREDOCTOR,
+              citasList:JSON.stringify(citasList)}); 
+        })  
     })
 });
 
