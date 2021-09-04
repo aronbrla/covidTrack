@@ -144,8 +144,8 @@ function main(){
     }).then((result) => {  
     /* Read more about isConfirmed, isDenied below */  
       if (result.isConfirmed) {    
-        document.eliminarcita.submit();
         Swal.fire("Eliminado!", "La cita fue eliminada.", "success");
+        document.eliminarcita.submit();
       } else if (result.isDenied) {    
         Swal.fire('Changes are not saved', '', 'info')  
       }

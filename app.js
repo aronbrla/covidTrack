@@ -427,13 +427,11 @@ app.post('/doctor/editar',async(req,res)=>{
  app.post('/doctor/addCita', async(req,res)=>{
      let evento = req.body;
      console.log(evento);
-     connection.query('INSERT INTO citas SET?',{pac_dni:req.body.pacientedni,estado: "No realizado", doc_dni:req.session.DNIDOCTOR, fecha:req.body.date },async(error,results)=>{
+     connection.query('INSERT INTO citas SET?',{pac_dni:req.body.pacientedni,estado: "No realizado", doc_dni:req.body.dnid, fecha:req.body.date },async(error,results)=>{
          if(error){
              console.log(error);
          }else{
-            res.render(res.redirect('/doctor/citas',{
-                doc: req.session.NOMBREDOCTOR
-            }));
+            res.redirect('/doctor/citas');
          }
      })
      
@@ -442,13 +440,11 @@ app.post('/doctor/editar',async(req,res)=>{
  app.post('/doctor/deleteCita', async(req,res)=>{
     let evento = req.body;
     console.log(evento);
-    connection.query('DELETE INTO citas SET?',{pac_dni:req.body.pacienteDni,estado: "No realizado", doc_dni:req.session.DNIDOCTOR, fecha:req.body.dateTime },async(error,results)=>{
+    connection.query('DELETE FROM citas WHERE pac_dni=? AND fecha=?',[req.body.pacienteDni,req.body.dateTime],async(error,results)=>{
         if(error){
             console.log(error);
         }else{
-           res.render(res.redirect('/doctor/citas',{
-               doc: req.session.NOMBREDOCTOR
-           }));
+           res.redirect('/doctor/citas');
         }
     })
     
