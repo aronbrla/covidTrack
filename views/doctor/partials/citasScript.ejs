@@ -117,35 +117,43 @@ function main(){
         calendar.addEvent( event );
     }
   function toDeleteItem (event){
+    console.log(event.start.Str);
     let dniDoctor = event._def.extendedProps.dnid;
     let nomPaciente = event._def.extendedProps.paciente;
-    let dateTime = event._def.extendedProps.dateTime;
+    const dateTime = (new Date ((event.start).getTime() - ((event.start).getTimezoneOffset()*60000))).toISOString().slice(0, 19);
+    console.log(dateTime);
     let dniPaciente;
     pacientes.map(obj =>{
       if(obj.nombre == nomPaciente)
         dniPaciente = obj.dni;
     });
     console.log(dniPaciente);
-    document.innerHTML = `
-    <form class="d-none" name="eliminarcita" action="./deleteCita" method="POST">
-      <input type="text" class="d-none" name="pacienteDni" value=${dniPaciente}>
-      <input type="datetime-local" class="d-none" name="dateTime" value=${dateTime}>
-      <input type="text" id="dnid" class="d-none" name="dnid" value=${dniDoctor}>
-    </form>
-    `;
+    
+    var div = document.createElement("div");
+    div.innerHTML = `<form id="eliminarcita"  action="./deleteCita" method="POST">
+      <input type="text" class="d-node" name="pacienteDni" value=${dniPaciente} >
+      <input type="text" class="d-node" name="dateTime" value=${dateTime} >
+      <button type="submit" class="btn btn-primary my-4">OK!</button>
+    </form>`;
     Swal.fire({
       title: "¿Deseas eliminar la cita?",
       text: `Se eliminara la cita del paciente ${nomPaciente} programada para la fecha ${dateTime}`,
+
       type: "warning",
       showCancelButton: true,
       confirmButtonClass: "btn-danger",
       confirmButtonText: "Sí, Eliminar cita!",
-      closeOnConfirm: false
+     
     }).then((result) => {  
     /* Read more about isConfirmed, isDenied below */  
       if (result.isConfirmed) {    
-        Swal.fire("Eliminado!", "La cita fue eliminada.", "success");
-        document.eliminarcita.submit();
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La cita fue eliminada.",
+          type: "success",
+          html: div,
+          showConfirmButton: false,
+        });
       } else if (result.isDenied) {    
         Swal.fire('Changes are not saved', '', 'info')  
       }
