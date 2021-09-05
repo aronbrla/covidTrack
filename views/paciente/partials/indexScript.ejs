@@ -1,0 +1,11 @@
+<script>
+  const citasList = JSON.parse(document.getElementById("citasList").innerText);
+  // console.log(citasList);  
+  let citasList = document.getElementById("citasList");
+  for (obj of citasList) {
+    let date_time = obj.split("T");
+    citasList.innerHTML += `<li class="list-group-item">
+      <span class="col">${date_time[0]}</span><span class="col">${date_time[1]}</span>
+      </li>`; 
+  }
+</script>
