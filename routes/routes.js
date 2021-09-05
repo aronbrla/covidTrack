@@ -143,7 +143,6 @@ router.get('/doctor/informacion',(peticion,respuesta)=>{
 });
 
 router.get('/doctor/pacientes',(peticion,respuesta)=>{
-   
     connection.query(
         'SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?',
         [peticion.session.DNIDOCTOR],
@@ -152,12 +151,22 @@ router.get('/doctor/pacientes',(peticion,respuesta)=>{
                 console.log("ERROR: " + err);
             }
             else {
-                respuesta.render('../views/doctor/sites/pacientes.ejs', { listapacientes: JSON.stringify(results) });
+                connection.query(
+                    'select * from formulario order by form_id desc limit 1 WHERE doc_dni =?',
+                    [peticion.session.DNIDOCTOR],
+                    async(err1, results1) => {
+                        if (err) {
+                            console.log("ERROR: " + err);
+                        }
+                        else {
+                            respuesta.render('../views/doctor/sites/pacientes.ejs', { listapacientes: JSON.stringify(results),listaFormularios: JSON.stringify(results1) });
+                        }
+                    }
+                ) 
+                
             }
         }
-    )
-                   
-  
+    ) 
 });
 
 

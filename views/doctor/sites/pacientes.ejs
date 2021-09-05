@@ -1,12 +1,13 @@
 <%- include('../partials/parte_sup.ejs')%>
-<div class="info-container flex-column bd-highlight mb-3 mx-auto mt-2 w-75 pt-5">
-    <div class="main-title justify-content-lg-start w-75">
+
+<div class="info-container flex-column bd-highlight mb-3 mx-auto mt-2 w-75 pt-5 CONTENIDO" >
+    <div class="main-title justify-content-lg-start w-75 NOMODAL">
         <h1 class="text-light text-center ms-lg-5">Mis Pacientes</h1>
         <div class="main-logo d-none d-xl-block">
             <svg enable-background="new 0 0 24 24" height="100" viewBox="0 0 24 24" width="100" xmlns="http://www.w3.org/2000/svg"><path d="m21.91 14.835-4.91-2.835 4.91-2.835c.478-.276.642-.888.366-1.366l-1.5-2.598c-.276-.478-.887-.642-1.366-.366l-4.91 2.835v-5.67c0-.552-.448-1-1-1h-3c-.552 0-1 .448-1 1v5.67l-4.91-2.835c-.479-.276-1.09-.112-1.366.366l-1.5 2.598c-.276.478-.113 1.09.366 1.366l4.91 2.835-4.91 2.835c-.478.276-.642.888-.366 1.366l1.5 2.598c.276.478.888.642 1.366.366l4.91-2.835v5.67c0 .552.448 1 1 1h3c.552 0 1-.448 1-1v-5.67l4.91 2.835c.478.276 1.09.112 1.366-.366l1.5-2.598c.276-.478.113-1.09-.366-1.366z"/></svg>
         </div>
     </div>
-    <div class="row w-100 mt-5">
+    <div class="row w-100 mt-5 NOMODAL">
         <div class="col-4">
             <div class="form-outline">
                 <input type="search" id="dni" class="form-control rounded" placeholder="DNI"/>
@@ -18,7 +19,7 @@
 
          
    
-    <div class="row w-100 mt-4">
+    <div class="row w-100 mt-4  NOMODAL">
         <div class="col-5 text-center">
             <span>Nombres y apellidos </span> 
         </div>
@@ -32,41 +33,167 @@
      
         
         
-    <div class="row w-100" style="min-height: 300px; ">
+    <div class="row w-100  NOMODAL" style="min-height: 300px; ">
         <div class="information-container mt-sm-4 w-100 h-75 overflow-auto ">
             <ul class="list-group list-group-flush" id="LISTA">
             <div style="display: none;" id="datospaciente">
-
                 <%=listapacientes%>
+            </div>
+            <div style="display: none;" id="datosFormularios">
+                <%=listaFormularios%>
             </div>
             </ul>
         </div>
     </div>
+    <head>
+        <style>
+            .form-input{
+                width: auto;
+                max-width: 700px;
+                margin-top: 25px;
+            }
+            /*Estilos Box input*/
+            .form-input .input-group{
+                width: 100%;
+                max-width: 800px;
+                background-color: #FFFFFF;
+                padding: 10px 15px;
+                border-radius: 34px;
+                border: 1px solid #707070;
+                box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.57);
+            }
+            .form-input .input-group-text{
+                background-color: transparent;
+                color: #655F5F;
+                border: none;
+                gap: 10px;
+            }
+            .form-input .input-group span{
+                background-color: transparent;
+                color: #655F5F;
+                border: none;
+            }
+            .input-group .check-input{
+                width: 16px;
+                height: 16px;
+            }
+            /* Fin de estilos Box input */
+    
+            /* Estilos titulo de input*/
+            .input-title{
+                display: block;
+                margin: 10px 0;
+                font-size: 25px;
+                font-weight: 600;
+                color: #3B3333;
+            }
+            .input-title .input-img{
+                display: inline-block;
+                width: 50px;
+                border: 1px solid;
+            }
+            /* Fin de estilos titulo de input*/
+        </style>
+    </head>
+    <div class="flex-column w-100 justify-content-center "  id="Modal"style="margin-top: 20px;display:none;">
+        <div class="container">
+            <div class="main-title justify-content-lg-start" style="max-width: 700px;">
+                <h1 class="text-light text-center ms-lg-5">Formulario</h1>
+                <div class="main-logo d-none d-xl-block">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="book-reader" class="svg-inline--fa fa-book-reader fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64">
+                        <path fill="currentColor" d="M352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zM233.59 241.1c-59.33-36.32-155.43-46.3-203.79-49.05C13.55 191.13 0 203.51 0 219.14v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87V252.56c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06V219.14c-.01-15.63-13.56-28.01-29.81-27.09z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-container" style="width: 70%; margin-top: 50px;">
+                    <div class="flex-column">
+                        <div class="form-input">
+                            <div class="input-title">
+                                <div class="input-img">
+                                    <img src="../../../resources/assets/icons/thermometer-three-quarters-solid.png" alt="">
+                                </div>
+                                <span>TEMPERATURA</span>
+                            </div>
+                            <div class="input-group">        
+                                <span class="input-group-text px-1" id="TEMPERATURA">C°</span>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <div class="input-title">
+                                <div class="input-img">
+                                    <img src="../../../resources/assets/icons/soap-solid.png" alt="">
+                                </div>
+                                <span>SATURACIÓN DE OXÍGENO</span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text px-1"id="SATURACION">%</span>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <div class="input-title">
+                                <div class="input-img">
+                                    <img src="../../../resources/assets/icons/lungs-virus-solid.png" alt="">
+                                </div>
+                                <span>SÍNTOMAS</span>
+                            </div>
+                            <div class="input-group " >
+                                <ul class="container" id="SINTOMAS">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <div class="input-title">
+                                <div class="input-img">
+                                    <img src="../../../resources/assets/icons/head-side-virus-solid.png" alt="">
+                                </div>
+                                <span>OTRAS ENFERMEDADES</span>
+                            </div>
+                            <div class="input-group ">
+                                <ul class="container" id="OTROS">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="edit my-3 d-flex justify-content-center justify-content-lg-end" style="max-width: 700px;">
+                            <button id="submitDatos"  class="btn btn-outline-info" style="height: 35px;" onclick="mostrarPacientes()">Retornar</button>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="container" style="margin-bottom: 60px;"></div>
+    </div>
 </div>
+
 <script>
     
     var listadepacientes=JSON.parse(document.getElementById("datospaciente").innerText);
+    var listadeFormulario=JSON.parse(document.getElementById("datosFormularios").innerText);
     console.log(listadepacientes);
+    console.log(listadeFormulario);
     var form = document.getElementById("dni");
     var lista = document.getElementsByClassName("paciente");
     var LISTA=document.getElementById("LISTA");
     LISTA.innerHTML="";
     for(x of listadepacientes){
         LISTA.innerHTML+=`
-         <li class="paciente list-group-item h-20 cursor-pointer">
+            <li class="paciente list-group-item h-20 cursor-pointer">
                 <span class="col-1 text-center">
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="book-reader" class="svg-inline--fa fa-book-reader fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20">
                     <path fill="currentColor" d="M352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zM233.59 241.1c-59.33-36.32-155.43-46.3-203.79-49.05C13.55 191.13 0 203.51 0 219.14v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87V252.56c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06V219.14c-.01-15.63-13.56-28.01-29.81-27.09z"></path>
                 </svg>
                 </span> 
-                <span class="col-4 ">${x.pac_apellidos} ${x.pac_nombres}</span> 
-                <span class="DNI col-3 text-center">${x.pac_dni}</span>
-                <span class=" col-4 text-center">${x.pac_celular}</span>
+                <span class="col-4 "><a href=# style="color:#3f3f4f;" class="clicableFormulario${x.pac_dni}" onclick="mostrarFormulario(${x.pac_dni})">${x.pac_apellidos} ${x.pac_nombres}</a></span> 
+                <span class="DNI col-3 text-center"><a href=# style="color:#3f3f4f;" class="clicableFormulario${x.pac_dni}" onclick="mostrarFormulario(${x.pac_dni})">${x.pac_dni}</a></span>
+                <span class=" col-4 text-center"><a href=# style="color:#3f3f4f;" class="clicableFormulario${x.pac_dni}" onclick="mostrarFormulario(${x.pac_dni})">${x.pac_celular}</a></span>
+                
             </li>`
     }
     
     function filtrar(){
-        
             let dni=form.value;
             
             for(let x of lista){
@@ -80,5 +207,46 @@
             }        
     }
     form.addEventListener("keyup",filtrar);
+
+    function mostrarFormulario(dni){
+        var datos={};
+        for(x of listadeFormulario){
+            if (x.pac_dni==dni){
+                datos=x;
+            }
+        }
+        for(x of document.getElementsByClassName("NOMODAL")){
+            x.style.display="none";
+        }
+        document.getElementById("Modal").style.display="";
+        document.getElementById("TEMPERATURA").innerText=datos.temperatura+"C°";
+        document.getElementById("SATURACION").innerText=datos.saturacion+"%";
+        document.getElementById("SINTOMAS").innerHTML="";
+        document.getElementById("OTROS").innerHTML="";
+        var sintomas =  JSON.parse(datos.sintomas);
+        for(s of sintomas){
+            if(s!="cierre"&&s!=""){
+                document.getElementById("SINTOMAS").innerHTML+="<li>"+s+"</li>"; 
+            }
+        }
+        var enfermedades =  JSON.parse(datos.enfermedades);
+        for(s of enfermedades){
+            if(s!="cierre"&&s!=""){
+                document.getElementById("OTROS").innerHTML+="<li>"+s+"</li>"; 
+            }
+        }
+         
+    }
+
+    function mostrarPacientes(){
+        for(x of document.getElementsByClassName("NOMODAL")){
+            x.style.display="";
+        }
+        document.getElementById("Modal").style.display="none";
+           
+    }
+
+
 </script>
+
 <%- include('../partials/parte_inf.ejs')%>

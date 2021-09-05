@@ -386,23 +386,11 @@ app.post('/doctor/editar',async(req,res)=>{
     var formatedMysqlString = (new Date ((new Date((new Date(new Date())).toISOString() )).getTime() - ((new Date()).getTimezoneOffset()*60000))).toISOString().slice(0, 19).replace('T', ' ');
     console.log( formatedMysqlString );
     var fechas=new Date();
-    let sintom="";
-    let enferme=""
-    for(let i=0;i<req.body.sintoma.length;i++){
-        if(i!=req.body.sintoma.length-1 && req.body.sintoma[i].length>2){
-            sintom+=req.body.sintoma[i]+" ,";
-        }else{
-            if(req.body.sintoma[i].length>2){
-                sintom+=req.body.sintoma[i];
-            }
-            
-        }
-    }
-    enferme+=req.body.enfermedad[0];
-    if(req.body.enfermedad[1].length>2){
-        enferme+=" ,"+req.body.enfermedad[1];
-    }
+    let sintom=JSON.stringify(req.body.sintoma);
+    let enferme=JSON.stringify(req.body.enfermedad);
+    
     console.log(sintom);
+    console.log(enferme);
 
     
     connection.query('INSERT INTO formulario SET ?',{pac_dni:req.session.DNi,doc_dni:req.session.DNIDOCTOR1,temperatura:req.body.temp,saturacion:req.body.oxig,sintomas:sintom,enfermedades:enferme,fecha:fechas},async(error,results)=>{
@@ -459,6 +447,7 @@ app.use('/',require('./routes/contact-us'));
 let ides = new Map();
 let mensajes=[];
 connection.query('SELECT * FROM mensajes ',async(error,results)=>{
+    console.log(results);
     for(x of results){
         mensajes.push({dniE:x.emisor_dni,msje:x.mensaje,dniR:x.receptor_dni})
     }
