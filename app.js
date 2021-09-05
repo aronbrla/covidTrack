@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express(); 
 //montando el servidor en la ruta 3000
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 var server=app.listen(port,() => {
     console.log(`SERVER RUNNING IN http://localhost:${port}`);
 });
