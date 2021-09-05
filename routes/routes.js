@@ -19,18 +19,24 @@ router.get('/dash',(peticion,respuesta)=>{
     respuesta.render('dash');
 });
 
+
 //Rutas del dash Paciente
 router.get('/paciente',(req,respuesta)=>{
-  
-    respuesta.render('../views/paciente/index.ejs',{
-        login:true,
-        NOMBRE: req.session.NOMBRe,
-        NDOC: req.session.NOMDOC,
-        NCOR: req.session.CORDOC,
-        COLDOC: req.session.COLDOC,
-        SEXODOC: req.session.SEXODOC
-        
-    });
+    let citasList = [];
+    connection.query('SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?',[peticion.session.DNIDOCTOR],async(error,results)=>{
+        for(let i=0;i<results.length;i++){
+          citasList.push({pacDNI:results[i].pac_dni,todo:results[i].pac_apellidos +" "+ results[i].pac_nombres,date: results[i].fecha});
+        }
+        respuesta.render('../views/paciente/index.ejs',{
+            login:true,
+            NOMBRE: req.session.NOMBRe,
+            NDOC: req.session.NOMDOC,
+            NCOR: req.session.CORDOC,
+            COLDOC: req.session.COLDOC,
+            SEXODOC: req.session.SEXODOC,
+            citasList:JSON.stringify(citasList),
+        }); 
+    })
 
 });
 
