@@ -44,18 +44,11 @@
                     <span class="col"><strong>Hora</strong></span>
                     <span class="col"><strong>Estado</strong></span>
                 </div>
-                <%  var citas = [["17/8/21","15:30","Próximo"],["05/08/21","16:30","Completado"],["17/09/21","16:30","Completado"]]; %> 
-                <%  var cita;%> 
-                <% for( let index = 0; index < citas.length; index++ ) { %>
-                    <%  var cita = citas[index]; %> 
-                    <li class="list-group-item">
-                        <% for( let j = 0; j < cita.length; j++ ) { %>
-                            <span class="col"><%- cita[j] %> </span> 
-                        <% } %>
-                    </li>
-                <% } %>
+                <div id="citasList"></div>
             </ul>
         </div>
     </div>
 </div>
+<div id="citasList" class="d-none"><%- citasList %> </div>
+<%- include('./partials/indexScript.ejs')%>
 <%- include('./partials/parte_inf.ejs')%>

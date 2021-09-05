@@ -23,7 +23,6 @@ function main(){
       
   var calendar;
   getElement();
-  addListeners();
   initCalendar();
   load();
 
@@ -31,31 +30,6 @@ function main(){
     titleInput = document.getElementById("titleInput");
     dateTimeInput = document.getElementById("dateTimeInput");
     addButton = document.getElementById("addBtn");
-  }
-
-  function addListeners() {
-    addButton.addEventListener("click", addEntry, false);
-  }
-
-  function addEntry(event){
-    let titleValue = titleInput.value;
-    titleInput.value = "";
-    let dateValue = dateTimeInput.value;
-    dateTimeInput.value = "";
-
-    let obj = {
-        todo: titleValue,
-        date: dateValue,
-        done: false,
-    };
-
-    todoList.push(obj);
-    // console.log(todoList);
-    save();
-    addEvent({
-            title: 'Cita Medica - '+ obj.todo,
-            start: obj.date,
-        });
   }
 
   function load() {

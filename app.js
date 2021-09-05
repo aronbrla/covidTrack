@@ -322,16 +322,16 @@ app.post('/doctor/editar',async(req,res)=>{
                         req.session.DNIDOCTOR=results[0].doc_dni;
                         req.session.TELEFONODOCTOR=results[0].doc_celular;
                         req.session.SEXODOC=results[0].doc_sexo;
-                        let region= "ancash";
-                        let edad = "18";
-                        let sexo="Masculino";
-                        let distrito ="Chimbote";
-                        let doctor = "Dr. House";
-                        let telefonoDoctor = "0000000";
-                        let correoDoctor="drhouse@hotmail.com";
-                        let dniDoctor="333333";
-                        let ultimaCita="ayer";
-                        let proximaCita="hoy";
+                        // let region= "ancash";
+                        // let edad = "18";
+                        // let sexo="Masculino";
+                        // let distrito ="Chimbote";
+                        // let doctor = "Dr. House";
+                        // let telefonoDoctor = "0000000";
+                        // let correoDoctor="drhouse@hotmail.com";
+                        // let dniDoctor="333333";
+                        // let ultimaCita="ayer";
+                        // let proximaCita="hoy";
 
                         res.render('doctor',{
                             npacientes:req.session.NUMEROPACIENTES
@@ -427,6 +427,7 @@ app.post('/doctor/editar',async(req,res)=>{
 
  app.post('/doctor/deleteCita', async(req,res)=>{
     let evento = req.body;
+    console.log(evento);
     connection.query('DELETE FROM citas WHERE pac_dni=? AND fecha=?',[req.body.pacienteDni,req.body.dateTime],async(error,results)=>{
         if(error){
             console.log(error);
