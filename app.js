@@ -439,8 +439,6 @@ app.post('/doctor/editar',async(req,res)=>{
 
  app.post('/doctor/deleteCita', async(req,res)=>{
     let evento = req.body;
-  
-    console.log(evento);
     connection.query('DELETE FROM citas WHERE pac_dni=? AND fecha=?',[req.body.pacienteDni,req.body.dateTime],async(error,results)=>{
         if(error){
             console.log(error);
