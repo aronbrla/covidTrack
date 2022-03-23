@@ -1,7 +1,6 @@
 //1. importando librerias
 const express = require("express");           // Libreria Express
 const session = require("express-session");   // var de session
-
 const connection = require("./database/db");  // Conexion de la BD
 
 const app = express();
@@ -14,17 +13,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-//2. seteamos urlencoded para capturar datos del formulario
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));  // seteamos urlencoded para capturar datos del formulario
 app.use(express.json());
-
-//4 el directorio public
-app.use("/resources", express.static("public"));
-app.use("resources", express.static(__dirname + "public"));
-
-//5. estableciendo el motor de plantillas
-app.set("view engine", "ejs");
-
+app.use(express.static("public"));  // el directorio public
 app.use(
   session({
     secret: "secret",
@@ -33,10 +24,12 @@ app.use(
   })
 );
 
-//9. estableciendo las rutas
-app.use("/", require("./routes"));
+app.set("view engine", "ejs");  // estableciendo el motor de plantillas
+app.set('views', __dirname + '/views')  // Directorio de las vistas
 
-///////////////////////SOCKETS//////////////////////
+app.use("/", require("./routes"));  // Estableciendo las rutas del index
+
+//  SOCKETS
 let ides = new Map();
 let mensajes = [];
 // connection.query("SELECT * FROM mensajes ", async (error, results) => {

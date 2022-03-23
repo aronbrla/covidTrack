@@ -241,16 +241,16 @@ router.get('/logout', (req, res) => {
 
 
 //13. función para limpiar la caché luego del logout
-router.use(function(req, res, next) {
+router.use( (req, res, next) => {
     if (!req.user)
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     next();
 });
 
 //Paciente Rutas
-router.use("/", pacienteRouter);
+router.use("/paciente", pacienteRouter);
 // Doctor Rutas
-router.use("/", doctorRouter);
+router.use("/doctor", doctorRouter);
 
 // Contac Us Js usando nodemailer
 router.use("/", require("./contact-us"));

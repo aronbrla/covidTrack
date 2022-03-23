@@ -31,27 +31,22 @@
 <div id="chatConteiner" class="container w-100 pt-1" style="height:90vh;">
     <div class="row w-100 h-100">
         <div class="list-group col-3 border h-100 pe-0" id="user-list">
-           
-        </div> 
+        </div>
         <div class="col-9 border h-100">
             <div id ="chatWindow" class="h-100">
                 <div id ="OUPUT" class="w-100 border overflow-auto">
-                   
                 </div>
                 <div class="send-text row w-100 border m-auto  inpupt-group">
                     <textarea id ="INPUT" type="text" class="col-9"></textarea>
                     <button id="boton" class="btn btn-secondary col-3">Enviar</button>
                 </div>
-                
-            </div>  
+            </div>
         </div>
     </div>
     <div style="display: none;" id="dnioculto"><%=dnioculto%></div>
     <div style="display: none;" id="datospaciente">
         <%=listapacientes%>
     </div>
-    
-    
 </div>
 
 <%- include('../partials/parte_inf.ejs')%>
@@ -61,19 +56,15 @@
     var usuarios=JSON.parse(document.getElementById("datospaciente").innerText);
     var contactos=[];
     const DNI=document.getElementById("dnioculto").innerText;
-    
-    
     const lista = document.getElementById("user-list");
-    
     lista.innerHTML="";
     for(x of usuarios){
         contactos.push({nombre: x.pac_nombres,dni: x.pac_dni});
-        
     }
     contactos.forEach(element => {
         lista.innerHTML+=`
         <div id=${element.dni+""} class="user-chat list-group-item w-100 container btn" onclick="iniciarchat(${element.dni});">
-                <img src="../../../resources/assets/icons/usuario.png" alt="" width="36px" height="36px">
+                <img src="/assets/icons/usuario.png" alt="" width="36px" height="36px">
                 <span style="font-weight: bold;">${element.nombre}</span>
         </div>
         `;
@@ -81,16 +72,11 @@
     var entrada = document.getElementById("INPUT");
     var salida = document.getElementById("OUPUT");
     var boton = document.getElementById("boton");
-
-    
-    
     function iniciarchat(cliente){
         const socket=io();
         DNIR=cliente;
         console.log("este es el chat?");
         socket.emit('conectar',{dni:(DNI+"")});
-        
-        
         var mensajes=[];
         salida.innerHTML='';
         boton.addEventListener('click',()=>{
@@ -104,42 +90,20 @@
             salida.scrollTop =salida.scrollTop +99999;
             }
         })
-
-        /*
-        entrada.addEventListener('keyup',()=>{
-            socket.emit('tipeando',{dniE:(DNI+""),dniR:(DNIR+"")});
-            
-        })*/
-
-
         socket.on('inicio',(data)=>{
             for(mensaje of data){
                 if((mensaje.dniE==DNI&&mensaje.dniR==DNIR)||(mensaje.dniR==DNI||mensaje.dniE==DNIR)){
                 mostrarMensaje(mensaje);
                 }
                 mensajes.push(mensaje)
-            }   
+            }
             console.log(mensajes);
-
         });
-        
         socket.on('mensaje',(data)=>{
             mensajes.push(data);
             console.log(mensajes);
             mostrarMensaje(data);
         });
-        /*
-        socket.on('tipeando',(data)=>{
-            salida.innerHTML+= `
-                <div class= "mensaje-container d-flex w-100 justify-content-end">
-                    <div class="mensaje p-3 m-2 col-9" style="background-color: rgba(0,0,0,.1)">
-                        Escribiendo....
-                    </div>
-                </div><br/>`;
-            
-            mostrarMensaje(data);
-        });
-        */
         function mostrarMensaje(msj){
             if(msj.dniE==DNI){
                 salida.innerHTML+= `
@@ -159,11 +123,9 @@
                 </div><br/>`;
                 salida.scrollTop =salida.scrollTop +99999;
             }
-            
         }
     }
-
-    if(contactos[0]){   
+    if(contactos[0]){
         iniciarchat(contactos[0].dni);
     }
 </script>

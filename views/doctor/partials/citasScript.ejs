@@ -9,7 +9,7 @@ let pacientes = JSON.parse(document.getElementById("pacientes").innerText);
 
 let pacienteSelect = document.getElementById("pacienteSelect");
 for (obj of pacientes) {
-  pacienteSelect.innerHTML += `<option value=${obj.dni}>${obj.nombre}</option>`; 
+  pacienteSelect.innerHTML += `<option value=${obj.dni}>${obj.nombre}</option>`;
 }
 dniDValue = document.getElementById("dnid").value;
 
@@ -20,7 +20,6 @@ function main(){
   let titleInput,
       dateTimeInput,
       todoList = [];
-      
   var calendar;
   getElement();
   initCalendar();
@@ -36,16 +35,13 @@ function main(){
     let retrieved = localStorage.getItem("todoList");
     todoList = JSON.parse(retrieved);
     //console.log(typeof todoList)
-    
     if (todoList == null)
       todoList = [];
 
     if(citasList.length > 0){
         todoList.push.apply(todoList, citasList);
     }
-    
     // console.log(todoList);
-    
     todoList.map(obj => {
         addEvent({
             title: 'Cita Medica - '+ obj.todo,
@@ -54,14 +50,12 @@ function main(){
             dateTime: obj.date,
         });
     });
-    
   }
 
   function save() {
     let stringified = JSON.stringify(todoList);
     localStorage.setItem("todoList", stringified);
   }
-  
   function initCalendar(){
     var calendarE1 = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarE1,{
@@ -108,22 +102,20 @@ function main(){
       showCancelButton: true,
       confirmButtonClass: "btn-danger",
       confirmButtonText: "Sí, Eliminar cita!",
-     
-    }).then((result) => {  
-    /* Read more about isConfirmed, isDenied below */  
+    }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        console.log(`Dni del paciente a eliminar: ${pacienteDNI}. Fecha a eliminar: ${dateTime}`);    
+        console.log(`Dni del paciente a eliminar: ${pacienteDNI}. Fecha a eliminar: ${dateTime}`);
         Swal.fire({
           title: "Cita eliminada!",
           icon: 'success',
           html: div,
           showConfirmButton: false,
         });
-      } else if (result.isDenied) {    
-        Swal.fire('Changes are not saved', '', 'info')  
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
       }
     });
   }
-  
 }
 </script>

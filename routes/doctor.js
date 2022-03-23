@@ -3,14 +3,14 @@ const router = express.Router();
 const connection = require("../database/db");  // Conexion de la BD
 
 //Rutas del dash DOCTOR
-router.get("/doctor", (peticion, respuesta) => {
+router.get("/", (peticion, respuesta) => {
   respuesta.render("../views/doctor/index.ejs", {
     npacientes: peticion.session.NUMEROPACIENTES,
     ncitas: peticion.session.NUMEROCITAS,
   });
 });
 
-router.get("/doctor/informacion", (peticion, respuesta) => {
+router.get("/informacion", (peticion, respuesta) => {
   respuesta.render("../views/doctor/sites/info.ejs", {
     nombred: peticion.session.NOMBREDOCTOR,
     correod: peticion.session.CORREODOCTOR,
@@ -19,7 +19,7 @@ router.get("/doctor/informacion", (peticion, respuesta) => {
   });
 });
 
-router.get("/doctor/pacientes", (peticion, respuesta) => {
+router.get("/pacientes", (peticion, respuesta) => {
   connection.query(
     "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
     [peticion.session.DNIDOCTOR],
@@ -49,7 +49,7 @@ router.get("/doctor/pacientes", (peticion, respuesta) => {
   );
 });
 
-router.get("/doctor/citas", (peticion, respuesta) => {
+router.get("/citas", (peticion, respuesta) => {
   let citasList = [];
   let pacienteList = [];
   citasList = [{}];
@@ -86,7 +86,7 @@ router.get("/doctor/citas", (peticion, respuesta) => {
   );
 });
 
-router.get("/doctor/chat", (peticion, respuesta) => {
+router.get("/chat", (peticion, respuesta) => {
   connection.query(
     "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
     [peticion.session.DNIDOCTOR],
@@ -100,7 +100,7 @@ router.get("/doctor/chat", (peticion, respuesta) => {
 });
 
 //12 auth page
-router.get("/doctor/ajustes", (req, res) => {
+router.get("/ajustes", (req, res) => {
   if (req.session.loggedin) {
     res.render("../views/doctor/sites/ajustes.ejs", {
       login: true,
@@ -117,7 +117,7 @@ router.get("/doctor/ajustes", (req, res) => {
   }
 });
 
-router.get("/doctor/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -129,7 +129,7 @@ router.get("/doctor/logout", (req, res) => {
 });
 
 //15. Editar datos doctor
-router.post("/doctor/editar", async (req, res) => {
+router.post("/editar", async (req, res) => {
   // const distrito=req.body.distrito;
 
   const celular = req.body.phone;
@@ -177,7 +177,7 @@ router.post("/doctor/editar", async (req, res) => {
   );
 });
 
-router.post("/doctor/EditCon", async (req, res) => {
+router.post("/EditCon", async (req, res) => {
   const pass = req.body.pass;
   const npass = req.body.passwordNew1;
   const cpass = req.body.passwordNew2;
@@ -220,54 +220,8 @@ router.post("/doctor/EditCon", async (req, res) => {
   }
 });
 
-//guardar formulario paciente
-router.post("/paciente/guardarformulario", async (req, res) => {
-  console.log(req.body);
-  var formatedMysqlString = new Date(
-    new Date(new Date(new Date()).toISOString()).getTime() -
-      new Date().getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .slice(0, 19)
-    .replace("T", " ");
-  console.log(formatedMysqlString);
-  var fechas = new Date();
-  let sintom = JSON.stringify(req.body.sintoma);
-  let enferme = JSON.stringify(req.body.enfermedad);
-
-  console.log(sintom);
-  console.log(enferme);
-
-  connection.query(
-    "INSERT INTO formulario SET ?",
-    {
-      pac_dni: req.session.DNi,
-      doc_dni: req.session.DNIDOCTOR1,
-      temperatura: req.body.temp,
-      saturacion: req.body.oxig,
-      sintomas: sintom,
-      enfermedades: enferme,
-      fecha: fechas,
-    },
-    async (error, results) => {
-      if (error) {
-        console.log(error);
-      } else {
-        res.render("paciente", {
-          login: true,
-          NOMBRE: req.session.NOMBRe,
-          NDOC: req.session.NOMDOC,
-          NCOR: req.session.CORDOC,
-          COLDOC: req.session.COLDOC,
-          SEXODOC: req.session.SEXo,
-        });
-      }
-    }
-  );
-});
-
 //Agregar cita Doctor
-router.post("/doctor/addCita", async (req, res) => {
+router.post("/addCita", async (req, res) => {
   let evento = req.body;
   console.log(evento);
   connection.query(
@@ -288,7 +242,7 @@ router.post("/doctor/addCita", async (req, res) => {
   );
 });
 
-router.post("/doctor/deleteCita", async (req, res) => {
+router.post("/deleteCita", async (req, res) => {
   let evento = req.body;
   console.log(evento);
   connection.query(

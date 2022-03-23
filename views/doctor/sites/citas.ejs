@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 <!-- SweetAlert core JS-->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="container mt-5" style="width: 80%;">
     <div class="row my-3">
@@ -12,7 +12,7 @@
             <div class="main-title justify-content-xl-start">
                 <h1 class="text-light text-center ms-lg-5">Citas</h1>
                 <div class="main-logo d-none d-xl-block">
-                    <img src="../../../resources/assets/img/clipboard-solid.svg" width="120px" height="120px">
+                    <img src="/assets/img/clipboard-solid.svg" width="120px" height="120px">
                 </div>
             </div>
             <div class="d-flex">
@@ -21,8 +21,7 @@
                         Agregar Cita
                     </button>
                 </div>
-                  
-                  <!-- Modal -->
+                <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%;">
                         <div class="modal-dialog">
                         <div class="modal-content">
@@ -32,14 +31,13 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="./addCita" method="POST">   
+                            <form action="./addCita" method="POST">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="">Ingresar nombre</label>
                                         <select class="form-select" name="pacientedni" aria-label="Default select example"id="pacienteSelect" required>
                                             <option selected disabled>Nombre de paciente</option>
-                                            
-                                          </select>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Elegir fecha y hora de la cita</label>

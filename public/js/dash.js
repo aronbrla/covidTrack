@@ -68,9 +68,6 @@ function seg(){
     document.getElementById("seguimiento").style.display = "block";
     document.getElementById("cerrar").style.display = "none";
 }
-function cer(){
-    
-}
 
 function ajustes(){
     document.getElementById("info").style.display = "none";

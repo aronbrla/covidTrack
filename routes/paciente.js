@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../database/db");  // Conexion de la BD
-const bcryptjs = require("bcryptjs");         // invocamos a bcryptjs
+const connection = require("../database/db"); // Conexion de la BD
+const bcryptjs = require("bcryptjs"); // invocamos a bcryptjs
 
 //Rutas del dash Paciente
-router.get("/paciente", (req, respuesta) => {
+router.get("/", (req, respuesta) => {
   let citasList = [
     { date: "2021/09/04T15:00:00" },
     { date: "2021/09/05T18:00:00" },
     { date: "2021/09/06T15:00:00" },
   ];
-  respuesta.render("../views/paciente/index.ejs", {
+  respuesta.render("paciente/index", {
     login: true,
     NOMBRE: req.session.NOMBRe,
     NDOC: req.session.NOMDOC,
@@ -21,9 +21,9 @@ router.get("/paciente", (req, respuesta) => {
   });
 });
 
-router.get("/paciente/informacion", (req, res) => {
+router.get("/informacion", (req, res) => {
   if (req.session.loggedin) {
-    res.render("../views/paciente/sites/info.ejs", {
+    res.render("paciente/sites/info", {
       login: true,
       NOMBRE: req.session.NOMBRe,
       DNI: req.session.DNi,
@@ -36,20 +36,17 @@ router.get("/paciente/informacion", (req, res) => {
       REGION: "region",
     });
   } else {
-    res.render("/views/login.ejs", {
-      login: false,
-    });
+    res.redirect('/logout')
   }
 });
 
-router.get("/paciente/citas", (req, respuesta) => {
+router.get("/citas", (req, respuesta) => {
   let citasList = [];
   connection.query("SELECT * FROM citas", async (error, results) => {
     for (let i = 0; i < results.length; i++) {
       citasList.push({ todo: "Cita médica", date: results[i].fecha });
-      //citasList.push({todo:"Cita médica",date: results[i].fecha,doctor:req.session.NOMDOC});
     }
-    respuesta.render("../views/paciente/sites/citas.ejs", {
+    respuesta.render("paciente/sites/citas", {
       login: true,
       NOMBRE: req.session.NOMBRe,
       citasList: JSON.stringify(citasList),
@@ -59,9 +56,9 @@ router.get("/paciente/citas", (req, respuesta) => {
 });
 
 //12 auth page
-router.get("/paciente/ajustes", (req, res) => {
+router.get("/ajustes", (req, res) => {
   if (req.session.loggedin) {
-    res.render("../views/paciente/sites/ajustes.ejs", {
+    res.render("paciente/sites/ajustes", {
       login: true,
       NOMBRE: req.session.NOMBRe,
       DNI: req.session.DNi,
@@ -74,25 +71,25 @@ router.get("/paciente/ajustes", (req, res) => {
       REGION: "region",
     });
   } else {
-    res.render("/views/login.ejs", {
+    res.render("login", {
       login: false,
     });
   }
 });
 
-router.get("/paciente/formulario", (req, respuesta) => {
-  respuesta.render("../views/paciente/sites/formulario.ejs", {
+router.get("/formulario", (req, respuesta) => {
+  respuesta.render("paciente/sites/formulario", {
     login: true,
     NOMBRE: req.session.NOMBRe,
   });
 });
 
-router.get("/paciente/chat", (peticion, respuesta) => {
+router.get("/chat", (peticion, respuesta) => {
   connection.query(
     "SELECT doc_apellidos, doc_nombres, doc_dni FROM doctores WHERE doc_dni =?",
     [peticion.session.DNIDOCTOR1],
     async (error, results) => {
-      respuesta.render("../views/paciente/sites/chat.ejs", {
+      respuesta.render("paciente/sites/chat", {
         dnioculto: peticion.session.DNi,
         listadoctor: JSON.stringify(results),
         NOMBRE: peticion.session.NOMBRe,
@@ -101,7 +98,7 @@ router.get("/paciente/chat", (peticion, respuesta) => {
   );
 });
 
-router.get("/paciente/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -113,7 +110,7 @@ router.get("/paciente/logout", (req, res) => {
 });
 
 //14. Editar datos paciente
-router.post("/paciente/editar", async (req, res) => {
+router.post("/editar", async (req, res) => {
   // const distrito=req.body.distrito;
   const celular = req.body.phone;
   const domicilio = req.body.address;
@@ -147,7 +144,7 @@ router.post("/paciente/editar", async (req, res) => {
               req.session.SEXo = results[0].pac_sexo;
               console.log(req.session.NOMBRe);
 
-              res.render("paciente", {
+              res.render("paciente/index", {
                 login: true,
                 NOMBRE: req.session.NOMBRe,
                 NDOC: req.session.NOMDOC,
@@ -163,7 +160,7 @@ router.post("/paciente/editar", async (req, res) => {
   );
 });
 
-router.post("/paciente/EditCon", async (req, res) => {
+router.post("/EditCon", async (req, res) => {
   const pass = req.body.pass;
   const npass = req.body.passwordNew1;
   const cpass = req.body.passwordNew2;
@@ -209,6 +206,52 @@ router.post("/paciente/EditCon", async (req, res) => {
       }
     );
   }
+});
+
+//guardar formulario paciente
+router.post("/guardarformulario", async (req, res) => {
+  console.log(req.body);
+  var formatedMysqlString = new Date(
+    new Date(new Date(new Date()).toISOString()).getTime() -
+      new Date().getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+  console.log(formatedMysqlString);
+  var fechas = new Date();
+  let sintom = JSON.stringify(req.body.sintoma);
+  let enferme = JSON.stringify(req.body.enfermedad);
+
+  console.log(sintom);
+  console.log(enferme);
+
+  connection.query(
+    "INSERT INTO formulario SET ?",
+    {
+      pac_dni: req.session.DNi,
+      doc_dni: req.session.DNIDOCTOR1,
+      temperatura: req.body.temp,
+      saturacion: req.body.oxig,
+      sintomas: sintom,
+      enfermedades: enferme,
+      fecha: fechas,
+    },
+    async (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.render("paciente/index", {
+          login: true,
+          NOMBRE: req.session.NOMBRe,
+          NDOC: req.session.NOMDOC,
+          NCOR: req.session.CORDOC,
+          COLDOC: req.session.COLDOC,
+          SEXODOC: req.session.SEXo,
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;
