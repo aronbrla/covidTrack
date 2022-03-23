@@ -1,5 +1,3 @@
-<%- include('../partials/parte_sup.ejs')%>
-
 <head>
     <style>
         .mensaje-container{
@@ -31,46 +29,33 @@
 <div id="chatConteiner" class="container w-100 pt-1" style="height:90vh;">
     <div class="row w-100 h-100">
         <div class="list-group col-3 border h-100 pe-0" id="user-list">
-           
-        </div> 
+        </div>
         <div class="col-9 border h-100">
             <div id ="chatWindow" class="h-100">
                 <div id ="OUPUT" class="w-100 border overflow-auto">
-                   
                 </div>
                 <div class="send-text row w-100 border m-auto  inpupt-group">
                     <textarea id ="INPUT" type="text" class="col-9"></textarea>
                     <button id="boton" class="btn btn-secondary col-3">Enviar</button>
                 </div>
-                
-            </div>  
+            </div>
         </div>
     </div>
     <div style="display: none;" id="dnioculto"><%=dnioculto%></div>
     <div style="display: none;" id="datosdoctor">
         <%=listadoctor%>
     </div>
-    
-    
 </div>
-
-<%- include('../partials/parte_inf.ejs')%>
-
 <script src="/socket.io/socket.io.js"></script>
 <script>
     console.log(document.getElementById("datosdoctor").innerText);
     var usuarios=JSON.parse(document.getElementById("datosdoctor").innerText);
-    
     var contactos=[];
     const DNI=document.getElementById("dnioculto").innerText;
-    
-    
     const lista = document.getElementById("user-list");
-    
     lista.innerHTML="";
     for(x of usuarios){
         contactos.push({nombre: x.doc_nombres,dni: x.doc_dni});
-        
     }
     contactos.forEach(element => {
         lista.innerHTML+=`
@@ -83,16 +68,11 @@
     var entrada = document.getElementById("INPUT");
     var salida = document.getElementById("OUPUT");
     var boton = document.getElementById("boton");
-
-    
-    
     function iniciarchat(cliente){
         const socket=io();
         DNIR=cliente;
         console.log("este es el chat?");
         socket.emit('conectar',{dni:(DNI+"")});
-        
-        
         var mensajes=[];
         salida.innerHTML='';
         boton.addEventListener('click',()=>{
@@ -113,11 +93,10 @@
                 mostrarMensaje(mensaje);
                 }
                 mensajes.push(mensaje)
-            }   
+            }
             console.log(mensajes);
 
         });
-        
         socket.on('mensaje',(data)=>{
             mensajes.push(data);
             console.log(mensajes);
@@ -143,11 +122,10 @@
                 </div><br/>`;
                 salida.scrollTop =salida.scrollTop +99999;
             }
-            
         }
     }
 
-    if(contactos[0]){   
+    if(contactos[0]){
         iniciarchat(contactos[0].dni);
     }
 </script>

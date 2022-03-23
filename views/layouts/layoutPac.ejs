@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard Paciente - <%= typeof title !== 'undefined' ? title : ''%></title>
+    <!-- Stylesheets-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="/css/paciente.css">
+    <!-- JS Defer -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="/js/sidebar.js"></script>
+</head>
+<body id="body-pd" class="body-pd">
+    <div class="container-fluid">
+        <%- include('../paciente/_header.ejs') %>
+        <main class="row">
+            <%- include('../paciente/_sidebar.ejs') %>
+            <%- body %>
+        </main>
+    </div>
+</body>
+</html>

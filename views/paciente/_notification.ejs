@@ -1,10 +1,10 @@
-<% var notificaciones = []; %> 
-<% var notificacion = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Formulario', action: 'Responder formulario'} %> 
+<% var notificaciones = []; %>
+<% var notificacion = {icon:'/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Formulario', action: 'Responder formulario'} %>
 <% notificaciones.push(notificacion);%>
-<% var notificacion2 = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Cita', action: 'Cita pendiente de asistir'} %> 
-<% notificaciones.push(notificacion2);%>  
-<% var notificacion3 = {icon:'../../../resources/assets/img/clipboard-solid.svg',time:'15:30', nombre: 'Formulario2', action: 'Responder formulario2'} %> 
-<% notificaciones.push(notificacion3);%> 
+<% var notificacion2 = {icon:'/assets/img/clipboard-solid.svg',time:'15:30' , nombre: 'Cita', action: 'Cita pendiente de asistir'} %>
+<% notificaciones.push(notificacion2);%>
+<% var notificacion3 = {icon:'/assets/img/clipboard-solid.svg',time:'15:30', nombre: 'Formulario2', action: 'Responder formulario2'} %>
+<% notificaciones.push(notificacion3);%>
 <% var notificacionNew = []; %>
 <% notificacionNew.push(notificacion); %>
 
@@ -38,22 +38,22 @@
             </div>
           </div>
         </li>
-        <% notificaciones.pop();%> 
-        <% notificacionNew.pop();%> 
+        <% notificaciones.pop();%>
+        <% notificacionNew.pop();%>
       <% } %>
-       <li class="dropdown-body">
-        <div class="notification">
-          <div class="notification-image-wrapper">
-            <div class="notification-image">
-              <img alt="" width="32" src=<%= notificacion.icon %>>
+        <li class="dropdown-body">
+          <div class="notification">
+            <div class="notification-image-wrapper">
+              <div class="notification-image">
+                <img alt="" width="32" src=<%= notificacion.icon %>>
+              </div>
+            </div>
+            <div class="notification-text">
+              <p class="d-flex justify-content-between my-0  highlight"><%= notificacion.nombre %> <span class="justify-content-end"><%= notificacion.time %></span> </p> 
+              <p class="my-0"><%= notificacion.action %></p>
             </div>
           </div>
-          <div class="notification-text">
-            <p class="d-flex justify-content-between my-0  highlight"><%= notificacion.nombre %> <span class="justify-content-end"><%= notificacion.time %></span> </p> 
-            <p class="my-0"><%= notificacion.action %></p>
-          </div>
-        </div>
-       </li>
+        </li>
     <% }) %>
   </ul>
 </div>

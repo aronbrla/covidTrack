@@ -1,0 +1,43 @@
+<div class="dropdown-container">
+	<div class="notifications" data-bs-toggle="dropdown">
+		<span class="count animated"></span>
+		<button class="btn">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill"
+				viewBox="0 0 16 16">
+				<path
+					d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+			</svg>
+		</button>
+	</div>
+	<ul class="dropdown-menu" id="notification-dropdown">
+		<div class="dropdown-header">
+			<span class="triangle"></span>
+			<span class="heading">Notifications</span>
+			<span class="count" id="dd-notifications-count">{{newNotifications.length}}</span>
+		</div>
+		<li class="dropdown-body">
+			<div class="notification new">
+				<div class="notification-image-wrapper">
+					<div class="notification-image">
+						<img src="{{ notification.user.imageUrl }}" alt="" width="32" />
+					</div>
+				</div>
+				<div class="notification-text">
+					<span class="highlight">{{ notification.user.name }}</span>
+					{{ notification.action }} {{ notification.target }}
+				</div>
+			</div>
+			<div class="notification" ng-repeat="notification in readNotifications.slice().reverse() track by $index">
+				<div class="notification-image-wrapper">
+					<div class="notification-image">
+						<img src="{{ notification.user.imageUrl }}" alt="" width="32" />
+					</div>
+				</div>
+				<div class="notification-text">
+					<span class="highlight">{{ notification.user.name }}</span>
+					{{ notification.action }} {{ notification.target }}
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

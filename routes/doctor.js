@@ -2,16 +2,23 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../database/db");  // Conexion de la BD
 
+const expressLayouts = require('express-ejs-layouts')   // libreria para usar plantillas con EJS
+router.use(expressLayouts)
+router.use((req, res, next) => {                        // cambiando layout para mi ruta paciente
+  req.app.set('layout', './layouts/layoutDoc');         // Directorio de plantillas
+  next();
+});
+
 //Rutas del dash DOCTOR
 router.get("/", (peticion, respuesta) => {
-  respuesta.render("../views/doctor/index.ejs", {
+  respuesta.render("doctor/index", {
     npacientes: peticion.session.NUMEROPACIENTES,
     ncitas: peticion.session.NUMEROCITAS,
   });
 });
 
 router.get("/informacion", (peticion, respuesta) => {
-  respuesta.render("../views/doctor/sites/info.ejs", {
+  respuesta.render("doctor/info", {
     nombred: peticion.session.NOMBREDOCTOR,
     correod: peticion.session.CORREODOCTOR,
     telefonod: peticion.session.TELEFONODOCTOR,
@@ -37,7 +44,7 @@ router.get("/pacientes", (peticion, respuesta) => {
               console.log("pruf");
               console.log(results);
               console.log(results1);
-              respuesta.render("../views/doctor/sites/pacientes.ejs", {
+              respuesta.render("doctor/pacientes", {
                 listapacientes: JSON.stringify(results),
                 listaFormularios: JSON.stringify(results1),
               });
@@ -74,7 +81,7 @@ router.get("/citas", (peticion, respuesta) => {
               nombre: results[i].pac_apellidos + " " + results[i].pac_nombres,
             });
           }
-          respuesta.render("../views/doctor/sites/citas.ejs", {
+          respuesta.render("doctor/citas", {
             dnid: peticion.session.DNIDOCTOR,
             pacientes: JSON.stringify(pacienteList),
             doc: peticion.session.NOMBREDOCTOR,
@@ -91,7 +98,7 @@ router.get("/chat", (peticion, respuesta) => {
     "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
     [peticion.session.DNIDOCTOR],
     async (error, results) => {
-      respuesta.render("../views/doctor/sites/chat.ejs", {
+      respuesta.render("doctor/chat", {
         dnioculto: peticion.session.DNIDOCTOR,
         listapacientes: JSON.stringify(results),
       });
@@ -102,7 +109,7 @@ router.get("/chat", (peticion, respuesta) => {
 //12 auth page
 router.get("/ajustes", (req, res) => {
   if (req.session.loggedin) {
-    res.render("../views/doctor/sites/ajustes.ejs", {
+    res.render("doctor/ajustes", {
       login: true,
       nombred: req.session.NOMBREDOCTOR,
       dnid: req.session.DNIDOCTOR,
@@ -111,7 +118,7 @@ router.get("/ajustes", (req, res) => {
       sexod: req.session.SEXODOC,
     });
   } else {
-    res.render("/views/login.ejs", {
+    res.render("login", {
       login: false,
     });
   }

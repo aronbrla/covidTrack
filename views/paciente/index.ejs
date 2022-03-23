@@ -1,4 +1,3 @@
-<%- include('./partials/parte_sup.ejs')%>
 <div class="main-container row mb-3">
     <div class="col col-lg-7 my-4">
         <div class="main-title justify-content-lg-start">
@@ -49,5 +48,14 @@
     </div>
 </div>
 <div id="citasList" class="d-none"><%- citasList %></div>
-<%- include('./partials/indexScript.ejs')%>
-<%- include('./partials/parte_inf.ejs')%>
+<script>
+    let citasList;
+    citasList = JSON.parse(document.getElementById("citasList").innerText);
+    let citas = document.getElementById("citas");
+    for (obj of citasList) {
+        let date_time = obj.date.split("T");
+        citas.innerHTML += `<li class="list-group-item">
+        <span class="col">${date_time[0]}</span><span class="col">${date_time[1]}</span><span class="col">Por realizar</span>
+        </li>`;
+    }
+</script>

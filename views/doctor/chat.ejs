@@ -1,5 +1,3 @@
-<%- include('../partials/parte_sup.ejs')%>
-
 <head>
     <style>
         .mensaje-container{
@@ -48,9 +46,6 @@
         <%=listapacientes%>
     </div>
 </div>
-
-<%- include('../partials/parte_inf.ejs')%>
-
 <script src="/socket.io/socket.io.js"></script>
 <script>
     var usuarios=JSON.parse(document.getElementById("datospaciente").innerText);
