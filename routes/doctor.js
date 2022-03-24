@@ -10,33 +10,35 @@ router.use((req, res, next) => {                        // cambiando layout para
 });
 
 //Rutas del dash DOCTOR
-router.get("/", (peticion, respuesta) => {
-  respuesta.render("doctor/index", {
-    npacientes: peticion.session.NUMEROPACIENTES,
-    ncitas: peticion.session.NUMEROCITAS,
+router.get("/", (req, res) => {
+  res.render("doctor/index", {
+    title: 'Home',
+    npacientes: req.session.NUMEROPACIENTES,
+    ncitas: req.session.NUMEROCITAS,
   });
 });
 
-router.get("/informacion", (peticion, respuesta) => {
-  respuesta.render("doctor/info", {
-    nombred: peticion.session.NOMBREDOCTOR,
-    correod: peticion.session.CORREODOCTOR,
-    telefonod: peticion.session.TELEFONODOCTOR,
-    dnid: peticion.session.DNIDOCTOR,
+router.get("/informacion", (req, res) => {
+  res.render("doctor/info", {
+    title: 'Información',
+    nombred: req.session.NOMBREDOCTOR,
+    correod: req.session.CORREODOCTOR,
+    telefonod: req.session.TELEFONODOCTOR,
+    dnid: req.session.DNIDOCTOR,
   });
 });
 
-router.get("/pacientes", (peticion, respuesta) => {
+router.get("/pacientes", (req, res) => {
   connection.query(
     "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
-    [peticion.session.DNIDOCTOR],
+    [req.session.DNIDOCTOR],
     async (err, results) => {
       if (err) {
         console.log("ERROR: " + err);
       } else {
         connection.query(
           "select * from formulario WHERE doc_dni =?",
-          [peticion.session.DNIDOCTOR],
+          [req.session.DNIDOCTOR],
           async (err1, results1) => {
             if (err) {
               console.log("ERROR: " + err);
@@ -44,7 +46,8 @@ router.get("/pacientes", (peticion, respuesta) => {
               console.log("pruf");
               console.log(results);
               console.log(results1);
-              respuesta.render("doctor/pacientes", {
+              res.render("doctor/pacientes", {
+                title: 'Pacientes',
                 listapacientes: JSON.stringify(results),
                 listaFormularios: JSON.stringify(results1),
               });
@@ -56,35 +59,38 @@ router.get("/pacientes", (peticion, respuesta) => {
   );
 });
 
-router.get("/citas", (peticion, respuesta) => {
-  let citasList = [];
-  let pacienteList = [];
-  citasList = [{}];
-  connection.query(
-    "SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni FROM paciente INNER JOIN citas WHERE citas.doc_dni=?",
-    [peticion.session.DNIDOCTOR],
-    async (error, results) => {
-      for (let i = 0; i < results.length; i++) {
+router.get("/citas", (req, res) => {
+  let citasList = []
+  let pacienteList = []
+  citasList = [{}]
+  const citasSQL = `
+      SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni 
+      FROM citas
+      INNER JOIN paciente
+      ON citas.pac_dni = paciente.pac_dni
+      WHERE citas.doc_dni=?;
+  `
+  connection.query(citasSQL,[req.session.DNIDOCTOR], async (error, results) => {
+      // console.log(results)
+      results.map(cita => {
         citasList.push({
-          pacDNI: results[i].pac_dni,
-          todo: results[i].pac_apellidos + " " + results[i].pac_nombres,
-          date: results[i].fecha,
+          pacDNI: cita.pac_dni,
+          todo: `${cita.pac_apellidos} ${cita.pac_nombres}`,
+          date: cita.fecha,
         });
-      }
-      connection.query(
-        "SELECT * FROM paciente WHERE doc_dni=?",
-        [peticion.session.DNIDOCTOR],
-        async (error, results) => {
+      })
+      connection.query("SELECT * FROM paciente WHERE doc_dni=?", [req.session.DNIDOCTOR], async (error, results) => {
           for (let i = 0; i < results.length; i++) {
             pacienteList.push({
               dni: results[i].pac_dni,
               nombre: results[i].pac_apellidos + " " + results[i].pac_nombres,
             });
           }
-          respuesta.render("doctor/citas", {
-            dnid: peticion.session.DNIDOCTOR,
+          res.render("doctor/citas", {
+            title: 'Citas',
+            dnid: req.session.DNIDOCTOR,
             pacientes: JSON.stringify(pacienteList),
-            doc: peticion.session.NOMBREDOCTOR,
+            doc: req.session.NOMBREDOCTOR,
             citasList: JSON.stringify(citasList),
           });
         }
@@ -93,13 +99,14 @@ router.get("/citas", (peticion, respuesta) => {
   );
 });
 
-router.get("/chat", (peticion, respuesta) => {
+router.get("/chat", (req, res) => {
   connection.query(
     "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
-    [peticion.session.DNIDOCTOR],
+    [req.session.DNIDOCTOR],
     async (error, results) => {
-      respuesta.render("doctor/chat", {
-        dnioculto: peticion.session.DNIDOCTOR,
+      res.render("doctor/chat", {
+        title: 'Chat',
+        dnioculto: req.session.DNIDOCTOR,
         listapacientes: JSON.stringify(results),
       });
     }
@@ -111,6 +118,7 @@ router.get("/ajustes", (req, res) => {
   if (req.session.loggedin) {
     res.render("doctor/ajustes", {
       login: true,
+      title: 'Ajustes',
       nombred: req.session.NOMBREDOCTOR,
       dnid: req.session.DNIDOCTOR,
       telefonod: req.session.TELEFONODOCTOR,
@@ -118,9 +126,7 @@ router.get("/ajustes", (req, res) => {
       sexod: req.session.SEXODOC,
     });
   } else {
-    res.render("login", {
-      login: false,
-    });
+    res.redirect('/login')
   }
 });
 
@@ -156,26 +162,13 @@ router.post("/editar", async (req, res) => {
               console.log(error);
             } else {
               req.session.loggedin = true;
-              req.session.NOMBREDOCTOR =
-                results[0].doc_nombres + " " + results[0].doc_apellidos;
+              req.session.NOMBREDOCTOR = results[0].doc_nombres + " " + results[0].doc_apellidos;
               req.session.CORREODOCTOR = results[0].doc_email;
               req.session.DNIDOCTOR = results[0].doc_dni;
               req.session.TELEFONODOCTOR = results[0].doc_celular;
               req.session.SEXODOC = results[0].doc_sexo;
-              // let region= "ancash";
-              // let edad = "18";
-              // let sexo="Masculino";
-              // let distrito ="Chimbote";
-              // let doctor = "Dr. House";
-              // let telefonoDoctor = "0000000";
-              // let correoDoctor="drhouse@hotmail.com";
-              // let dniDoctor="333333";
-              // let ultimaCita="ayer";
-              // let proximaCita="hoy";
-
-              res.render("doctor", {
-                npacientes: req.session.NUMEROPACIENTES,
-              });
+              
+              res.redirect('/doctor/ajustes')
             }
           }
         );
@@ -230,7 +223,7 @@ router.post("/EditCon", async (req, res) => {
 //Agregar cita Doctor
 router.post("/addCita", async (req, res) => {
   let evento = req.body;
-  console.log(evento);
+  // console.log(evento);
   connection.query(
     "INSERT INTO citas SET?",
     {
@@ -241,7 +234,7 @@ router.post("/addCita", async (req, res) => {
     },
     async (error, results) => {
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
         res.redirect("/doctor/citas");
       }
@@ -250,14 +243,12 @@ router.post("/addCita", async (req, res) => {
 });
 
 router.post("/deleteCita", async (req, res) => {
-  let evento = req.body;
-  console.log(evento);
-  connection.query(
-    "DELETE FROM citas WHERE pac_dni=? AND fecha=?",
-    [req.body.pacienteDni, req.body.dateTime],
-    async (error, results) => {
+  const {pacienteDni, dateTime} = req.body
+  const delCitaSQL = 'DELETE FROM citas WHERE pac_dni=? AND fecha=?;'
+  // console.log(evento);
+  connection.query(delCitaSQL,[pacienteDni, dateTime], async (error, results) => {
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
         res.redirect("/doctor/citas");
       }

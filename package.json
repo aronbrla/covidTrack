@@ -1,7 +1,7 @@
 {
   "name": "login",
-  "version": "1.2.0",
-  "description": "Pagina Web - CovidTracl",
+  "version": "1.3.0",
+  "description": "Pagina Web - CovidTrack",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

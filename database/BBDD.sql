@@ -1,4 +1,4 @@
-DROP DATABASE covidtrack;
+DROP DATABASE IF NOT EXISTS covidtrack;
 CREATE DATABASE covidtrack;
 USE covidtrack;
 CREATE TABLE doctores (
@@ -47,7 +47,7 @@ CREATE TABLE formulario (
 
 CREATE TABLE citas(
 	cita_id INT NOT NULL AUTO_INCREMENT,
-	fecha DATE NOT NULL,
+	fecha DATETIME NOT NULL,
 	estado VARCHAR(20) NOT NULL,
 	pac_dni VARCHAR (9)NOT NULL,
 	doc_dni VARCHAR(9) NOT NULL,

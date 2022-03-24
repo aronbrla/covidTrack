@@ -17,7 +17,8 @@ router.get("/", (req, res) => {
     { date: "2021/09/06T15:00:00" },
   ];
   res.render("paciente/index", {
-    login: true,
+    login: true, 
+    title: 'Home',
     NOMBRE: req.session.NOMBRe,
     NDOC: req.session.NOMDOC,
     NCOR: req.session.CORDOC,
@@ -31,6 +32,7 @@ router.get("/informacion", (req, res) => {
   if (req.session.loggedin) {
     res.render("paciente/info", {
       login: true,
+      title: 'Informacion',
       NOMBRE: req.session.NOMBRe,
       DNI: req.session.DNi,
       DIRECCION: req.session.DIRECCIOn,
@@ -49,11 +51,12 @@ router.get("/informacion", (req, res) => {
 router.get("/citas", (req, res) => {
   let citasList = [];
   connection.query("SELECT * FROM citas", async (error, results) => {
-    for (let i = 0; i < results.length; i++) {
-      citasList.push({ todo: "Cita médica", date: results[i].fecha });
-    }
+    results.map(cita => {
+      citasList.push({ todo: "Cita médica", date: cita.fecha });
+    })
     res.render("paciente/citas", {
       login: true,
+      title: 'Citas',
       NOMBRE: req.session.NOMBRe,
       citasList: JSON.stringify(citasList),
       doc: req.session.NOMDOC,
@@ -66,6 +69,7 @@ router.get("/ajustes", (req, res) => {
   if (req.session.loggedin) {
     res.render("paciente/ajustes", {
       login: true,
+      title: 'Ajustes',
       NOMBRE: req.session.NOMBRe,
       DNI: req.session.DNi,
       DIRECCION: req.session.DIRECCIOn,
@@ -77,28 +81,28 @@ router.get("/ajustes", (req, res) => {
       REGION: "region",
     });
   } else {
-    res.render("login", {
-      login: false,
-    });
+    res.redirect('/login')
   }
 });
 
-router.get("/formulario", (req, respuesta) => {
-  respuesta.render("paciente/formulario", {
+router.get("/formulario", (req, res) => {
+  res.render("paciente/formulario", {
     login: true,
+    title: 'Formulario',
     NOMBRE: req.session.NOMBRe,
   });
 });
 
-router.get("/chat", (peticion, respuesta) => {
+router.get("/chat", (req, res) => {
   connection.query(
     "SELECT doc_apellidos, doc_nombres, doc_dni FROM doctores WHERE doc_dni =?",
-    [peticion.session.DNIDOCTOR1],
+    [req.session.DNIDOCTOR1],
     async (error, results) => {
-      respuesta.render("paciente/chat", {
-        dnioculto: peticion.session.DNi,
+      res.render("paciente/chat", {
+        title: 'Chat',
+        dnioculto: req.session.DNi,
         listadoctor: JSON.stringify(results),
-        NOMBRE: peticion.session.NOMBRe,
+        NOMBRE: req.session.NOMBRe,
       });
     }
   );
@@ -150,14 +154,7 @@ router.post("/editar", async (req, res) => {
               req.session.SEXo = results[0].pac_sexo;
               console.log(req.session.NOMBRe);
 
-              res.render("paciente", {
-                login: true,
-                NOMBRE: req.session.NOMBRe,
-                NDOC: req.session.NOMDOC,
-                NCOR: req.session.CORDOC,
-                CELDOC: req.session.CELULDOC,
-                SEXODOC: req.session.SEXo,
-              });
+              res.redirect('/paciente/ajustes')
             }
           }
         );
@@ -172,9 +169,9 @@ router.post("/EditCon", async (req, res) => {
   const cpass = req.body.passwordNew2;
   let passwordHaash = await bcryptjs.hash(pass, 8);
   let passwordHaas = await bcryptjs.hash(npass, 8);
-  console.log(pass);
-  console.log(npass);
-  console.log(cpass);
+  // console.log(pass);
+  // console.log(npass);
+  // console.log(cpass);
   if (pass && npass && cpass) {
     connection.query(
       "SELECT * FROM paciente WHERE pac_email = ?",
@@ -216,7 +213,7 @@ router.post("/EditCon", async (req, res) => {
 
 //guardar formulario paciente
 router.post("/guardarformulario", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   var formatedMysqlString = new Date(
     new Date(new Date(new Date()).toISOString()).getTime() -
       new Date().getTimezoneOffset() * 60000
@@ -224,13 +221,13 @@ router.post("/guardarformulario", async (req, res) => {
     .toISOString()
     .slice(0, 19)
     .replace("T", " ");
-  console.log(formatedMysqlString);
+  // console.log(formatedMysqlString);
   var fechas = new Date();
   let sintom = JSON.stringify(req.body.sintoma);
   let enferme = JSON.stringify(req.body.enfermedad);
 
-  console.log(sintom);
-  console.log(enferme);
+  // console.log(sintom);
+  // console.log(enferme);
 
   connection.query(
     "INSERT INTO formulario SET ?",
@@ -245,16 +242,9 @@ router.post("/guardarformulario", async (req, res) => {
     },
     async (error, results) => {
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
-        res.render("paciente", {
-          login: true,
-          NOMBRE: req.session.NOMBRe,
-          NDOC: req.session.NOMDOC,
-          NCOR: req.session.CORDOC,
-          COLDOC: req.session.COLDOC,
-          SEXODOC: req.session.SEXo,
-        });
+        res.redirect('/paciente')
       }
     }
   );
