@@ -87,10 +87,6 @@ router.post("/register", async (req, res) => {
   );
 });
 
-async function isPaciente(req, err) {
-  
-}
-
 //11. autenticacion
 router.post("/auth", async (req, res) => {
   const user = req.body.user;
@@ -217,8 +213,7 @@ router.post("/auth", async (req, res) => {
   }
 });
 
-//12. Logout
-//Destruye la sesión.
+//12. Logout - Destruye la sesión.
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
     console.log('cerraste sesion desde home');
