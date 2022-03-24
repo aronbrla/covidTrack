@@ -1,11 +1,10 @@
 const mysql = require("mysql2");
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+require('dotenv').config()
+
 const connection =  mysql.createConnection({
   host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_DATABASE ||  "covidtrack",
-  user: process.env.DB_NAME ||"root",
+  database: process.env.DB_NAME ||  "covidtrack",
+  user: process.env.DB_USER ||"root",
   password: process.env.DB_PASSWORD || "",
   multipleStatements: true,
 	waitForConnections: true,
