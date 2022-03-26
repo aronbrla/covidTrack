@@ -6,6 +6,8 @@ const bcryptjs = require("bcryptjs");         // invocamos a bcryptjs
 const pacienteRouter = require("./paciente");
 const doctorRouter = require("./doctor");
 
+const {getUserByMail, getDocByDNI, getPacsDNI, getCitasByDocDNI, getPacByDNI, createPac} = require('../database/queries')
+
 router.get("/", (peticion, respuesta) => {
   respuesta.render("index");
 });
@@ -26,20 +28,14 @@ router.post("/register", async (req, res) => {
   let passwordHaas = await bcryptjs.hash(pass, 8);
   //buscamos correo y dni, si ya están en la base de datos no podrá registrarse:
   // console.log(req.body);
-  connection.query(
-    "SELECT * FROM paciente WHERE pac_email= ? ",
-    [mail],
-    async (error, results) => {
+  connection.query(getUserByMail, ["paciente", mail], async (error, results) => {
       if (error) {
         console.log(error);
       } else {
-        if (results.length != 0) {
+        if (results[0].length != 0) {
           res.send("USUARIO YA REGISTRADO");
         } else {
-          connection.query(
-            "SELECT * FROM paciente WHERE pac_dni= ? ",
-            [dni],
-            async (error, results) => {
+          connection.query(getPacByDNI,[dni],async (error, results) => {
               if (error) {
                 console.log(error);
               } else {
@@ -47,8 +43,7 @@ router.post("/register", async (req, res) => {
                   res.send("USUARIO YA REGISTRADO");
                 } else {
                   //si no encuentra los datos, se puede registrar
-                  connection.query(
-                    "INSERT INTO paciente SET ?",
+                  connection.query(createPac,
                     {
                       pac_nacimiento: date,
                       pac_dni: dni,
@@ -83,13 +78,12 @@ router.post("/register", async (req, res) => {
 //11. autenticacion
 router.post("/auth", async (req, res) => {
   const { usertype, usermail, pass } = req.body
-  const userFindByMail = `CALL userFindByMail(?,?);`
   if (!usermail && !pass) {
     res.send("Porfavor ingresa un usuario y contraseña!")
     res.end()
   }
   if (usertype == "paciente") {
-    connection.query(userFindByMail,[usertype, usermail], async (err, results) => {
+    connection.query(getUserByMail,[usertype, usermail], async (err, results) => {
         if (err) return console.error(err);
         // console.log(results)
         const user = {...results[0][0]}
@@ -112,10 +106,7 @@ router.post("/auth", async (req, res) => {
         let citasList = [{}];
         req.session.EDAd = b;
         // console.log(req.session.NOMBRe);
-        connection.query(
-          "SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo,doc_especialidad FROM paciente INNER JOIN doctores ON paciente.doc_dni=?",
-          ["72865690"],
-          async (error, results) => {
+        connection.query(getDocByDNI,["72865690"], async (error, results) => {
             if (error) {
               console.error(error);
             } else {
@@ -131,7 +122,7 @@ router.post("/auth", async (req, res) => {
       }
     );
   } else {
-      connection.query(userFindByMail,[usertype, usermail], async (err, results, fields) => {
+      connection.query(getUserByMail,[usertype, usermail], async (err, results, fields) => {
         if (err) throw err
         // console.log(results)
         const user = {...results[0][0]}
@@ -145,7 +136,7 @@ router.post("/auth", async (req, res) => {
         req.session.TELEFONODOCTOR = user.doc_celular;
         req.session.DNIDOCTOR = user.doc_dni;
 
-        connection.query("SELECT pac_dni FROM paciente",async (error, results) => {
+        connection.query(getPacsDNI,async (error, results) => {
             req.session.NUMEROPACIENTES = results.length;
 
             var hoy = new Date(
@@ -156,7 +147,10 @@ router.post("/auth", async (req, res) => {
               .slice(0, 19)
               .replace("T", " ");
 
-            connection.query("SELECT * FROM citas WHERE doc_dni=?",[req.session.DNIDOCTOR], async (error, results) => {
+            connection.query(getCitasByDocDNI,[req.session.DNIDOCTOR], async (error, results) => {
+              console.log(results)
+              const today = new Date().toISOString()
+              console.log(today)
                 for (let i = 0; i < results.length; i++) {
                   var bbdd = new Date(
                     new Date(

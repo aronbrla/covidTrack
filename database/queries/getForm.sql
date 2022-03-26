@@ -1,3 +1,4 @@
+USE `covidtrack`;
 SELECT fecha, pac_dni, temperatura, saturacion, sintomas, enfermedades
 FROM formulario
 INNER JOIN doctores

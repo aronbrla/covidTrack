@@ -9,8 +9,17 @@ router.use((req, res, next) => {                        // cambiando layout para
   next();
 });
 
+const {getPacByDocDNI, getFormsByDocDNI, getCitasDetailsByDocDNI, 
+      updateDocByDNI, getDocByDNI, updateDocPassByMail, 
+      createCita, deleteCita} = require('../database/queries')
+
 //Rutas del dash DOCTOR
 router.get("/", (req, res) => {
+  let citasList = [
+    { date: "2021/09/04T15:00:00" },
+    { date: "2021/09/05T18:00:00" },
+    { date: "2021/09/06T15:00:00" },
+  ];
   res.render("doctor/index", {
     title: 'Home',
     npacientes: req.session.NUMEROPACIENTES,
@@ -29,17 +38,11 @@ router.get("/informacion", (req, res) => {
 });
 
 router.get("/pacientes", (req, res) => {
-  connection.query(
-    "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
-    [req.session.DNIDOCTOR],
-    async (err, results) => {
+  connection.query(getPacByDocDNI, [req.session.DNIDOCTOR], async (err, results) => {
       if (err) {
         console.log("ERROR: " + err);
       } else {
-        connection.query(
-          "select * from formulario WHERE doc_dni =?",
-          [req.session.DNIDOCTOR],
-          async (err1, results1) => {
+        connection.query(getFormsByDocDNI, [req.session.DNIDOCTOR], async (err, results1) => {
             if (err) {
               console.log("ERROR: " + err);
             } else {
@@ -63,13 +66,7 @@ router.get("/citas", (req, res) => {
   let citasList = []
   let pacienteList = []
   citasList = [{}]
-  const citasSQL = `
-      SELECT pac_nombres, pac_apellidos, citas.fecha, citas.estado, citas.pac_dni 
-      FROM citas
-      INNER JOIN paciente
-      ON citas.pac_dni = paciente.pac_dni
-      WHERE citas.doc_dni=?;
-  `
+  const citasSQL = getCitasDetailsByDocDNI
   connection.query(citasSQL,[req.session.DNIDOCTOR], async (error, results) => {
       // console.log(results)
       results.map(cita => {
@@ -79,7 +76,7 @@ router.get("/citas", (req, res) => {
           date: cita.fecha,
         });
       })
-      connection.query("SELECT * FROM paciente WHERE doc_dni=?", [req.session.DNIDOCTOR], async (error, results) => {
+      connection.query(getPacByDocDNI, [req.session.DNIDOCTOR], async (error, results) => {
           for (let i = 0; i < results.length; i++) {
             pacienteList.push({
               dni: results[i].pac_dni,
@@ -100,10 +97,7 @@ router.get("/citas", (req, res) => {
 });
 
 router.get("/chat", (req, res) => {
-  connection.query(
-    "SELECT pac_apellidos, pac_nombres, pac_dni, pac_celular FROM paciente WHERE doc_dni =?",
-    [req.session.DNIDOCTOR],
-    async (error, results) => {
+  connection.query(getPacByDocDNI, [req.session.DNIDOCTOR], async (error, results) => {
       res.render("doctor/chat", {
         title: 'Chat',
         dnioculto: req.session.DNIDOCTOR,
@@ -147,16 +141,11 @@ router.post("/editar", async (req, res) => {
 
   const celular = req.body.phone;
   const email = req.body.email;
-  connection.query(
-    "UPDATE doctores SET doc_email=?, doc_celular=? WHERE doc_dni=?",
-    [email, celular, req.session.DNIDOCTOR],
-    async (error, results) => {
+  connection.query(updateDocByDNI, [email, celular, req.session.DNIDOCTOR], async (error, results) => {
       if (error) {
         console.log(error);
       } else {
-        connection.query(
-          "SELECT * FROM doctores WHERE doc_dni = ?",
-          [req.session.DNIDOCTOR],
+        connection.query(getDocByDNI, [req.session.DNIDOCTOR],
           async (error, results) => {
             if (error) {
               console.log(error);
@@ -182,20 +171,16 @@ router.post("/EditCon", async (req, res) => {
   const npass = req.body.passwordNew1;
   const cpass = req.body.passwordNew2;
   if (pass && npass && cpass) {
-    connection.query(
-      "SELECT * FROM doctores WHERE doc_email = ?",
-      [req.session.CORREODOCTOR],
+    connection.query(getUserByMail, [req.session.CORREODOCTOR],
       async (error, results) => {
-        if (pass != results[0].doc_contrasenia) {
+        if (pass != results[0][0].doc_contrasenia) {
           res.send("La contraseña actual es incorrecta.");
         } else {
           if (npass == pass) {
             res.send("La constraseña actual y la nueva no pueden ser iguales.");
           } else {
             if (npass == cpass) {
-              connection.query(
-                "UPDATE doctores SET doc_contrasenia=? WHERE doc_email=?",
-                [npass, req.session.CORREODOCTOR],
+              connection.query(updateDocPassByMail, [npass, req.session.CORREODOCTOR],
                 async (error, results) => {
                   if (error) {
                     console.log(error);
@@ -224,8 +209,7 @@ router.post("/EditCon", async (req, res) => {
 router.post("/addCita", async (req, res) => {
   let evento = req.body;
   // console.log(evento);
-  connection.query(
-    "INSERT INTO citas SET?",
+  connection.query(createCita,
     {
       pac_dni: req.body.pacientedni,
       estado: "No realizado",
@@ -244,7 +228,7 @@ router.post("/addCita", async (req, res) => {
 
 router.post("/deleteCita", async (req, res) => {
   const {pacienteDni, dateTime} = req.body
-  const delCitaSQL = 'DELETE FROM citas WHERE pac_dni=? AND fecha=?;'
+  const delCitaSQL = deleteCita
   // console.log(evento);
   connection.query(delCitaSQL,[pacienteDni, dateTime], async (error, results) => {
       if (error) {
