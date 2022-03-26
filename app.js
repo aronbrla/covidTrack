@@ -1,14 +1,14 @@
 //1. importando librerias
 const express = require("express")                      // Libreria Express
 const session = require("express-session")              // var de session
-const dotenv = require('dotenv')                        // Parametros de entorno
+const { port } = require('./config')                    // Puerto del servidor
 const connection = require("./database/db")             // Conexion de la BD
 
-dotenv.config()
 const app = express()
 
-var server = app.listen(port = process.env.PORT || 3000, () => {
-  console.log(`SERVER RUNNING IN http://localhost:${port}`)
+app.set('port', port)
+var server = app.listen(app.get('port'), () => {
+  console.log(`SERVER RUNNING IN http://localhost:${app.get('port')}`)
 })
 
 app.use(express.urlencoded({ extended: false }))   // seteamos urlencoded para capturar datos del formulario

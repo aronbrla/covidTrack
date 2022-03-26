@@ -1,14 +1,17 @@
 const mysql = require("mysql2");
-require('dotenv').config()
+const config = require('../config')
 
-const connection =  mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_NAME ||  "covidtrack",
-  user: process.env.DB_USER ||"root",
-  password: process.env.DB_PASSWORD || "",
+const databaseConfig = {
+  host: config.host,
+  database: config.database,
+  user: config.user,
+  password: config.password,
   multipleStatements: true,
 	waitForConnections: true,
-});
+}
+
+const connection =  mysql.createConnection(databaseConfig);
+
 connection.connect((error) => {
   if (error) {
     console.error(error);
