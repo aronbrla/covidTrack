@@ -14,7 +14,7 @@ var server = app.listen(app.get('port'), () => {
 app.use(express.urlencoded({ extended: false }))   // seteamos urlencoded para capturar datos del formulario
 app.use(express.json())                            // Analizar y convertir archivos JSON en objetos
 app.use(express.static(__dirname + "/public"))     // el directorio public
-app.use(session({secret: "secret", resave: true, saveUninitialized: true}))
+app.use(session({ secret: "secret", resave: true, saveUninitialized: true }))
 
 app.set("view engine", "ejs")           // estableciendo el motor de plantillas
 app.set('views', __dirname + '/views')  // Directorio de las vistas
@@ -61,13 +61,13 @@ connection.query("SELECT * FROM mensajes ", async (error, results) => {
       })
       connection.query(
         'INSERT INTO mensajes( mensaje,  emisor_dni, receptor_dni) VALUES ("' +
-          (data.mensaje + "") +
-          '", "' +
-          (data.dniE + "") +
-          '","' +
-          (data.dniR + "") +
-          '") ',
-        async (error, results) => {}
+        (data.mensaje + "") +
+        '", "' +
+        (data.dniE + "") +
+        '","' +
+        (data.dniR + "") +
+        '") ',
+        async (error, results) => { }
       )
     })
   })

@@ -1,4 +1,4 @@
-DROP DATABASE IF NOT EXISTS covidtrack;
+DROP DATABASE IF EXISTS covidtrack;
 CREATE DATABASE covidtrack;
 USE covidtrack;
 CREATE TABLE doctores (
