@@ -16,27 +16,27 @@
             <div class="reg_inputs">
                 <div class="col1">
                     <div class="input-group">
-                        <input id="dni" type="text" placeholder="DNI" name="dni" value="" required>
+                        <input id="dni" type="text" placeholder="DNI" name="dni" minlength="8" maxlength="8" value="" required>
                     </div>
                     <div class="input-group">
                         <input id="email" type="email" placeholder="Correo electronico" name="mail" value="" autocomplete="email" required>
                     </div>
                     <div class="input-group">
-                        <input id="password" type="password" placeholder="Contraseña" name="pass" value="" autocomplete="new-password" required>
+                        <input id="password" type="password" placeholder="Contraseña" name="pass" value="" minlength="8" maxlength="16" autocomplete="new-password" required>
                     </div>
                     <div class="input-group">
-                        <input id="phone" type="text" placeholder="Celular" name="phone" value="" required>
+                        <input id="phone" type="number" placeholder="Celular" name="phone" min="900000000" max="999999999" value="" required>
                     </div>
                     <div class="input-group">
-                        <input id="distrito" type="text" placeholder="Distrito" name="distrito" value="" autocomplete="address-line1" required>
+                        <input id="distrito" type="text" placeholder="Distrito" name="distrito" value="" minlength="3" maxlength="20" autocomplete="address-line1" required>
                     </div>
                 </div>
                 <div class="col2">
                     <div class="input-group">
-                        <input id="username" type="text" placeholder="Nombre" name="name" value="" autocomplete="given-name" required>
+                        <input id="username" type="text" placeholder="Nombre" name="name" value="" minlength="2" maxlength="20" autocomplete="given-name" required>
                     </div>
                     <div class="input-group">
-                        <input id="lastnames" type="text" placeholder="Apellidos" name="lastname" value="" autocomplete="family-name" required>
+                        <input id="lastnames" type="text" placeholder="Apellidos" name="lastname" value="" minlength="2" maxlength="20" autocomplete="family-name" required>
                     </div>
                     <div class="input-group">
                         <input id="age" type="date" placeholder="Fecha Nacimiento" name="date" value="" required>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <input id="address" type="text" placeholder="Dirección" name="address" value="" required>
+                        <input id="address" type="text" placeholder="Dirección" name="address" value="" minlength="10" maxlength="60" required>
                     </div>
                 </div>
             </div>
