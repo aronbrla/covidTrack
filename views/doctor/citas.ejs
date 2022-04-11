@@ -4,7 +4,9 @@
 <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 <!-- SweetAlert core JS-->
 <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<% const nowDate = new Date() %>
+<% const today = nowDate.toISOString().split(".")[0] %> 
+<% const limitDate = new Date(nowDate.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().split(".")[0] %> 
 <div class="container mt-5" style="width: 80%;">
     <div class="row my-3">
         <div class="col-xl-8 align-self-center">
@@ -35,12 +37,12 @@
                                     <div class="form-group">
                                         <label for="">Ingresar nombre</label>
                                         <select class="form-select" name="pacientedni" aria-label="Default select example"id="pacienteSelect" required>
-                                            <option selected disabled>Nombre de paciente</option>
+                                            <option selected disabled value="">Nombre de paciente</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Elegir fecha y hora de la cita</label>
-                                        <input type="datetime-local" id="dateTimeInput" class="form-control" name="date" placeholder="Enter date" required>
+                                        <input type="datetime-local" id="dateTimeInput" class="form-control" name="date" min="<%- today %>" max="<%- limitDate %>" placeholder="Enter date" required>
                                     </div>
                                     <div class="d-none"><input type="text" id="dnid" name="dnid" value=<%- dnid %> ></div>
                                 </div>
