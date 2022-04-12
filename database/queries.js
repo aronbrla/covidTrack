@@ -1,8 +1,8 @@
 module.exports = {
     // queries in index.js
     getUserByMail: 'CALL getUserByMail(?,?);',
-    getDocByDNI: 
-        'SELECT doc_apellidos, doc_nombres, doc_email,doc_celular,doc_sexo,doc_especialidad FROM paciente INNER JOIN doctores ON paciente.doc_dni=?',
+    getDocByDNI:
+        'SELECT doctores.doc_dni, doc_apellidos, doc_nombres, doc_email, doc_celular,doc_sexo,doc_especialidad FROM doctores INNER JOIN paciente ON paciente.doc_dni=?',
     getPacsDNI: 'SELECT pac_dni FROM paciente',
     getCitasByDocDNI: 'SELECT * FROM citas WHERE doc_dni=?',
     getPacByDNI: 'SELECT * FROM paciente WHERE pac_dni= ?',
