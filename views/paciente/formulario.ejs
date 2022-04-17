@@ -71,7 +71,7 @@
                         </div>
                         <div class="input-group">
                             <label for="temp" class="input-group-text">INGRESE SU TEMPERATURA ACTUAL</label>
-                            <input type="number" min="35" max="40" step=".01" name="temp" id="temp" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <input type="number" min="35" max="40" step=".01" name="temp" id="temp" required class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
                             <span class="input-group-text px-1">C°</span>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="input-group">
                             <label for="oxig" class="input-group-text">INGRESE SU PORCENTAJE DE SATURACIÓN DE OXÍGENO</label>
-                            <input type="number" min="50" max="100" step=".01" name="oxig" id="oxig" class="form-control" style="border-radius: 0; border-bottom: 1px solid #006A80;">
+                            <input type="number" min="50" max="100" step=".01" name="oxig" id="oxig" class="form-control" required style="border-radius: 0; border-bottom: 1px solid #006A80;">
                             <span class="input-group-text px-1">%</span>
                         </div>
                     </div>
@@ -104,11 +104,11 @@
                             <label class="input-group-text"><input type="checkbox" name="sintoma" value="Dolor de Cabeza" class="check-input">DOLOR DE CABEZA</label>
                             <label class="input-group-text"><input type="checkbox" name="sintoma" value="Naúseas, vómitos o diarrea" class="check-input">NÁUSEAS, VÓMITOS O DIARREA</label>
                             <label class="input-group-text" for="sintoma">OTRO (INGRESE SU SÍNTOMA):</label>
-                            <textarea class="ms-3 form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="2"></textarea>
-                            <label class="input-group-text"><input type="checkbox" name="sintoma" value="Ninguno" class="check-input">NO POSEO NINGÚN SÍNTOMA</label>
+                            <textarea class="ms-3 form-control" maxlength="240" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" rows="2"></textarea>
+                            <!-- <label class="input-group-text"><input type="checkbox" name="sintoma" value="Ninguno" class="check-input">NO POSEO NINGÚN SÍNTOMA</label> -->
                             <div class="container" style="display: none;">
                                 <span class="input-group-text ps-0">OTRAS ENFERMEDADES (OPCIONAL):</span>
-                                <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" maxlength="240" rows="2">cierre</textarea>
+                                <textarea class="form-control" maxlength="240" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="sintoma" id="sintoma" maxlength="240" rows="2">cierre</textarea>
                             </div>
                         </div>
                     </div>
@@ -117,22 +117,22 @@
                             <div class="input-img">
                                 <img src="/assets/icons/head-side-virus-solid.png" alt="">
                             </div>
-                            <span>OTRAS ENFERMEDADES</span>
+                            <span>ENFERMEDADES</span>
                         </div>
                         <div class="input-group">
                             <div class="container">
                                 <span class="input-group-text ps-0">SELECCIONE LAS ENFERMEDADES QUE TIENE </span>
-                                <select name="enfermedad" class="custom-select" style="width: 100%; max-width: 350px; border: 2px solid #728C91">
-                                    <option selected disabled>Seleccionar enfermedad...</option>
+                                <select name="enfermedad" class="custom-select" required style="width: 100%; max-width: 350px; border: 2px solid #728C91">
+                                    <option selected disabled value="">Seleccionar enfermedad...</option>
                                     <option value="Gripe">Gripe</option>
                                     <option value="Asma">Asma</option>
                                 </select>
                             </div>
                             <div class="container">
                                 <span class="input-group-text ps-0">OTRAS ENFERMEDADES (OPCIONAL):</span>
-                                <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="enfermedad" id="sintoma" maxlength="240" rows="2"></textarea>
+                                <textarea class="form-control" maxlength="240" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="enfermedad" id="sintoma" maxlength="240" rows="2"></textarea>
                             </div>
-                            <label class="input-group-text"><input type="checkbox" name="enfermedad" value="Ninguno" class="check-input">NO POSEO NINGUNA ENFERMEDAD</label>
+                            <!-- <label class="input-group-text"><input type="checkbox" name="enfermedad" value="Ninguno" class="check-input">NO POSEO NINGUNA ENFERMEDAD</label> -->
                             <div class="container" style="display: none;">
                                 <span class="input-group-text ps-0">OTRAS ENFERMEDADES (OPCIONAL):</span>
                                 <textarea class="form-control" style="width: 100%; max-width: 350px; border: 3px solid #728C91;" name="enfermedad" id="sintoma" rows="2">cierre</textarea>
