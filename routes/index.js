@@ -89,8 +89,7 @@ router.post("/auth", async (req, res) => {
       // console.log(results)
       const user = { ...results[0][0] }
       if (results[0].length == 0 || !(await bcryptjs.compare(pass, user.pac_contrasenia))) {
-        res.send("Email o contraseña incorrecta")
-        res.end()
+        return res.send("Email o contraseña incorrecta")
       }
       req.session.loggedin = true;
       req.session.NOMBRe = `${user.pac_nombres} ${user.pac_apellidos}`;
@@ -128,8 +127,7 @@ router.post("/auth", async (req, res) => {
       // console.log(results)
       const user = { ...results[0][0] }
       if (results.length == 0 || pass != user.doc_contrasenia) {
-        res.send("Email o contraseña incorrecta")
-        res.end()
+        return res.send("Email o contraseña incorrecta")
       }
       req.session.loggedin = true;
       req.session.NOMBREDOCTOR = `${user.doc_nombres} ${user.doc_apellidos}`;
@@ -149,7 +147,7 @@ router.post("/auth", async (req, res) => {
           .replace("T", " ");
 
         connection.query(getCitasByDocDNI, [req.session.DNIDOCTOR], async (error, results) => {
-          console.log(results)
+          // console.log(results)
           const today = new Date().toISOString()
           console.log(today)
           for (let i = 0; i < results.length; i++) {
