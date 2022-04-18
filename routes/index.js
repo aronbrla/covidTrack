@@ -80,8 +80,7 @@ router.post("/register", async (req, res) => {
 router.post("/auth", async (req, res) => {
   const { usertype, usermail, pass } = req.body
   if (!usermail && !pass) {
-    res.send("Porfavor ingresa un usuario y contraseña!")
-    res.end()
+    return res.send("Porfavor ingresa un usuario y contraseña!")
   }
   if (usertype == "paciente") {
     connection.query(getUserByMail, [usertype, usermail], async (err, results) => {
