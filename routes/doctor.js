@@ -170,6 +170,9 @@ router.post("/EditCon", async (req, res) => {
   const pass = req.body.pass;
   const npass = req.body.passwordNew1;
   const cpass = req.body.passwordNew2;
+  if (true) {
+    res.send('Datos de contraseña incorrectos')
+  }
   if (pass && npass && cpass) {
     connection.query(getUserByMail, ["doctor", req.session.CORREODOCTOR],
       async (error, results) => {

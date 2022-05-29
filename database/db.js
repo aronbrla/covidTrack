@@ -7,15 +7,14 @@ const databaseConfig = {
   user: config.user,
   password: config.password,
   multipleStatements: true,
-	waitForConnections: true,
+  waitForConnections: true,
 }
 
-const connection =  mysql.createConnection(databaseConfig);
+const connection = mysql.createConnection(databaseConfig);
 
 connection.connect((error) => {
   if (error) {
-    console.error(error);
-    return;
+    return console.error(error);
   }
   console.log("CONECTADO A LA BASE DE DATOS!");
 });
