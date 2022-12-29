@@ -1,137 +1,259 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>COVID TRACK</title>
-    <%- include('partials/head')%>
-    <link rel="stylesheet" href="/css/index.css">
-    <!-- Core theme JS-->
-    <script defer src="/js/home.js"></script>
-</head>
-<body id="page-top">
-    <!-- Navigation-->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>COVID TRACK</title>
+        <%- include('partials/head')%>
+        <link rel="stylesheet" href="/css/index.css" />
+        <!-- Core theme JS-->
+        <script defer src="/js/home.js"></script>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <header>
+            <nav
+                class="navbar navbar-expand-lg navbar-dark fixed-top"
+                id="mainNav"
+            >
+                <div class="container">
+                    <a class="navbar-brand" href="/">
+                        <span class="me-2">COVIDTRACK</span>
+                        <img
+                            class="img-fluid w-5 h-5"
+                            src="/assets/img/main_logo.png"
+                            title="CovidTrack"
+                            alt="Logo de la empresa"
+                        />
+                        <img
+                            src="/assets/img/san_roque.jpeg"
+                            alt="San Roque"
+                            srcset=""
+                            style="margin-left: 10px"
+                        />
+                    </a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarResponsive"
+                        aria-controls="navbarResponsive"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="36"
+                            height="36"
+                            fill="currentColor"
+                            class="bi bi-list"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+                            />
+                        </svg>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul
+                            class="navbar-nav text-uppercase ms-auto py-4 py-lg-0"
+                        >
+                            <li class="nav-item">
+                                <a class="nav-link" href="#services"
+                                    >Servicios</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact"
+                                    >Contactanos</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login">Ingresar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="register"
+                                    >Registrarse</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- Main Content-->
+        <section class="main-container pb-0">
             <div class="container">
-                <a class="navbar-brand" href="/">
-                    <span class="me-2">COVIDTRACK</span>
-                    <img class ="img-fluid w-5 h-5"
-                    src ="/assets/img/main_logo.png"
-                    title = "CovidTrack" alt= "Logo de la empresa">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contactanos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login">Ingresar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="register">Registrarse</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- Main Content-->
-    <section class="main-container pb-0">
-        <div class="container">
-            <div class="d-none d-lg-block main-fondo"></div>
-            <div class="d-sm-flex">
-                <div class="flex-column">
-                    <div class="main-title text-lg-start">
-                        <h1>Ten cuidado del</h1><span> Covid-19 </span>
-                    </div>
-                    <p class="lead text-center text-lg-start">Nos enfoncamos en ayudar a pasar este crucial desafio en tu vida</p>
-                    <div class="btn-container container pb-3">
-                        <a class="btn btn-register btn-lg mx-3" href="register">Registrarse</a>
-                        <a class="btn btn-more btn-lg my-2" href="#services">Saber Más</a>
-                    </div>
-                </div>
-                <img
-                    class="img-fluid w-50 d-none d-sm-block"
-                    src="/assets/img/undraw_medical_research_qg4d.svg"
-                    alt=""
-                />
-            </div>
-        </div>
-    </section>
-    <!-- Services-->
-    <section class="service-container page-section" id="services">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Servicios</h2>
-                <h3 class="section-subheading">Esto es lo que te ofrecemos</h3>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Pruebas covid a Domicilio</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Seguimiento</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Citas medicas virtuales</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Contact-->
-    <section class="page-section" id="contact">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Contactanos</h2>
-                <h3 class="section-subheading text-muted">Nos gustaria saber que opinas</h3>
-            </div>
-            <form id="contactForm" method="POST" action="/contac-us">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- Name input-->
-                            <input class="form-control" name="name" id="name" type="text" placeholder="Nombre" required/>
-                            <div class="invalid-feedback" data-sb-feedback="name:required">Es necesario un Nombre</div>
+                <div class="d-none d-lg-block main-fondo"></div>
+                <div class="d-sm-flex">
+                    <div class="flex-column">
+                        <div class="main-title text-lg-start">
+                            <h1>Ten cuidado del</h1>
+                            <span> Covid-19 </span>
                         </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <input class="form-control" name="email" id="email" type="email" placeholder="Correo electronico" required />
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <!-- Phone number input-->
-                            <input class="form-control" name="phone" id="phone" type="tel" placeholder="Teléfono" required />
+                        <p class="lead text-center text-lg-start">
+                            Nos enfoncamos en ayudar a pasar este crucial
+                            desafio en tu vida
+                        </p>
+                        <div class="btn-container container pb-3">
+                            <a
+                                class="btn btn-register btn-lg mx-3"
+                                href="register"
+                                >Registrarse</a
+                            >
+                            <a class="btn btn-more btn-lg my-2" href="#services"
+                                >Saber Más</a
+                            >
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-textarea mb-md-0">
-                            <!-- Message input-->
-                            <textarea class="form-control" name="message" id="message" placeholder="Mensaje" ></textarea>
-                        </div>
+                    <img
+                        class="img-fluid w-50 d-none d-sm-block"
+                        src="/assets/img/undraw_medical_research_qg4d.svg"
+                        alt=""
+                    />
+                </div>
+            </div>
+        </section>
+        <!-- Services-->
+        <section class="service-container page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Servicios</h2>
+                    <h3 class="section-subheading">
+                        Esto es lo que te ofrecemos
+                    </h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i
+                                class="fas fa-circle fa-stack-2x text-primary"
+                            ></i>
+                            <i
+                                class="fas fa-shopping-cart fa-stack-1x fa-inverse"
+                            ></i>
+                        </span>
+                        <h4 class="my-3">Pruebas covid a Domicilio</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Minima maxime quam architecto quo inventore
+                            harum ex magni, dicta impedit.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i
+                                class="fas fa-circle fa-stack-2x text-primary"
+                            ></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Seguimiento</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Minima maxime quam architecto quo inventore
+                            harum ex magni, dicta impedit.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i
+                                class="fas fa-circle fa-stack-2x text-primary"
+                            ></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Citas medicas virtuales</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Minima maxime quam architecto quo inventore
+                            harum ex magni, dicta impedit.
+                        </p>
                     </div>
                 </div>
-                <!-- Submit Button-->
-                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">Enviar Mensaje</button></div>
-            </form>
-        </div>
-    </section>
-    <%- include('partials/footer')%>
-</body>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contactanos</h2>
+                    <h3 class="section-subheading text-muted">
+                        Nos gustaria saber que opinas
+                    </h3>
+                </div>
+                <form id="contactForm" method="POST" action="/contac-us">
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input
+                                    class="form-control"
+                                    name="name"
+                                    id="name"
+                                    type="text"
+                                    placeholder="Nombre"
+                                    required
+                                />
+                                <div
+                                    class="invalid-feedback"
+                                    data-sb-feedback="name:required"
+                                >
+                                    Es necesario un Nombre
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input
+                                    class="form-control"
+                                    name="email"
+                                    id="email"
+                                    type="email"
+                                    placeholder="Correo electronico"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input
+                                    class="form-control"
+                                    name="phone"
+                                    id="phone"
+                                    type="tel"
+                                    placeholder="Teléfono"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea
+                                    class="form-control"
+                                    name="message"
+                                    id="message"
+                                    placeholder="Mensaje"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit Button-->
+                    <div class="text-center">
+                        <button
+                            class="btn btn-primary btn-xl text-uppercase"
+                            id="submitButton"
+                            type="submit"
+                        >
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <%- include('partials/footer')%>
+    </body>
 </html>
