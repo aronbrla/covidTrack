@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partials/head')%>
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
-    <link rel="stylesheet" href="/css/register.css" media="(min-width: 768px)">
-    <title>Registro</title>
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+        <link rel="stylesheet" href="/css/register.css" media="(min-width: 768px)">
+        <title>Registro</title>
 </head>
+
 <body>
     <div class="register container">
         <form action="register" method="POST" class="login-email">
-            <p class="login-text " style="font-size: 2rem; font-weight: 800; ">Regristro</p>
+            <p class="login-text " style="font-size: 2rem; font-weight: 800; ">Registro</p>
             <div class="reg_inputs">
                 <div class="col1">
                     <div class="input-group">
-                        <input id="dni" type="text" placeholder="DNI" name="dni" minlength="8" maxlength="8" value="" required>
+                        <input id="dni" type="text" placeholder="DNI" name="dni" minlength="8" maxlength="8" value=""
+                            required>
                     </div>
                     <div class="input-group">
-                        <input id="email" type="email" placeholder="Correo electronico" name="mail" value="" autocomplete="email" required>
+                        <input id="email" type="email" placeholder="Correo electronico" name="mail" value=""
+                            autocomplete="email" required>
                     </div>
                     <div class="input-group">
-                        <input id="password" type="password" placeholder="Contraseña" name="pass" value="" minlength="8" maxlength="16" autocomplete="new-password" required>
+                        <input id="password" type="password" placeholder="Contraseña" name="pass" value="" minlength="8"
+                            maxlength="16" autocomplete="new-password" required>
                     </div>
                     <div class="input-group">
-                        <input id="phone" type="number" placeholder="Celular" name="phone" min="900000000" max="999999999" value="" required>
+                        <input id="phone" type="number" placeholder="Celular" name="phone" min="900000000"
+                            max="999999999" value="" required>
                     </div>
                     <div class="input-group">
-                        <input id="distrito" type="text" placeholder="Distrito" name="distrito" value="" minlength="3" maxlength="20" autocomplete="address-line1" required>
+                        <input id="distrito" type="text" placeholder="Distrito" name="distrito" value="" minlength="3"
+                            maxlength="20" autocomplete="address-line1" required>
                     </div>
                 </div>
                 <div class="col2">
                     <div class="input-group">
-                        <input id="username" type="text" placeholder="Nombre" name="name" value="" minlength="2" maxlength="20" autocomplete="given-name" required>
+                        <input id="username" type="text" placeholder="Nombre" name="name" value="" minlength="2"
+                            maxlength="20" autocomplete="given-name" required>
                     </div>
                     <div class="input-group">
-                        <input id="lastnames" type="text" placeholder="Apellidos" name="lastname" value="" minlength="2" maxlength="20" autocomplete="family-name" required>
+                        <input id="lastnames" type="text" placeholder="Apellidos" name="lastname" value="" minlength="2"
+                            maxlength="20" autocomplete="family-name" required>
                     </div>
                     <div class="input-group">
                         <input id="age" type="date" placeholder="Fecha Nacimiento" name="date" value="" required>
                     </div>
                     <div class="input-group">
                         <div class="d-flex switch-field">
-                            <input type="radio" id="masculino" required name="sexo" value="Masculino" style="width: auto; height: inherit;">
+                            <input type="radio" id="masculino" required name="sexo" value="Masculino"
+                                style="width: auto; height: inherit;">
                             <label for="masculino">Masculino</label>
-                            <input type="radio" id="femenino" name="sexo" value="Femenino" style="width: auto; height: inherit;">
+                            <input type="radio" id="femenino" name="sexo" value="Femenino"
+                                style="width: auto; height: inherit;">
                             <label for="femenino">Femenino</label>
                         </div>
                     </div>
                     <div class="input-group">
-                        <input id="address" type="text" placeholder="Dirección" name="address" value="" minlength="10" maxlength="60" required>
+                        <input id="address" type="text" placeholder="Dirección" name="address" value="" minlength="10"
+                            maxlength="60" required>
                     </div>
                 </div>
             </div>
@@ -62,8 +74,9 @@
     </div>
     <script>
         window.addEventListener("beforeunload", function (e) {
-                    document.querySelector('.login-email').reset();
+            document.querySelector('.login-email').reset();
         });
     </script>
 </body>
+
 </html>
